@@ -18,7 +18,7 @@ export function Header() {
   const logoClassName = isAbout ? 'h-12 w-auto brightness-0 invert' : 'h-12 w-auto'
 
   return (
-    <header className={headerClassName}>
+    <header className={`${headerClassName} relative z-50`}>
       <div className="mx-auto flex max-w-8xl items-center justify-between px-6 py-5 lg:px-10">
         <Link href="/" className="flex items-center gap-3">
           <Image
@@ -67,52 +67,56 @@ export function Header() {
         <button
           type="button"
           aria-label="Toggle mobile menu"
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-brand-gray bg-white text-brand-navy shadow-sm transition hover:border-brand-red hover:text-brand-red lg:hidden"
+          className={`mobile-toggle inline-flex h-11 w-11 flex-col items-center justify-center gap-1.5 lg:hidden ${isOpen ? 'hamburger-active' : ''}`}
           onClick={() => setIsOpen((current) => !current)}
         >
-          <span className="text-sm font-semibold">{isOpen ? 'Close' : 'Menu'}</span>
+          <span className="hamburger-line" />
+          <span className="hamburger-line" />
+          <span className="hamburger-line" />
         </button>
       </div>
 
       {isOpen ? (
-        <div className="border-t border-brand-gray bg-white px-5 py-4 shadow-sm lg:hidden">
-          <div className="mx-auto flex max-w-7xl flex-col gap-2">
-            {navLinks.map((item) => (
-              item.href.startsWith('#') || item.href.startsWith('http') ? (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  className="rounded-2xl px-4 py-3 text-sm font-medium text-brand-navy transition hover:bg-brand-gray-light hover:text-brand-red"
-                  target={item.href.startsWith('http') ? '_blank' : undefined}
-                  rel={item.href.startsWith('http') ? 'noreferrer noopener' : undefined}
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.label}
-                </a>
-              ) : (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="rounded-2xl px-4 py-3 text-sm font-medium text-brand-navy transition hover:bg-brand-gray-light hover:text-brand-red"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              )
-            ))}
-            {isHome ? (
-              <a href="#contact" className="primary-btn mt-2 text-center" onClick={() => setIsOpen(false)}>
-                Contact Us
-              </a>
-            ) : (
-              <Link
-                href="/contact"
-                className="primary-btn mt-2 text-center"
-                onClick={() => setIsOpen(false)}
-              >
-                Contact Us
-              </Link>
-            )}
+        <div className="fixed inset-0 z-40 flex items-start justify-center bg-[rgba(3,7,18,0.94)] px-4 py-6 lg:hidden">
+          <div className="mobile-menu-shell dark w-full max-w-[22rem] overflow-hidden rounded-[1.9rem] bg-[#0b1020] shadow-[0_40px_100px_rgba(0,0,0,0.55)]">
+            <div className="px-4 py-4">
+              <div className="space-y-2">
+                {navLinks.map((item) =>
+                  item.href.startsWith('#') || item.href.startsWith('http') ? (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      className={`mobile-menu-item dark ${item.label === 'News' ? 'is-active' : ''}`}
+                      target={item.href.startsWith('http') ? '_blank' : undefined}
+                      rel={item.href.startsWith('http') ? 'noreferrer noopener' : undefined}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {item.label}
+                    </a>
+                  ) : (
+                      <Link
+                      key={item.href}
+                      href={item.href}
+                      className="mobile-menu-item dark"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  )
+                )}
+              </div>
+              <div className="mt-4">
+                {isHome ? (
+                  <a href="#contact" className="mobile-menu-cta dark" onClick={() => setIsOpen(false)}>
+                    Contact Us
+                  </a>
+                ) : (
+                  <Link href="/contact" className="mobile-menu-cta dark" onClick={() => setIsOpen(false)}>
+                    Contact Us
+                  </Link>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       ) : null}

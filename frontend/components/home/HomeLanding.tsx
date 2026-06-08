@@ -5,6 +5,7 @@ import Script from 'next/script'
 import Link from 'next/link'
 import type { MouseEvent as ReactMouseEvent } from 'react'
 import { createElement, useEffect, useMemo, useRef, useState } from 'react'
+import { siteConfig } from '@/lib/site'
 
 type ModalId = 'advisor-modal' | 'career-modal' | null
 
@@ -334,42 +335,52 @@ export function HomeLanding() {
           </div>
         </div>
 
-        <div className={`${mobileOpen ? 'flex' : 'hidden'} mobile-menu lg:hidden`}>
-          {navLinks.map((link) =>
-            link.external ? (
-              <a key={link.href} href={link.href} className="mobile-link" target="_blank" rel="noreferrer noopener" onClick={() => setMobileOpen(false)}>
-                {link.label}
-              </a>
-            ) : (
-              <a key={link.href} href={link.href} className="mobile-link" onClick={scrollToHash(link.href)}>
-                {link.label}
-              </a>
-            )
-          )}
-          <a href="#contact" className="btn-primary mt-4" onClick={scrollToHash('#contact')}>
-            Contact Us
-          </a>
-        </div>
+        {mobileOpen ? (
+          <div className="fixed inset-0 z-40 flex items-start justify-center bg-[rgba(3,7,18,0.94)] px-4 py-6 lg:hidden">
+            <div className="mobile-menu-shell dark w-full max-w-[22rem] overflow-hidden rounded-[1.9rem] bg-[#0b1020] shadow-[0_40px_100px_rgba(0,0,0,0.55)]">
+              <div className="px-4 py-4">
+                <div className="space-y-2">
+                  {navLinks.map((link) =>
+                    link.external ? (
+                      <a key={link.href} href={link.href} className={`mobile-menu-item dark ${link.label === 'News' ? 'is-active' : ''}`} target="_blank" rel="noreferrer noopener" onClick={() => setMobileOpen(false)}>
+                        {link.label}
+                      </a>
+                    ) : (
+                      <a key={link.href} href={link.href} className="mobile-menu-item dark" onClick={(e) => { scrollToHash(link.href)(e); setMobileOpen(false); }}>
+                        {link.label}
+                      </a>
+                    )
+                  )}
+                </div>
+                <div className="mt-4">
+                  <a href="#contact" className="mobile-menu-cta dark" onClick={(e) => { scrollToHash('#contact')(e); setMobileOpen(false); }}>
+                    Contact Us
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : null}
       </nav>
 
-      <section className="relative flex min-h-screen items-center overflow-hidden px-6 pt-20 lg:px-10">
-        <div className="mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-12 lg:gap-8">
-          <div className="space-y-8 lg:col-span-7 reveal active">
+      <section className="relative flex min-h-screen items-center overflow-hidden px-5 pt-20 sm:px-6 lg:px-10">
+        <div className="mx-auto grid w-full max-w-7xl items-center gap-10 lg:grid-cols-12 lg:gap-8">
+          <div className="space-y-6 sm:space-y-8 lg:col-span-7 reveal active">
             <div className="luxury-badge reveal">
               <span>Est. 2023 - Jaipur, India</span>
             </div>
 
-            <h1 className="font-display text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.1] tracking-[-0.03em]">
+            <h1 className="font-display text-[clamp(2rem,8vw,4.5rem)] leading-[1.1] tracking-[-0.03em]">
               <span className="block text-white">REDEFINING</span>
               <span className="text-gradient-red text-glow mt-2 block">URBAN AIR</span>
               <span className="text-gradient mt-2 block">MOBILITY</span>
             </h1>
 
-            <p className="max-w-xl text-base leading-7 text-text-secondary md:text-lg reveal reveal-delay-1">
+            <p className="max-w-xl text-sm leading-7 text-text-secondary sm:text-base md:text-lg reveal reveal-delay-1">
               Pioneering India&apos;s first smart vertiport infrastructure. Starting from Jaipur, building sustainable air transportation for future cities.
             </p>
 
-            <div className="flex flex-wrap gap-4 pt-4 reveal reveal-delay-2">
+            <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap sm:gap-4 reveal reveal-delay-2">
               <a href="#vision" className="btn-primary" onClick={scrollToHash('#vision')}>
                 <span>Explore Vision</span>
                 <i className="fas fa-arrow-right ml-3 text-sm" />
@@ -379,29 +390,29 @@ export function HomeLanding() {
               </a>
             </div>
 
-            <div className="grid grid-cols-2 gap-8 pt-12 md:grid-cols-4 reveal reveal-delay-3">
-              <div className="space-y-2">
-                <div className="stat-value" data-target="15" data-suffix="B+">0</div>
-                <p className="text-sm font-medium text-text-muted">Billion Market</p>
+            <div className="grid grid-cols-2 gap-6 pt-8 sm:gap-8 md:grid-cols-4 reveal reveal-delay-3">
+              <div className="space-y-1 sm:space-y-2">
+                <div className="stat-value text-2xl sm:text-3xl md:text-4xl lg:stat-value" data-target="15" data-suffix="B+">0</div>
+                <p className="text-xs font-medium text-text-muted sm:text-sm">Billion Market</p>
               </div>
-              <div className="space-y-2">
-                <div className="stat-value" data-target="50" data-suffix="+">0</div>
-                <p className="text-sm font-medium text-text-muted">Cities by 2030</p>
+              <div className="space-y-1 sm:space-y-2">
+                <div className="stat-value text-2xl sm:text-3xl md:text-4xl lg:stat-value" data-target="50" data-suffix="+">0</div>
+                <p className="text-xs font-medium text-text-muted sm:text-sm">Cities by 2030</p>
               </div>
-              <div className="space-y-2">
-                <div className="stat-value" data-target="85" data-suffix="%">0</div>
-                <p className="text-sm font-medium text-text-muted">CO₂ Reduction</p>
+              <div className="space-y-1 sm:space-y-2">
+                <div className="stat-value text-2xl sm:text-3xl md:text-4xl lg:stat-value" data-target="85" data-suffix="%">0</div>
+                <p className="text-xs font-medium text-text-muted sm:text-sm">CO₂ Reduction</p>
               </div>
-              <div className="space-y-2">
-                <div className="stat-value" data-target="70" data-suffix="%">0</div>
-                <p className="text-sm font-medium text-text-muted">Faster Travel</p>
+              <div className="space-y-1 sm:space-y-2">
+                <div className="stat-value text-2xl sm:text-3xl md:text-4xl lg:stat-value" data-target="70" data-suffix="%">0</div>
+                <p className="text-xs font-medium text-text-muted sm:text-sm">Faster Travel</p>
               </div>
             </div>
           </div>
 
-          <div className="relative lg:col-span-5 reveal reveal-delay-2">
+          <div className="relative lg:col-span-5 reveal reveal-delay-1">
             <div ref={heroTiltRef} id="heroTilt" className="tilt-card relative">
-              <div className="spotlight-card float-slow p-3">
+              <div className="spotlight-card float-slow p-2 sm:p-3">
                 <div className="relative aspect-[4/5] overflow-hidden rounded-2xl">
                   <Image
                     src="https://myonlinejet.com/images/MOJ_Vertiport.webp"
@@ -412,33 +423,33 @@ export function HomeLanding() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
-                  <div className="tilt-content absolute bottom-6 left-6 right-6">
-                    <div className="mb-3 flex items-center justify-between">
-                      <span className="text-lg font-semibold text-white">Jaipur Vertiport</span>
-                      <span className="rounded-full border border-green-500/30 bg-green-500/20 px-3 py-1 text-xs text-green-400 backdrop-blur-md">
+                  <div className="tilt-content absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6">
+                    <div className="mb-2 flex items-center justify-between sm:mb-3">
+                      <span className="text-sm font-semibold text-white sm:text-lg">Jaipur Vertiport</span>
+                      <span className="rounded-full border border-green-500/30 bg-green-500/20 px-2 py-0.5 text-[10px] text-green-400 backdrop-blur-md sm:px-3 sm:py-1 sm:text-xs">
                         ACTIVE
                       </span>
                     </div>
                     <div className="h-1 overflow-hidden rounded-full bg-white/20">
                       <div className="h-full w-3/4 rounded-full bg-gradient-to-r from-[#C50000] to-[#FF6B35]" />
                     </div>
-                    <p className="mt-2 text-xs text-white/60">Development Phase 3 of 4</p>
+                    <p className="mt-1 text-[10px] text-white/60 sm:mt-2 sm:text-xs">Development Phase 3 of 4</p>
                   </div>
                 </div>
               </div>
 
-              <div className="absolute -right-6 -top-6 z-20 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[#C50000] to-[#FF6B35] shadow-2xl shadow-[#C50000]/30 float-medium">
-                <i className="fas fa-bolt text-xl text-white" />
+              <div className="absolute -right-4 -top-4 z-20 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#C50000] to-[#FF6B35] shadow-2xl shadow-[#C50000]/30 float-medium sm:-right-6 sm:-top-6 sm:h-16 sm:w-16 sm:rounded-2xl">
+                <i className="fas fa-bolt text-base text-white sm:text-xl" />
               </div>
 
-              <div className="glass absolute -bottom-4 -left-4 z-20 rounded-xl px-4 py-3 float-medium" style={{ animationDelay: '1s' }}>
-                <div className="flex items-center gap-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#C50000]/20">
-                    <i className="fas fa-satellite-dish text-xs text-[#FF4444]" />
+              <div className="glass absolute -bottom-3 -left-3 z-20 rounded-lg px-3 py-2 float-medium sm:-bottom-4 sm:-left-4 sm:rounded-xl sm:px-4 sm:py-3" style={{ animationDelay: '1s' }}>
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#C50000]/20 sm:h-8 sm:w-8">
+                    <i className="fas fa-satellite-dish text-[10px] text-[#FF4444] sm:text-xs" />
                   </div>
                   <div>
-                    <p className="text-xs font-semibold text-white">AI Traffic Control</p>
-                    <p className="text-[10px] text-gray-400">Real-time monitoring</p>
+                    <p className="text-[10px] font-semibold text-white sm:text-xs">AI Traffic Control</p>
+                    <p className="text-[8px] text-gray-400 sm:text-[10px]">Real-time monitoring</p>
                   </div>
                 </div>
               </div>
@@ -471,14 +482,14 @@ export function HomeLanding() {
         </div>
       </div>
 
-      <section id="vision" className="relative px-6 py-24 lg:px-10">
+      <section id="vision" className="relative px-5 py-16 sm:px-6 sm:py-20 lg:px-10 lg:py-24">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-20 text-center reveal">
-            <h2 className="font-display mb-6 text-4xl md:text-6xl lg:text-7xl">
+          <div className="mb-12 text-center reveal sm:mb-16 lg:mb-20">
+            <h2 className="font-display mb-4 text-3xl sm:text-4xl sm:mb-6 md:text-6xl lg:text-7xl">
               OUR VISION FOR<br />
               <span className="text-gradient-red">INDIA&apos;S FUTURE</span>
             </h2>
-            <p className="mx-auto max-w-2xl text-xl text-gray-400">
+            <p className="mx-auto max-w-2xl text-base text-gray-400 sm:text-lg md:text-xl">
               Building accessible, sustainable, and efficient urban air mobility infrastructure for every Indian city.
             </p>
           </div>
@@ -491,8 +502,8 @@ export function HomeLanding() {
                     <i className={card.iconClass} />
                   </div>
                   <div>
-                    <h3 className="mb-4 font-display text-3xl text-white">{card.title}</h3>
-                    <p className={`leading-relaxed ${card.wide ? 'text-sm text-gray-400' : 'text-lg text-gray-400'}`}>
+                    <h3 className="mb-3 font-display text-2xl text-white sm:text-3xl">{card.title}</h3>
+                    <p className={`leading-relaxed ${card.wide ? 'text-sm text-gray-400' : 'text-sm text-gray-400 sm:text-lg'}`}>
                       {card.description}
                     </p>
                   </div>
@@ -532,47 +543,47 @@ export function HomeLanding() {
 
       <div className="section-divider reveal" />
 
-      <section id="technology" className="relative overflow-hidden px-6 py-24 lg:px-10">
-        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#C50000]/5 blur-[120px]" />
+      <section id="technology" className="relative overflow-hidden px-5 py-16 sm:px-6 sm:py-20 lg:px-10 lg:py-24">
+        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#C50000]/5 blur-[80px] sm:h-[800px] sm:w-[800px] sm:blur-[120px]" />
 
         <div className="relative z-10 mx-auto max-w-7xl">
-          <div className="mb-20 grid items-center gap-16 lg:grid-cols-2">
+          <div className="mb-12 grid items-center gap-10 sm:mb-16 sm:gap-12 lg:mb-20 lg:grid-cols-2 lg:gap-16">
             <div className="reveal">
-              <div className="luxury-badge mb-6">
+              <div className="luxury-badge mb-4 sm:mb-6">
                 <span>Platform Overview</span>
               </div>
-              <h2 className="font-display mb-6 text-4xl md:text-6xl lg:text-7xl">
+              <h2 className="font-display mb-4 text-3xl sm:text-4xl sm:mb-6 md:text-6xl lg:text-7xl">
                 ADVANCED<br />
                 <span className="text-gradient-red">TECHNOLOGY</span>
               </h2>
-              <p className="text-xl leading-relaxed text-gray-400">
+              <p className="text-base leading-relaxed text-gray-400 sm:text-lg md:text-xl">
                 Our integrated technology stack powers every aspect of urban air mobility - from passenger booking to air traffic control.
               </p>
             </div>
 
-            <div className="reveal reveal-delay-1 grid grid-cols-3 gap-6">
+            <div className="reveal reveal-delay-1 grid grid-cols-3 gap-3 sm:gap-6">
               {[
                 { value: '99.9%', label: 'Uptime' },
                 { value: '100%', label: 'Renewable' },
                 { value: '24/7', label: 'Operations' }
               ].map((item) => (
-                <div key={item.label} className="glass rounded-2xl p-6 text-center">
-                  <div className="mb-1 font-display text-3xl text-white">{item.value}</div>
-                  <p className="text-xs uppercase tracking-wider text-gray-500">{item.label}</p>
+                <div key={item.label} className="glass rounded-xl p-4 text-center sm:rounded-2xl sm:p-6">
+                  <div className="mb-1 font-display text-lg text-white sm:text-2xl md:text-3xl">{item.value}</div>
+                  <p className="text-[10px] uppercase tracking-wider text-gray-500 sm:text-xs">{item.label}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-4 sm:gap-6 md:grid-cols-3">
             {techCards.map((card, index) => (
-              <div key={card.index} className={`spotlight-card p-8 reveal ${index === 1 ? 'reveal-delay-1' : index === 2 ? 'reveal-delay-2' : ''}`}>
-                <div className="mb-6 font-display text-6xl text-white/10">{card.index}</div>
-                <h3 className="mb-4 font-display text-2xl text-white">{card.title}</h3>
-                <p className="mb-6 leading-relaxed text-gray-400">{card.description}</p>
+              <div key={card.index} className={`spotlight-card p-6 sm:p-8 reveal ${index === 1 ? 'reveal-delay-1' : index === 2 ? 'reveal-delay-2' : ''}`}>
+                <div className="mb-4 font-display text-4xl text-white/10 sm:mb-6 sm:text-5xl md:text-6xl">{card.index}</div>
+                <h3 className="mb-3 font-display text-xl text-white sm:mb-4 sm:text-2xl">{card.title}</h3>
+                <p className="mb-4 text-sm leading-relaxed text-gray-400 sm:mb-6 sm:text-base">{card.description}</p>
                 <div className="flex flex-wrap gap-2">
                   {card.tags.map((tag) => (
-                    <span key={tag} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-400">
+                    <span key={tag} className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[10px] text-gray-400 sm:px-3 sm:py-1 sm:text-xs">
                       {tag}
                     </span>
                   ))}
@@ -585,27 +596,27 @@ export function HomeLanding() {
 
       <div className="section-divider reveal" />
 
-      <section id="advisors" className="px-6 py-24 lg:px-10">
-        <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-2">
-          <div className="reveal sticky lg:top-32">
-            <div className="luxury-badge mb-6">
+      <section id="advisors" className="px-5 py-16 sm:px-6 sm:py-20 lg:px-10 lg:py-24">
+        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:gap-16">
+          <div className="reveal lg:sticky lg:top-32">
+            <div className="luxury-badge mb-4 sm:mb-6">
               <span>Strategic Network</span>
             </div>
-            <h2 className="font-display mb-6 text-4xl md:text-6xl">
+            <h2 className="font-display mb-4 text-3xl sm:text-4xl sm:mb-6 md:text-6xl">
               ADVISORY<br />
               <span className="text-gradient-red">NETWORK</span>
             </h2>
-            <p className="mb-8 text-xl leading-relaxed text-gray-400">
+            <p className="mb-6 text-base leading-relaxed text-gray-400 sm:mb-8 sm:text-lg md:text-xl">
               We are seeking experienced professionals in aviation, urban planning, sustainable technology, and transportation infrastructure to provide strategic guidance.
             </p>
 
-            <div className="mb-10 space-y-4">
+            <div className="mb-8 space-y-3 sm:mb-10 sm:space-y-4">
               {advisoryChecks.map((item) => (
-                <div key={item} className="flex items-start gap-4 rounded-xl border border-white/10 bg-white/5 p-4">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#C50000]/10">
-                    <i className="fas fa-check text-sm text-[#FF4444]" />
+                <div key={item} className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/5 p-3 sm:gap-4 sm:p-4">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#C50000]/10 sm:h-10 sm:w-10">
+                    <i className="fas fa-check text-xs text-[#FF4444] sm:text-sm" />
                   </div>
-                  <span className="pt-2 text-sm text-gray-300">{item}</span>
+                  <span className="pt-1 text-xs text-gray-300 sm:pt-2 sm:text-sm">{item}</span>
                 </div>
               ))}
             </div>
@@ -616,11 +627,11 @@ export function HomeLanding() {
             </button>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 reveal reveal-delay-1">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 reveal reveal-delay-1">
             {expertiseCards.map((card) => (
-              <div key={card.title} className="spotlight-card group p-8 text-center">
+              <div key={card.title} className="spotlight-card group p-5 text-center sm:p-6 md:p-8">
                 <div
-                  className={`mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border transition-transform group-hover:scale-110 ${
+                  className={`mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl border transition-transform group-hover:scale-110 sm:mb-6 sm:h-16 sm:w-16 sm:rounded-2xl ${
                     card.tone === 'blue'
                       ? 'border-blue-500/20 bg-blue-500/10'
                       : card.tone === 'yellow'
@@ -630,28 +641,28 @@ export function HomeLanding() {
                           : 'border-[#C50000]/20 bg-[#C50000]/10'
                   }`}
                 >
-                  <i className={`${card.icon} text-3xl ${card.tone === 'blue' ? 'text-blue-400' : card.tone === 'yellow' ? 'text-yellow-400' : card.tone === 'purple' ? 'text-purple-400' : 'text-[#FF4444]'}`} />
+                  <i className={`${card.icon} text-xl sm:text-3xl ${card.tone === 'blue' ? 'text-blue-400' : card.tone === 'yellow' ? 'text-yellow-400' : card.tone === 'purple' ? 'text-purple-400' : 'text-[#FF4444]'}`} />
                 </div>
-                <h4 className="mb-2 font-display text-lg text-white">{card.title}</h4>
-                <p className="text-sm text-gray-500">{card.subtitle}</p>
+                <h4 className="mb-1 font-display text-base text-white sm:mb-2 sm:text-lg">{card.title}</h4>
+                <p className="text-xs text-gray-500 sm:text-sm">{card.subtitle}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-[#0A0F1E] px-6 py-24 lg:px-10">
+      <section className="bg-[#0A0F1E] px-5 py-16 sm:px-6 sm:py-20 lg:px-10 lg:py-24">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-12 flex items-end justify-between reveal">
+          <div className="mb-8 flex items-end justify-between reveal sm:mb-12">
             <div>
-              <div className="luxury-badge mb-4">
+              <div className="luxury-badge mb-3 sm:mb-4">
                 <span>Latest Updates</span>
               </div>
-              <h2 className="font-display text-4xl md:text-5xl">
+              <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
                 FROM THE <span className="text-gradient-red">NEWSROOM</span>
               </h2>
             </div>
-            <a href="https://news.myonlinejet.com" className="hidden items-center gap-2 text-gray-400 transition-colors hover:text-white md:flex" target="_blank" rel="noreferrer noopener">
+            <a href="https://news.myonlinejet.com" className="hidden items-center gap-2 text-gray-400 transition-colors hover:text-white sm:flex" target="_blank" rel="noreferrer noopener">
               <span>View All</span>
               <i className="fas fa-arrow-right" />
             </a>
@@ -660,42 +671,42 @@ export function HomeLanding() {
         </div>
       </section>
 
-      <section id="careers" className="relative px-6 py-24 lg:px-10">
+      <section id="careers" className="relative px-5 py-16 sm:px-6 sm:py-20 lg:px-10 lg:py-24">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-16 text-center reveal">
-            <h2 className="font-display mb-6 text-4xl md:text-6xl lg:text-7xl">
+          <div className="mb-12 text-center reveal sm:mb-16">
+            <h2 className="font-display mb-4 text-3xl sm:text-4xl sm:mb-6 md:text-6xl lg:text-7xl">
               CAREER<br />
               <span className="text-gradient-red">OPPORTUNITIES</span>
             </h2>
-            <p className="mx-auto max-w-2xl text-xl text-gray-400">
+            <p className="mx-auto max-w-2xl text-base text-gray-400 sm:text-lg md:text-xl">
               Join us in building India&apos;s urban air mobility infrastructure. Long-term careers with competitive benefits.
             </p>
           </div>
 
-          <div className="spotlight-card mb-12 border-l-4 border-l-[#C50000] p-8 lg:p-12 reveal">
-            <div className="mb-8 flex items-start gap-6">
-              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-[#C50000]/20 bg-[#C50000]/10">
-                <i className="fas fa-bullhorn text-xl text-[#FF4444]" />
+          <div className="spotlight-card mb-10 border-l-4 border-l-[#C50000] p-5 sm:p-8 lg:p-12 reveal">
+            <div className="mb-6 flex flex-col items-start gap-4 sm:mb-8 sm:flex-row sm:gap-6">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#C50000]/20 bg-[#C50000]/10 sm:h-14 sm:w-14 sm:rounded-2xl">
+                <i className="fas fa-bullhorn text-base text-[#FF4444] sm:text-xl" />
               </div>
               <div>
-                <h3 className="mb-2 font-display text-2xl text-white">Career Opportunities Notice</h3>
-                <p className="text-gray-400">
+                <h3 className="mb-2 font-display text-lg text-white sm:text-2xl">Career Opportunities Notice</h3>
+                <p className="text-sm text-gray-400 sm:text-base">
                   MyOnlineJet is developing long-term career opportunities in urban air mobility infrastructure. Positions will be announced following standard recruitment procedures.
                 </p>
               </div>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
               {careerHighlights.map((item) => (
-                <div key={item} className="flex items-start gap-3 rounded-xl bg-white/5 p-4">
-                  <i className="fas fa-check mt-1 text-sm text-[#FF4444]" />
-                  <span className="text-sm text-gray-300">{item}</span>
+                <div key={item} className="flex items-start gap-2 rounded-xl bg-white/5 p-3 sm:gap-3 sm:p-4">
+                  <i className="fas fa-check mt-0.5 text-xs text-[#FF4444] sm:mt-1 sm:text-sm" />
+                  <span className="text-xs text-gray-300 sm:text-sm">{item}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
             {[
               {
                 icon: 'fas fa-drafting-compass',
@@ -716,9 +727,9 @@ export function HomeLanding() {
                 tone: 'yellow'
               }
             ].map((item) => (
-              <div key={item.title} className="spotlight-card group flex h-full flex-col p-8 text-left">
+              <div key={item.title} className="spotlight-card group flex h-full flex-col p-5 text-left sm:p-6 md:p-8">
                 <div
-                  className={`mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border transition-transform group-hover:scale-110 ${
+                  className={`mb-4 flex h-12 w-12 items-center justify-center rounded-xl border transition-transform group-hover:scale-110 sm:mb-6 sm:h-16 sm:w-16 sm:rounded-2xl ${
                     item.tone === 'blue'
                       ? 'border-blue-500/20 bg-blue-500/10'
                       : item.tone === 'purple'
@@ -727,7 +738,7 @@ export function HomeLanding() {
                   }`}
                 >
                   <i
-                    className={`${item.icon} text-2xl ${
+                    className={`${item.icon} text-lg sm:text-2xl ${
                       item.tone === 'blue'
                         ? 'text-blue-400'
                         : item.tone === 'purple'
@@ -736,17 +747,17 @@ export function HomeLanding() {
                     }`}
                   />
                 </div>
-                <h4 className="mb-4 font-display text-xl text-white">{item.title}</h4>
-                <p className="mb-6 text-sm leading-relaxed text-gray-400">{item.description}</p>
-                <div className="mt-auto text-sm font-medium text-[#FF4444]">FUTURE OPENINGS</div>
+                <h4 className="mb-3 font-display text-base text-white sm:mb-4 sm:text-xl">{item.title}</h4>
+                <p className="mb-4 text-xs leading-relaxed text-gray-400 sm:mb-6 sm:text-sm">{item.description}</p>
+                <div className="mt-auto text-xs font-medium text-[#FF4444] sm:text-sm">FUTURE OPENINGS</div>
               </div>
             ))}
           </div>
 
-          <div className="mt-16 text-center">
-            <div className="inline-block max-w-2xl rounded-3xl border border-white/10 bg-white/5 p-10">
-              <h3 className="mb-6 text-2xl font-bold text-white">Register Your Interest</h3>
-              <p className="mb-8 text-gray-400">
+          <div className="mt-12 text-center sm:mt-16">
+            <div className="inline-block max-w-2xl rounded-2xl border border-white/10 bg-white/5 p-6 sm:rounded-3xl sm:p-8 md:p-10">
+              <h3 className="mb-4 text-lg font-bold text-white sm:mb-6 sm:text-xl md:text-2xl">Register Your Interest</h3>
+              <p className="mb-6 text-sm text-gray-400 sm:mb-8 sm:text-base">
                 Interested in future career opportunities with MyOnlineJet? Register your interest and we&apos;ll notify you when positions become available.
               </p>
               <button type="button" className="magnetic-btn" onClick={() => openModal('career-modal')}>
@@ -758,21 +769,21 @@ export function HomeLanding() {
         </div>
       </section>
 
-      <footer id="contact" className="border-t border-white/10 bg-[#030712] px-6 pb-10 pt-20 lg:px-10">
+      <footer id="contact" className="border-t border-white/10 bg-[#030712] px-5 pb-8 pt-12 sm:px-6 sm:pb-10 sm:pt-16 lg:px-10 lg:pt-20">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-16 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-5">
-            <div className="lg:col-span-2">
+          <div className="mb-12 grid grid-cols-1 gap-8 sm:mb-16 sm:gap-10 md:grid-cols-2 lg:grid-cols-5 lg:gap-12">
+            <div className="md:col-span-2 lg:col-span-2">
               <Image
                 src="https://myonlinejet.com/images/MyOnlineJet_White_Logo.png"
                 alt="MyOnlineJet"
                 width={220}
                 height={64}
-                className="mb-6 h-12 w-auto opacity-90"
+                className="mb-4 h-10 w-auto opacity-90 sm:mb-6 sm:h-12"
               />
-              <p className="mb-8 max-w-sm text-sm leading-relaxed text-gray-500">
+              <p className="mb-6 max-w-sm text-xs leading-relaxed text-gray-500 sm:mb-8 sm:text-sm">
                 Building India&apos;s urban air mobility infrastructure for a sustainable transportation future. Starting from Jaipur, reaching every city.
               </p>
-              <div className="flex gap-3">
+              <div className="flex gap-2 sm:gap-3">
                 {[
                   { href: 'https://www.linkedin.com/company/myonlinejet/', icon: 'fab fa-linkedin-in' },
                   { href: 'https://www.facebook.com/myonlinejet/', icon: 'fab fa-facebook-f' },
@@ -784,7 +795,7 @@ export function HomeLanding() {
                     href={social.href}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-gray-400 transition-all hover:border-[#C50000]/30 hover:bg-[#C50000]/20 hover:text-white"
+                    className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-gray-400 transition-all hover:border-[#C50000]/30 hover:bg-[#C50000]/20 hover:text-white sm:h-10 sm:w-10"
                   >
                     <i className={social.icon} />
                   </a>
@@ -795,14 +806,14 @@ export function HomeLanding() {
             {footerColumns.map((group) => (
               <div key={group.title}>
                 <h4 className="footer-heading">{group.title}</h4>
-                <div className="space-y-3">
+                <div className="mt-3 space-y-2 sm:mt-4 sm:space-y-3">
                   {group.links.map((link) =>
                     link.external ? (
-                      <a key={link.href} href={link.href} className="block text-sm text-gray-500 transition-colors hover:text-white" target="_blank" rel="noreferrer noopener">
+                      <a key={link.href} href={link.href} className="block text-xs text-gray-500 transition-colors hover:text-white sm:text-sm" target="_blank" rel="noreferrer noopener">
                         {link.label}
                       </a>
                     ) : (
-                      <Link key={link.href} href={link.href} className="block text-sm text-gray-500 transition-colors hover:text-white">
+                      <Link key={link.href} href={link.href} className="block text-xs text-gray-500 transition-colors hover:text-white sm:text-sm">
                         {link.label}
                       </Link>
                     )
@@ -812,8 +823,8 @@ export function HomeLanding() {
             ))}
           </div>
 
-          <div className="mb-8 border-t border-white/10 pt-8">
-            <div className="flex flex-wrap justify-center gap-x-8 gap-y-3 text-sm text-gray-600">
+          <div className="mb-6 border-t border-white/10 pt-6 sm:mb-8 sm:pt-8">
+            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-gray-600 sm:gap-x-8 sm:gap-y-3 sm:text-sm">
               <Link href="/privacy-policy" className="transition-colors hover:text-gray-400">
                 Privacy Policy
               </Link>
@@ -832,15 +843,15 @@ export function HomeLanding() {
             </div>
           </div>
 
-          <div className="flex flex-col items-center justify-between gap-4 text-sm text-gray-600 md:flex-row">
+          <div className="flex flex-col items-center justify-between gap-3 text-xs text-gray-600 sm:gap-4 sm:text-sm md:flex-row">
             <p>© 2026 MyOnlineJet | iAlpha Technologies Pvt Ltd</p>
             <p>Jaipur, Rajasthan, India</p>
           </div>
 
-          <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-6">
-            <div className="grid gap-6 text-xs text-gray-500 md:grid-cols-2">
+          <div className="mt-6 rounded-xl border border-white/10 bg-white/5 p-4 sm:mt-8 sm:rounded-2xl sm:p-5 md:p-6">
+            <div className="grid gap-4 text-[10px] text-gray-500 sm:gap-6 sm:text-xs md:grid-cols-2">
               <div>
-                <h5 className="mb-2 flex items-center gap-2 font-semibold text-white">
+                <h5 className="mb-1 flex items-center gap-2 font-semibold text-white sm:mb-2">
                   <i className="fas fa-shield-alt text-[#C50000]" />
                   Data Protection
                 </h5>
@@ -849,7 +860,7 @@ export function HomeLanding() {
                 </p>
               </div>
               <div>
-                <h5 className="mb-2 flex items-center gap-2 font-semibold text-white">
+                <h5 className="mb-1 flex items-center gap-2 font-semibold text-white sm:mb-2">
                   <i className="fas fa-gavel text-[#C50000]" />
                   Legal Disclaimer
                 </h5>
@@ -863,14 +874,14 @@ export function HomeLanding() {
       </footer>
 
       {activeModal ? (
-        <div className="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-6" onClick={(event) => event.target === event.currentTarget && closeModal()}>
-          <div className="spotlight-card modal-panel max-h-[90vh] w-full max-w-2xl overflow-y-auto p-8 relative z-10">
-            <div className="mb-8 flex items-center justify-between">
+        <div className="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6" onClick={(event) => event.target === event.currentTarget && closeModal()}>
+          <div className="spotlight-card modal-panel max-h-[90vh] w-full max-w-2xl overflow-y-auto p-5 sm:p-6 md:p-8 relative z-10">
+            <div className="mb-6 flex items-start justify-between gap-4 sm:mb-8">
               <div>
-                <h3 className="font-display text-2xl text-white">
+                <h3 className="font-display text-lg text-white sm:text-xl md:text-2xl">
                   {activeModal === 'advisor-modal' ? 'Advisory Interest Form' : 'Career Interest Registration'}
                 </h3>
-                <p className="mt-2 text-gray-400">
+                <p className="mt-1 text-xs text-gray-400 sm:mt-2 sm:text-sm">
                   {activeModal === 'advisor-modal'
                     ? 'Express interest in joining our advisory network'
                     : 'Register interest for future career opportunities'}
@@ -878,15 +889,15 @@ export function HomeLanding() {
               </div>
               <button
                 type="button"
-                className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 text-gray-400 transition-all hover:bg-white/10 hover:text-white"
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-white/5 text-gray-400 transition-all hover:bg-white/10 hover:text-white sm:h-10 sm:w-10"
                 onClick={closeModal}
               >
-                <i className="fas fa-times" />
+                <i className="fas fa-times text-sm sm:text-base" />
               </button>
             </div>
 
             <form
-              className="space-y-6"
+              className="space-y-4 sm:space-y-5 md:space-y-6"
               onSubmit={(event) => {
                 event.preventDefault()
                 alert(
@@ -899,22 +910,22 @@ export function HomeLanding() {
             >
               {activeModal === 'advisor-modal' ? (
                 <>
-                  <div className="grid gap-6 md:grid-cols-2">
+                  <div className="grid gap-4 sm:gap-5 md:grid-cols-2 md:gap-6">
                     <div>
-                      <label className="mb-2 block text-sm text-gray-400">Full Name</label>
+                      <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Full Name</label>
                       <input type="text" className="modern-input" required />
                     </div>
                     <div>
-                      <label className="mb-2 block text-sm text-gray-400">Current Position</label>
+                      <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Current Position</label>
                       <input type="text" className="modern-input" required />
                     </div>
                   </div>
                   <div>
-                    <label className="mb-2 block text-sm text-gray-400">Email Address</label>
+                    <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Email Address</label>
                     <input type="email" className="modern-input" required />
                   </div>
                   <div>
-                    <label className="mb-2 block text-sm text-gray-400">Area of Expertise</label>
+                    <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Area of Expertise</label>
                     <select className="modern-input">
                       <option value="">Select your expertise area</option>
                       <option value="aviation">Aviation & Aerospace</option>
@@ -926,27 +937,27 @@ export function HomeLanding() {
                     </select>
                   </div>
                   <div>
-                    <label className="mb-2 block text-sm text-gray-400">Brief Background (Optional)</label>
+                    <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Brief Background (Optional)</label>
                     <textarea rows={3} className="modern-input" placeholder="Briefly describe your relevant experience" />
                   </div>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-[10px] text-gray-500 sm:text-xs">
                     By submitting this form, you express interest in being considered for our advisory network. Selected candidates will be contacted for further discussion.
                   </p>
                 </>
               ) : (
                 <>
-                  <div className="grid gap-6 md:grid-cols-2">
+                  <div className="grid gap-4 sm:gap-5 md:grid-cols-2 md:gap-6">
                     <div>
-                      <label className="mb-2 block text-sm text-gray-400">Full Name</label>
+                      <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Full Name</label>
                       <input type="text" className="modern-input" required />
                     </div>
                     <div>
-                      <label className="mb-2 block text-sm text-gray-400">Email Address</label>
+                      <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Email Address</label>
                       <input type="email" className="modern-input" required />
                     </div>
                   </div>
                   <div>
-                    <label className="mb-2 block text-sm text-gray-400">Area of Interest</label>
+                    <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Area of Interest</label>
                     <select className="modern-input">
                       <option value="">Select area of interest</option>
                       <option value="engineering">Engineering & Infrastructure</option>
@@ -957,22 +968,22 @@ export function HomeLanding() {
                     </select>
                   </div>
                   <div>
-                    <label className="mb-2 block text-sm text-gray-400">Qualifications (Optional)</label>
+                    <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Qualifications (Optional)</label>
                     <textarea rows={3} className="modern-input" placeholder="Briefly mention your qualifications or background" />
                   </div>
-                  <div className="rounded-xl border border-white/10 bg-white/5 p-4 text-sm text-gray-400">
+                  <div className="rounded-xl border border-white/10 bg-white/5 p-3 text-xs text-gray-400 sm:p-4 sm:text-sm">
                     <p className="mb-2 text-white font-medium">Recruitment Process:</p>
-                    <div className="space-y-2">
+                    <div className="space-y-1 sm:space-y-2">
                       <div className="flex items-start gap-2">
-                        <i className="fas fa-info-circle mt-1 text-xs text-[#FF4444]" />
+                        <i className="fas fa-info-circle mt-0.5 text-[10px] text-[#FF4444] sm:mt-1 sm:text-xs" />
                         <span>All positions will be formally advertised when available</span>
                       </div>
                       <div className="flex items-start gap-2">
-                        <i className="fas fa-info-circle mt-1 text-xs text-[#FF4444]" />
+                        <i className="fas fa-info-circle mt-0.5 text-[10px] text-[#FF4444] sm:mt-1 sm:text-xs" />
                         <span>Selection will follow transparent, merit-based procedures</span>
                       </div>
                       <div className="flex items-start gap-2">
-                        <i className="fas fa-info-circle mt-1 text-xs text-[#FF4444]" />
+                        <i className="fas fa-info-circle mt-0.5 text-[10px] text-[#FF4444] sm:mt-1 sm:text-xs" />
                         <span>Registered candidates will receive notifications of relevant openings</span>
                       </div>
                     </div>

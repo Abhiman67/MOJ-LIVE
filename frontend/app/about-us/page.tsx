@@ -124,10 +124,10 @@ export default function AboutUsPage() {
     <div className="about-page relative" itemScope itemType="https://schema.org/AboutPage">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData, null, 2) }} />
 
-      <nav className="nav-glass fixed w-full z-50 py-4 px-6 lg:px-10">
+      <nav className="nav-glass fixed w-full z-50 py-4 px-5 sm:px-6 lg:px-10">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <Link href="/" className="flex items-center space-x-3">
-            <img src="https://myonlinejet.com/images/Logo.webp" alt="MyOnlineJet" className="h-10 w-auto brightness-200" />
+            <img src="https://myonlinejet.com/images/Logo.webp" alt="MyOnlineJet" className="h-8 sm:h-10 w-auto brightness-200" />
           </Link>
           <div className="hidden lg:flex items-center space-x-8">
             <Link href="/" className="nav-link">Home</Link>
@@ -139,18 +139,28 @@ export default function AboutUsPage() {
             <a href="/partner-with-us" className="nav-link">Partners</a>
             <a href="/contact" className="btn-primary py-2 px-5 text-sm">Contact</a>
           </div>
-          <button id="mobileMenuBtn" className="lg:hidden text-2xl text-gray-400 hover:text-white transition-colors">
-            <i className="fas fa-bars" />
+          <button id="mobileMenuBtn" className="mobile-toggle lg:hidden inline-flex h-10 w-10 flex-col items-center justify-center gap-1.5 text-gray-400 z-50">
+            <span className="hamburger-line" />
+            <span className="hamburger-line" />
+            <span className="hamburger-line" />
           </button>
         </div>
-        <div id="mobileMenu" className="lg:hidden mobile-menu p-6 space-y-4 text-base" style={{ display: 'none' }}>
-          <a href="/about-us" className="text-white font-semibold">About</a>
-          <a href="/advanced-air-mobility" className="text-gray-400 hover:text-white">Advanced Air Mobility</a>
-          <a href="/vertiports" className="text-gray-400 hover:text-white">Vertiports</a>
-          <a href="/technology" className="text-gray-400 hover:text-white">Technology</a>
-          <a href="/services" className="text-gray-400 hover:text-white">Services</a>
-          <a href="/partner-with-us" className="text-gray-400 hover:text-white">Partners</a>
-          <a href="/contact" className="btn-primary text-center py-3 mt-2">Contact</a>
+        <div id="mobileMenu" className="lg:hidden fixed inset-0 z-40 hidden items-start justify-center bg-[rgba(3,7,18,0.94)] px-4 py-6">
+          <div className="mobile-menu-shell dark w-full max-w-[22rem] overflow-hidden rounded-[1.9rem] bg-[#0b1020] shadow-[0_40px_100px_rgba(0,0,0,0.55)]">
+            <div className="px-4 py-4">
+              <div className="space-y-2">
+                <a href="/about-us" className="mobile-menu-item dark is-active">About</a>
+                <a href="/advanced-air-mobility" className="mobile-menu-item dark">Advanced Air Mobility</a>
+                <a href="/vertiports" className="mobile-menu-item dark">Vertiports</a>
+                <a href="/technology" className="mobile-menu-item dark">Technology</a>
+                <a href="/services" className="mobile-menu-item dark">Services</a>
+                <a href="/partner-with-us" className="mobile-menu-item dark">Partners</a>
+              </div>
+              <div className="mt-4">
+                <a href="/contact" className="mobile-menu-cta dark">Contact Us</a>
+              </div>
+            </div>
+          </div>
         </div>
       </nav>
 
@@ -468,14 +478,37 @@ export default function AboutUsPage() {
 
       <Script id="about-us-interactions" strategy="afterInteractive">
         {`
+          function closeMobileMenu() {
+            var btn = document.getElementById('mobileMenuBtn');
+            var menu = document.getElementById('mobileMenu');
+            if (menu) menu.style.display = 'none';
+            if (btn) btn.classList.remove('hamburger-active');
+          }
+
           (function() {
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const mobileMenu = document.getElementById('mobileMenu');
             const nav = document.querySelector('nav');
 
             if (mobileMenuBtn && mobileMenu) {
-              mobileMenuBtn.addEventListener('click', function() {
-                mobileMenu.style.display = mobileMenu.style.display === 'none' || !mobileMenu.style.display ? 'flex' : 'none';
+              mobileMenuBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const isOpen = mobileMenu.style.display === 'flex';
+                mobileMenu.style.display = isOpen ? 'none' : 'flex';
+                mobileMenuBtn.classList.toggle('hamburger-active');
+              });
+
+              const closeButton = mobileMenu.querySelector('.mobileMenuClose');
+              if (closeButton) {
+                closeButton.addEventListener('click', function() {
+                  closeMobileMenu();
+                });
+              }
+
+              mobileMenu.querySelectorAll('a').forEach(function(link) {
+                link.addEventListener('click', function() {
+                  closeMobileMenu();
+                });
               });
             }
 
