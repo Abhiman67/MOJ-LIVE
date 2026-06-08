@@ -1,0 +1,33 @@
+# ===============================
+# MyOnlineJet Robots.txt
+# Advanced Air Mobility Platform
+# ===============================
+
+User-agent: *
+Allow: /
+
+# ---- Core Disallow Rules ----
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /api/
+Disallow: /private/
+Disallow: /tmp/
+Disallow: /cache/
+Disallow: /internal/
+Disallow: /auth/
+Disallow: /checkout/
+Disallow: /payment/
+Disallow: /test/
+Disallow: /beta/
+
+# ---- Block URL Parameters (duplicate control) ----
+Disallow: /*?*
+Disallow: /*&*
+
+# ---- Allow Important Assets ----
+Allow: /images/
+Allow: /assets/
+Allow: /css/
+Allow: /js/
+
+Sitemap: https://www.myonlinejet.com/sitemap.xml

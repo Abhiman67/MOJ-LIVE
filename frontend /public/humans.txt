@@ -1,0 +1,11 @@
+/* ===============================
+   MyOnlineJet - humans.txt
+   Advanced Air Mobility Infrastructure
+   =============================== */
+
+/* TEAM */
+Founder: Amit Kumar
+Role: Founder & System Architect
+Contact: contact@myonlinejet.com
+LinkedIn Profile: https://www.linkedin.com/in/amit-kr-debana
+Location: Jaipur, Rajasthan, India
