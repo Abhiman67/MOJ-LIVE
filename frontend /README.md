@@ -30,6 +30,18 @@ npm run build
 npm run start
 ```
 
+## Deploying On Vercel
+
+This app is ready for Vercel as a Next.js project.
+
+When importing the repository into Vercel, set the project root to `frontend `, including the trailing space in the folder name. Leave the framework preset as Next.js and keep the default build command:
+
+- Build Command: `npm run build`
+- Install Command: `npm install`
+- Output Directory: default for Next.js
+
+If you prefer a cleaner setup before deploying, rename the folder to `frontend` locally and update any references to it before pushing.
+
 ## Migration notes
 
 - The legacy static site remains at the repository root.
