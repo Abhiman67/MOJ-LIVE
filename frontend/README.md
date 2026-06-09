@@ -1,18 +1,170 @@
 # MyOnlineJet Frontend
 
-This folder contains the new Next.js app scaffold for the MyOnlineJet migration.
+Next.js 15 App Router project for the MyOnlineJet platform.
 
-## What is here
+This document is meant to help review the project foundation, folder structure, and route organization before final UI polish.
 
-- `app/` Next.js App Router shell
-- `components/` shared layout and UI pieces
-- `lib/` site constants and route data
-- `public/` SEO and compliance files
-- `next.config.mjs`, `tailwind.config.ts`, `tsconfig.json`, `eslint.config.mjs`
+## Architecture Overview
 
-## How to run
+The frontend is organized as a layered Next.js app:
 
-From this folder:
+- `app/` contains routes, metadata, and global app shell files.
+- `components/` contains reusable UI, layout, page templates, and homepage sections.
+- `lib/` contains site configuration and page content data.
+- `public/` contains static assets and site files.
+- `docs/` contains supporting design guidance.
+- `types/` contains custom TypeScript declarations.
+    
+The project currently separates pages into three patterns:
+
+1. Custom pages for high-priority routes like home, about, contact, and services.
+2. Shared content pages powered by a reusable `ContentPage` template.
+3. Redirect routes for legacy or alias paths.
+
+## Folder Structure
+
+```txt
+frontend/
+├── app/
+│   ├── globals.css               # Global styles, tokens, responsive rules
+│   ├── layout.tsx                # Root layout, metadata, scripts, shell wrapper
+│   ├── page.tsx                  # Home page entry point
+│   ├── not-found.tsx             # 404 page
+│   ├── sitemap.ts                # Sitemap route
+│   ├── about-us/page.tsx         # Custom About Us page
+│   ├── contact/page.tsx          # Custom Contact page
+│   ├── services/page.tsx         # Custom Services page
+│   ├── advanced-air-mobility/page.tsx
+│   ├── careers/page.tsx
+│   ├── company-profile/page.tsx
+│   ├── early-access/page.tsx
+│   ├── ecosystem-integration/page.tsx
+│   ├── evtol-infrastructure/page.tsx
+│   ├── faq/page.tsx
+│   ├── founder/page.tsx
+│   ├── investors/page.tsx
+│   ├── legal-disclaimer/page.tsx
+│   ├── partner-with-us/page.tsx
+│   ├── partners/page.tsx         # Redirect to /partner-with-us
+│   ├── privacy-policy/page.tsx
+│   ├── reports/page.tsx
+│   ├── subscribe/page.tsx
+│   ├── technology/page.tsx
+│   ├── terms-conditions/page.tsx
+│   ├── vertiports/page.tsx
+│   ├── vision-mission/page.tsx
+│   └── whitepapers/page.tsx
+│
+├── components/
+│   ├── home/
+│   │   └── HomeLanding.tsx       # Custom homepage composition
+│   ├── layout/
+│   │   ├── SiteShell.tsx         # Conditionally renders shared header/footer
+│   │   ├── Header.tsx            # Shared header and mobile menu
+│   │   └── Footer.tsx            # Shared footer
+│   ├── page/
+│   │   └── ContentPage.tsx       # Reusable content-page template
+│   └── ui/
+│       └── Button.tsx            # Shared button primitive
+│
+├── lib/
+│   ├── site.ts                   # Site config, nav links, footer groups, stats, metadata helpers
+│   └── page-data.ts              # Route content for shared content pages
+│
+├── public/
+│   ├── ads.txt
+│   ├── favicon.svg
+│   ├── humans.txt
+│   ├── moj-news-widget.js
+│   └── robots.txt
+│
+├── docs/
+│   └── homepage-ui-ux-design.md  # Design guidance / reference notes
+│
+├── types/
+│   └── custom-elements.d.ts
+│
+├── tailwind.config.ts
+├── postcss.config.js
+├── next.config.mjs
+├── tsconfig.json
+├── eslint.config.mjs
+├── package.json
+└── package-lock.json
+```
+
+## Route Strategy
+
+### Custom pages
+These are built as bespoke pages because they have richer layouts or custom interactions:
+
+- `/`
+- `/about-us`
+- `/contact`
+- `/services`
+
+### Shared content pages
+These pages use `components/page/ContentPage.tsx` and are driven by data in `lib/page-data.ts`:
+
+- `/advanced-air-mobility`
+- `/careers`
+- `/company-profile`
+- `/early-access`
+- `/ecosystem-integration`
+- `/evtol-infrastructure`
+- `/faq`
+- `/founder`
+- `/investors`
+- `/legal-disclaimer`
+- `/partner-with-us`
+- `/privacy-policy`
+- `/reports`
+- `/subscribe`
+- `/technology`
+- `/terms-conditions`
+- `/vertiports`
+- `/vision-mission`
+- `/whitepapers`
+
+### Redirect route
+- `/partners` redirects to `/partner-with-us`
+
+## Source of Truth
+
+The main files that control the app structure are:
+
+- [`app/layout.tsx`](./app/layout.tsx) for the root HTML shell, scripts, and global metadata
+- [`components/layout/SiteShell.tsx`](./components/layout/SiteShell.tsx) for shared header/footer behavior
+- [`components/layout/Header.tsx`](./components/layout/Header.tsx) for the shared navigation and mobile menu
+- [`components/layout/Footer.tsx`](./components/layout/Footer.tsx) for footer links and legal navigation
+- [`components/home/HomeLanding.tsx`](./components/home/HomeLanding.tsx) for the homepage composition
+- [`components/page/ContentPage.tsx`](./components/page/ContentPage.tsx) for reusable content-page layout
+- [`lib/site.ts`](./lib/site.ts) for site config, nav, footer groups, and shared metadata values
+- [`lib/page-data.ts`](./lib/page-data.ts) for the route content used by shared content pages
+
+## Design And Styling
+
+The app uses:
+
+- Tailwind CSS v3
+- Custom CSS in `app/globals.css`
+- Dark-mode brand styling based on the MyOnlineJet design system
+- Shared button and card styles
+- Responsive rules for mobile, tablet, and desktop
+
+## Static Assets
+
+Static files live in `public/` and are served directly by Next.js. These include:
+
+- `robots.txt`
+- `ads.txt`
+- `humans.txt`
+- `favicon.svg`
+- `moj-news-widget.js`
+
+## How To Run
+
+From the `frontend/` folder:
 
 ```bash
 npm install
@@ -30,28 +182,18 @@ npm run build
 npm run start
 ```
 
-## Deploying On Vercel
+## Tech Stack
 
-This app is ready for Vercel as a Next.js project.
+- **Framework:** Next.js 15 App Router
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS v3 + custom CSS
+- **Routing:** File-based routes
+- **Icons:** Font Awesome 6.4.0 via CDN
+- **Fonts:** Inter, Space Grotesk, Playfair Display, Noto Sans Devanagari
 
-When importing the repository into Vercel, set the project root to `frontend`. Leave the framework preset as Next.js and keep the default build command:
+## Notes For Review
 
-- Build Command: `npm run build`
-- Install Command: `npm install`
-- Output Directory: default for Next.js
+- `frontend/.next/` is generated build output and should not be treated as source structure.
+- The project is currently focused on architecture and route organization first.
+- UI refinements can continue after the foundation is approved.
 
-If an existing Vercel project was using the old folder name, update the root directory to `frontend` and redeploy.
-
-## Migration notes
-
-- The legacy static site remains at the repository root.
-- The Next.js app lives only in `frontend/`.
-- Phase 2 should migrate the first real content pages into `frontend/app/`.
-- Route and footer links are already centralized in `frontend/lib/site.ts`.
-
-## Next steps
-
-1. Migrate `/about-us`
-2. Migrate `/contact`
-3. Add Node API routes for the forms
-4. Replace remaining root HTML pages with Next pages over time
