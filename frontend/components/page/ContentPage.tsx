@@ -58,9 +58,9 @@ export function ContentPage({ data }: { data: ContentPageData }) {
       <div className="aurora-bg" />
       <div className="noise-overlay" />
 
-      <section className="mx-auto max-w-7xl pt-4 sm:pt-6">
-        <div className="grid items-center gap-8 sm:gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
-          <div className="space-y-5 text-center lg:text-left sm:space-y-6 md:space-y-8">
+      <section className="mx-auto max-w-7xl pt-3 sm:pt-6">
+        <div className="grid items-center gap-6 sm:gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
+          <div className="space-y-4 sm:space-y-6 md:space-y-8">
             {data.eyebrow ? <div className="luxury-badge">{data.eyebrow}</div> : null}
             <h1 className="content-hero-title text-balance">{data.title}</h1>
             <p className="mx-auto max-w-3xl text-sm leading-6 text-text-secondary lg:mx-0 sm:text-base sm:leading-7 md:text-lg">{data.lead}</p>
@@ -81,7 +81,7 @@ export function ContentPage({ data }: { data: ContentPageData }) {
             </div>
 
             {heroHighlights.length ? (
-              <div className="grid gap-3 pt-2 sm:grid-cols-2 md:grid-cols-3 sm:gap-4">
+              <div className="grid gap-3 pt-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 sm:gap-4">
                 {heroHighlights.map((item, index) => (
                   <div key={`${item.eyebrow}-${item.title}`} className="glass-card p-3 sm:p-4 text-left">
                     <div className="mb-2 flex items-center justify-between sm:mb-3">

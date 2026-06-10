@@ -124,53 +124,13 @@ export default function AboutUsPage() {
     <div className="about-page relative" itemScope itemType="https://schema.org/AboutPage">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData, null, 2) }} />
 
-      <nav className="nav-glass fixed w-full z-50 py-4 px-5 sm:px-6 lg:px-10">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <Link href="/" className="flex items-center space-x-3">
-            <img src="https://myonlinejet.com/images/Logo.webp" alt="MyOnlineJet" className="h-8 sm:h-10 w-auto brightness-200" />
-          </Link>
-          <div className="hidden lg:flex items-center space-x-8">
-            <Link href="/" className="nav-link">Home</Link>
-            <a href="/about-us" className="nav-link active">About</a>
-            <a href="/advanced-air-mobility" className="nav-link">AAM</a>
-            <a href="/vertiports" className="nav-link">Vertiports</a>
-            <a href="/technology" className="nav-link">Technology</a>
-            <a href="/services" className="nav-link">Services</a>
-            <a href="/partner-with-us" className="nav-link">Partners</a>
-            <a href="/contact" className="btn-primary py-2 px-5 text-sm">Contact</a>
-          </div>
-          <button id="mobileMenuBtn" className="mobile-toggle lg:hidden inline-flex h-10 w-10 flex-col items-center justify-center gap-1.5 text-gray-400 z-50">
-            <span className="hamburger-line" />
-            <span className="hamburger-line" />
-            <span className="hamburger-line" />
-          </button>
-        </div>
-        <div id="mobileMenu" className="lg:hidden fixed inset-0 z-40 hidden items-start justify-center bg-[rgba(3,7,18,0.94)] px-4 py-6">
-          <div className="mobile-menu-shell dark w-full max-w-[22rem] overflow-hidden rounded-[1.9rem] bg-[#0b1020] shadow-[0_40px_100px_rgba(0,0,0,0.55)]">
-            <div className="px-4 py-4">
-              <div className="space-y-2">
-                <a href="/about-us" className="mobile-menu-item dark is-active">About</a>
-                <a href="/advanced-air-mobility" className="mobile-menu-item dark">Advanced Air Mobility</a>
-                <a href="/vertiports" className="mobile-menu-item dark">Vertiports</a>
-                <a href="/technology" className="mobile-menu-item dark">Technology</a>
-                <a href="/services" className="mobile-menu-item dark">Services</a>
-                <a href="/partner-with-us" className="mobile-menu-item dark">Partners</a>
-              </div>
-              <div className="mt-4">
-                <a href="/contact" className="mobile-menu-cta dark">Contact Us</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
-
       <div className="noise-overlay" />
       <div className="ambient-glow ambient-glow-1" />
       <div className="ambient-glow ambient-glow-2" />
       <div className="grid-pattern" />
 
-      <main className="relative z-10 pt-32 pb-20">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+      <div className="relative z-10 pt-28 pb-16 sm:pt-32 sm:pb-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-24 reveal">
             <div className="badge mb-8">
               <span className="badge-dot pulse-dot" />
@@ -224,8 +184,8 @@ export default function AboutUsPage() {
 
           <div className="py-8 mb-20 reveal">
             <h2 className="heading-section text-center text-white mb-12">Why We Exist</h2>
-            <div className="grid md:grid-cols-3 gap-6 mb-12">
-              <div className="text-center p-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-12">
+              <div className="text-center p-4 sm:p-6">
                 <div className="icon-box mx-auto mb-5">
                   <i className="fas fa-car-side" />
                 </div>
@@ -261,9 +221,9 @@ export default function AboutUsPage() {
 
           <div className="mb-20 reveal">
             <h2 className="heading-section text-center text-white mb-12">What We Are Building</h2>
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
               {whatWeBuild.map((item) => (
-                <div key={item.title} className="glass-card p-8 step-card">
+                <div key={item.title} className="glass-card p-6 sm:p-8 step-card">
                   <div className="step-number mb-4">{item.number}</div>
                   <div className="icon-box mb-5">
                     <i className={`fas fa-${item.icon}`} />
@@ -280,9 +240,9 @@ export default function AboutUsPage() {
 
           <div className="mb-20 reveal">
             <h2 className="heading-section text-center text-white mb-12">Our Approach</h2>
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
               {approach.map((item) => (
-                <div key={item.title} className="glass-card p-8 text-center">
+                <div key={item.title} className="glass-card p-6 sm:p-8 text-center">
                   <div className="icon-box mx-auto mb-5">
                     <i className={`fas fa-${item.icon}`} />
                   </div>
@@ -356,7 +316,7 @@ export default function AboutUsPage() {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6 mb-20 reveal">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-20 reveal">
             <div className="glass-card p-8">
               <div className="icon-box mb-6">
                 <i className="fas fa-eye" />
@@ -411,139 +371,20 @@ export default function AboutUsPage() {
             </div>
           </div>
         </div>
-      </main>
+      </div>
 
-      <footer id="contact" className="site-footer relative z-10 bg-surface-elevated border-t border-border-subtle pt-16 pb-8">
-        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12 mb-12">
-            <div className="sm:col-span-2 lg:col-span-1">
-              <div className="flex items-center space-x-3 mb-6">
-                <img src="https://myonlinejet.com/images/MyOnlineJet_White_Logo.png" alt="MyOnlineJet" className="h-12 w-auto" />
-              </div>
-              <p className="text-text-muted text-sm leading-relaxed mb-6">Building India&apos;s urban air mobility infrastructure for a sustainable transportation future.</p>
-              <div className="flex space-x-3">
-                <a href="https://www.linkedin.com/company/myonlinejet/" className="social-icon"><i className="fab fa-linkedin-in" /></a>
-                <a href="https://www.facebook.com/myonlinejet/" className="social-icon"><i className="fab fa-facebook-f" /></a>
-                <a href="https://twitter.com/myonlinejet" className="social-icon"><i className="fab fa-twitter" /></a>
-                <a href="https://www.youtube.com/@myonlinejet" className="social-icon"><i className="fab fa-youtube" /></a>
-              </div>
-            </div>
-            <div>
-              <h4 className="text-white text-sm font-bold mb-6 uppercase tracking-wider">Company</h4>
-              <div className="space-y-3">
-                <Link href="/" className="footer-link block">Home</Link>
-                <Link href="/about-us" className="footer-link block">About Us</Link>
-                <Link href="/company-profile" className="footer-link block">Company Profile</Link>
-                <Link href="/vision-mission" className="footer-link block">Vision &amp; Mission</Link>
-                <Link href="/technology" className="footer-link block">Technology</Link>
-              </div>
-            </div>
-            <div>
-              <h4 className="text-white text-sm font-bold mb-6 uppercase tracking-wider">Infrastructure</h4>
-              <div className="space-y-3">
-                <Link href="/vertiports" className="footer-link block">Vertiports</Link>
-                <Link href="/evtol-infrastructure" className="footer-link block">eVTOL Infrastructure</Link>
-                <Link href="/services" className="footer-link block">All Services</Link>
-                <Link href="/advanced-air-mobility" className="footer-link block">Advanced Air Mobility</Link>
-              </div>
-            </div>
-            <div>
-              <h4 className="text-white text-sm font-bold mb-6 uppercase tracking-wider">Partners &amp; Careers</h4>
-              <div className="space-y-3">
-                <Link href="/partner-with-us" className="footer-link block">Partner With Us</Link>
-                <Link href="/investors" className="footer-link block">Investors</Link>
-                <Link href="/careers" className="footer-link block">Careers</Link>
-                <Link href="/early-access" className="footer-link block">Early Access</Link>
-              </div>
-            </div>
-            <div>
-              <h4 className="text-white text-sm font-bold mb-6 uppercase tracking-wider">Resources &amp; Legal</h4>
-              <div className="space-y-3">
-                <a href="https://news.myonlinejet.com" target="_blank" rel="noopener noreferrer" className="footer-link block">Blog</a>
-                <Link href="/contact" className="footer-link block">Contact</Link>
-                <Link href="/privacy-policy" className="footer-link block">Privacy Policy</Link>
-                <Link href="/terms-conditions" className="footer-link block">Terms of Service</Link>
-              </div>
-            </div>
-          </div>
-          <div className="border-t border-border-subtle pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-text-muted">
-            <p>© 2026 MyOnlineJet | iAlpha Technologies Pvt Ltd | All Rights Reserved</p>
-            <div className="flex gap-6">
-              <a href="/sitemap.xml" className="hover:text-white transition-colors">Sitemap</a>
-              <a href="/robots.txt" className="hover:text-white transition-colors">Robots.txt</a>
-            </div>
-          </div>
-        </div>
-      </footer>
-
-      <Script id="about-us-interactions" strategy="afterInteractive">
+      <Script id="about-us-reveal" strategy="afterInteractive">
         {`
-          function closeMobileMenu() {
-            var btn = document.getElementById('mobileMenuBtn');
-            var menu = document.getElementById('mobileMenu');
-            if (menu) menu.style.display = 'none';
-            if (btn) btn.classList.remove('hamburger-active');
-          }
-
           (function() {
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const mobileMenu = document.getElementById('mobileMenu');
-            const nav = document.querySelector('nav');
-
-            if (mobileMenuBtn && mobileMenu) {
-              mobileMenuBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const isOpen = mobileMenu.style.display === 'flex';
-                mobileMenu.style.display = isOpen ? 'none' : 'flex';
-                mobileMenuBtn.classList.toggle('hamburger-active');
-              });
-
-              const closeButton = mobileMenu.querySelector('.mobileMenuClose');
-              if (closeButton) {
-                closeButton.addEventListener('click', function() {
-                  closeMobileMenu();
-                });
-              }
-
-              mobileMenu.querySelectorAll('a').forEach(function(link) {
-                link.addEventListener('click', function() {
-                  closeMobileMenu();
-                });
-              });
-            }
-
-            const observerOptions = {
-              root: null,
-              rootMargin: '0px',
-              threshold: 0.1
-            };
-
             const observer = new IntersectionObserver((entries) => {
               entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                   entry.target.classList.add('visible');
                 }
               });
-            }, observerOptions);
+            }, { root: null, rootMargin: '0px', threshold: 0.1 });
 
-            document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-
-            window.addEventListener('scroll', function() {
-              if (!nav) return;
-              if (window.scrollY > 50) {
-                nav.style.boxShadow = '0 4px 30px rgba(0,0,0,0.3)';
-              } else {
-                nav.style.boxShadow = 'none';
-              }
-            });
-
-            document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-              anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) target.scrollIntoView({ behavior: 'smooth' });
-              });
-            });
+            document.querySelectorAll('.about-page .reveal').forEach((el) => observer.observe(el));
           })();
         `}
       </Script>

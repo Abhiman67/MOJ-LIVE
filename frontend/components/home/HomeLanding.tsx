@@ -5,7 +5,6 @@ import Script from 'next/script'
 import Link from 'next/link'
 import type { MouseEvent as ReactMouseEvent } from 'react'
 import { createElement, useEffect, useMemo, useRef, useState } from 'react'
-import { siteConfig } from '@/lib/site'
 
 type ModalId = 'advisor-modal' | 'career-modal' | null
 
@@ -292,15 +291,15 @@ export function HomeLanding() {
         id="navbar"
         className={`nav-glass fixed top-0 z-50 w-full transition-all duration-500 ${scrolled ? 'is-scrolled' : ''}`}
       >
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="flex h-20 items-center justify-between">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
+          <div className="flex h-16 items-center justify-between sm:h-20">
             <div className="z-50 flex items-center space-x-3">
               <Image
                 src="https://myonlinejet.com/images/Logo.webp"
                 alt="MyOnlineJet"
                 width={168}
                 height={48}
-                className="h-10 w-auto brightness-0 invert"
+                className="h-8 w-auto brightness-0 invert sm:h-10"
                 priority
               />
             </div>
@@ -363,17 +362,17 @@ export function HomeLanding() {
         ) : null}
       </nav>
 
-      <section className="relative flex min-h-screen items-center overflow-hidden px-5 pt-20 sm:px-6 lg:px-10">
-        <div className="mx-auto grid w-full max-w-7xl items-center gap-10 lg:grid-cols-12 lg:gap-8">
-          <div className="space-y-6 sm:space-y-8 lg:col-span-7 reveal active">
+      <section className="relative flex min-h-screen items-center overflow-hidden px-4 pt-16 sm:px-6 sm:pt-20 lg:px-10">
+        <div className="mx-auto grid w-full max-w-7xl items-center gap-8 sm:gap-10 lg:grid-cols-12 lg:gap-8">
+          <div className="space-y-5 sm:space-y-8 lg:col-span-7 reveal active">
             <div className="luxury-badge reveal">
               <span>Est. 2023 - Jaipur, India</span>
             </div>
 
-            <h1 className="font-display text-[clamp(2rem,8vw,4.5rem)] leading-[1.1] tracking-[-0.03em]">
+            <h1 className="font-display text-[clamp(1.8rem,7vw,4.5rem)] leading-[1.1] tracking-[-0.03em]">
               <span className="block text-white">REDEFINING</span>
-              <span className="text-gradient-red text-glow mt-2 block">URBAN AIR</span>
-              <span className="text-gradient mt-2 block">MOBILITY</span>
+              <span className="text-gradient-red text-glow mt-1 sm:mt-2 block">URBAN AIR</span>
+              <span className="text-gradient mt-1 sm:mt-2 block">MOBILITY</span>
             </h1>
 
             <p className="max-w-xl text-sm leading-7 text-text-secondary sm:text-base md:text-lg reveal reveal-delay-1">
@@ -390,21 +389,21 @@ export function HomeLanding() {
               </a>
             </div>
 
-            <div className="grid grid-cols-2 gap-6 pt-8 sm:gap-8 md:grid-cols-4 reveal reveal-delay-3">
+            <div className="grid grid-cols-2 gap-4 pt-6 sm:gap-8 md:grid-cols-4 reveal reveal-delay-3">
               <div className="space-y-1 sm:space-y-2">
-                <div className="stat-value text-2xl sm:text-3xl md:text-4xl lg:stat-value" data-target="15" data-suffix="B+">0</div>
+                <div className="stat-value text-xl sm:text-3xl md:text-4xl lg:stat-value" data-target="15" data-suffix="B+">0</div>
                 <p className="text-xs font-medium text-text-muted sm:text-sm">Billion Market</p>
               </div>
               <div className="space-y-1 sm:space-y-2">
-                <div className="stat-value text-2xl sm:text-3xl md:text-4xl lg:stat-value" data-target="50" data-suffix="+">0</div>
+                <div className="stat-value text-xl sm:text-3xl md:text-4xl lg:stat-value" data-target="50" data-suffix="+">0</div>
                 <p className="text-xs font-medium text-text-muted sm:text-sm">Cities by 2030</p>
               </div>
               <div className="space-y-1 sm:space-y-2">
-                <div className="stat-value text-2xl sm:text-3xl md:text-4xl lg:stat-value" data-target="85" data-suffix="%">0</div>
+                <div className="stat-value text-xl sm:text-3xl md:text-4xl lg:stat-value" data-target="85" data-suffix="%">0</div>
                 <p className="text-xs font-medium text-text-muted sm:text-sm">CO₂ Reduction</p>
               </div>
               <div className="space-y-1 sm:space-y-2">
-                <div className="stat-value text-2xl sm:text-3xl md:text-4xl lg:stat-value" data-target="70" data-suffix="%">0</div>
+                <div className="stat-value text-xl sm:text-3xl md:text-4xl lg:stat-value" data-target="70" data-suffix="%">0</div>
                 <p className="text-xs font-medium text-text-muted sm:text-sm">Faster Travel</p>
               </div>
             </div>
@@ -482,14 +481,14 @@ export function HomeLanding() {
         </div>
       </div>
 
-      <section id="vision" className="relative px-5 py-16 sm:px-6 sm:py-20 lg:px-10 lg:py-24">
+      <section id="vision" className="relative px-4 py-12 sm:px-6 sm:py-20 lg:px-10 lg:py-24">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-12 text-center reveal sm:mb-16 lg:mb-20">
-            <h2 className="font-display mb-4 text-3xl sm:text-4xl sm:mb-6 md:text-6xl lg:text-7xl">
+          <div className="mb-10 text-center reveal sm:mb-16 lg:mb-20">
+            <h2 className="font-display mb-3 text-2xl sm:text-4xl sm:mb-6 md:text-6xl lg:text-7xl">
               OUR VISION FOR<br />
               <span className="text-gradient-red">INDIA&apos;S FUTURE</span>
             </h2>
-            <p className="mx-auto max-w-2xl text-base text-gray-400 sm:text-lg md:text-xl">
+            <p className="mx-auto max-w-2xl text-sm text-gray-400 sm:text-lg md:text-xl">
               Building accessible, sustainable, and efficient urban air mobility infrastructure for every Indian city.
             </p>
           </div>
@@ -543,7 +542,7 @@ export function HomeLanding() {
 
       <div className="section-divider reveal" />
 
-      <section id="technology" className="relative overflow-hidden px-5 py-16 sm:px-6 sm:py-20 lg:px-10 lg:py-24">
+      <section id="technology" className="relative overflow-hidden px-4 py-12 sm:px-6 sm:py-20 lg:px-10 lg:py-24">
         <div className="pointer-events-none absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#C50000]/5 blur-[80px] sm:h-[800px] sm:w-[800px] sm:blur-[120px]" />
 
         <div className="relative z-10 mx-auto max-w-7xl">
@@ -596,7 +595,7 @@ export function HomeLanding() {
 
       <div className="section-divider reveal" />
 
-      <section id="advisors" className="px-5 py-16 sm:px-6 sm:py-20 lg:px-10 lg:py-24">
+      <section id="advisors" className="px-4 py-12 sm:px-6 sm:py-20 lg:px-10 lg:py-24">
         <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:gap-16">
           <div className="reveal lg:sticky lg:top-32">
             <div className="luxury-badge mb-4 sm:mb-6">
@@ -629,7 +628,7 @@ export function HomeLanding() {
 
           <div className="grid grid-cols-2 gap-3 sm:gap-4 reveal reveal-delay-1">
             {expertiseCards.map((card) => (
-              <div key={card.title} className="spotlight-card group p-5 text-center sm:p-6 md:p-8">
+              <div key={card.title} className="spotlight-card group p-4 text-center sm:p-6 md:p-8">
                 <div
                   className={`mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl border transition-transform group-hover:scale-110 sm:mb-6 sm:h-16 sm:w-16 sm:rounded-2xl ${
                     card.tone === 'blue'
@@ -651,7 +650,7 @@ export function HomeLanding() {
         </div>
       </section>
 
-      <section className="bg-[#0A0F1E] px-5 py-16 sm:px-6 sm:py-20 lg:px-10 lg:py-24">
+      <section className="bg-[#0A0F1E] px-4 py-12 sm:px-6 sm:py-20 lg:px-10 lg:py-24">
         <div className="mx-auto max-w-7xl">
           <div className="mb-8 flex items-end justify-between reveal sm:mb-12">
             <div>
@@ -671,7 +670,7 @@ export function HomeLanding() {
         </div>
       </section>
 
-      <section id="careers" className="relative px-5 py-16 sm:px-6 sm:py-20 lg:px-10 lg:py-24">
+      <section id="careers" className="relative px-4 py-12 sm:px-6 sm:py-20 lg:px-10 lg:py-24">
         <div className="mx-auto max-w-7xl">
           <div className="mb-12 text-center reveal sm:mb-16">
             <h2 className="font-display mb-4 text-3xl sm:text-4xl sm:mb-6 md:text-6xl lg:text-7xl">
@@ -769,7 +768,7 @@ export function HomeLanding() {
         </div>
       </section>
 
-      <footer id="contact" className="border-t border-white/10 bg-[#030712] px-5 pb-8 pt-12 sm:px-6 sm:pb-10 sm:pt-16 lg:px-10 lg:pt-20">
+      <footer id="contact" className="border-t border-white/10 bg-[#030712] px-4 pb-6 pt-10 sm:px-6 sm:pb-10 sm:pt-16 lg:px-10 lg:pt-20">
         <div className="mx-auto max-w-7xl">
           <div className="mb-12 grid grid-cols-1 gap-8 sm:mb-16 sm:gap-10 md:grid-cols-2 lg:grid-cols-5 lg:gap-12">
             <div className="md:col-span-2 lg:col-span-2">

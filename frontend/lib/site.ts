@@ -111,7 +111,7 @@ export const homeNavLinks = [
   { label: 'Technology', href: '#technology' },
   { label: 'News', href: 'https://news.myonlinejet.com' },
   { label: 'Advisory Network', href: '#advisors' },
-  { label: 'Careers', href: '#careers' }
+  { label: 'Careers', href: '/careers' }
 ] as const
 
 export const pageNavLinks = [
@@ -121,7 +121,8 @@ export const pageNavLinks = [
   { label: 'Vertiports', href: '/vertiports' },
   { label: 'Technology', href: '/technology' },
   { label: 'Services', href: '/services' },
-  { label: 'Partners', href: '/partners' }
+  { label: 'Partners', href: '/partners' },
+  { label: 'Careers', href: '/careers' }
 ] as const
 
 export const footerGroups = [

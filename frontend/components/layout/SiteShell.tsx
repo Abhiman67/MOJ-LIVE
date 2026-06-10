@@ -8,9 +8,8 @@ import { Header } from '@/components/layout/Header'
 export function SiteShell({ children }: { children: ReactNode }) {
   const pathname = usePathname()
   const isHome = pathname === '/'
-  const isAbout = pathname === '/about-us'
 
-  if (isHome || isAbout) {
+  if (isHome) {
     return <>{children}</>
   }
 

@@ -5,8 +5,8 @@ import { footerGroups, siteConfig } from '@/lib/site'
 export function Footer() {
   return (
     <footer id="contact" className="site-footer">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-5 sm:py-16 lg:px-8">
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5 lg:gap-12 mb-10 sm:mb-12">
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-5 sm:py-16 lg:px-8">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5 lg:gap-12 mb-8 sm:mb-12">
           <div className="sm:col-span-2 lg:col-span-1">
             <div className="flex items-center space-x-3 mb-4 sm:mb-6">
               <Image
@@ -83,8 +83,8 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="border-t border-white/10 pt-6 mb-5 sm:pt-8 sm:mb-6">
-          <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-[10px] sm:gap-x-8 sm:gap-y-3 sm:text-xs md:text-sm">
+        <div className="border-t border-white/10 pt-5 mb-4 sm:pt-8 sm:mb-6">
+          <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 text-[10px] sm:gap-x-8 sm:gap-y-3 sm:text-xs md:text-sm">
             <Link href="/privacy-policy" className="text-gray-400 hover:text-white transition-colors">
               Privacy Policy
             </Link>

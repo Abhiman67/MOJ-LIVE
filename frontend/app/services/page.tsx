@@ -144,15 +144,12 @@ export default function ServicesPage() {
           Redefining Air Mobility
           <span className="block text-brand-red">Infrastructure, Access & Intelligence</span>
         </h1>
-        <p className="mx-auto mt-4 sm:mt-6 max-w-4xl text-sm leading-7 text-brand-gray-dark sm:text-base md:text-lg md:leading-8">
+        <p className="mx-auto mt-4 sm:mt-6 max-w-4xl text-sm leading-7 text-gray-300 sm:text-base md:text-lg md:leading-8">
           MyOnlineJet is not a single-service company. We are building a full-stack Advanced Air Mobility (AAM) ecosystem where infrastructure, access, intelligence, and operations converge into a unified, scalable network.
         </p>
-        <p className="mx-auto mt-3 sm:mt-4 max-w-3xl text-xs leading-6 text-brand-gray-dark sm:text-sm md:text-base md:leading-7">
+        <p className="mx-auto mt-3 sm:mt-4 max-w-3xl text-xs leading-6 text-gray-300 sm:text-sm md:text-base md:leading-7">
           From vertiports and eVTOL integration to enterprise partnerships and digital infrastructure, every service we offer is designed to accelerate the adoption of next-generation aviation across India and beyond.
         </p>
-        <Link href="/vision-mission" className="mt-4 sm:mt-6 inline-flex items-center gap-1 text-sm font-semibold text-brand-red sm:text-base">
-          For a deeper understanding of our long-term direction, visit our Vision & Mission page <i className="fas fa-arrow-right text-xs" />
-        </Link>
       </section>
 
       <section className="content-section space-y-8">
@@ -160,17 +157,17 @@ export default function ServicesPage() {
           <article key={item.title} className="glass-card p-5 sm:p-6 md:p-8">
             <div className="mb-3 sm:mb-4 flex flex-wrap items-start justify-between gap-3 sm:gap-4">
               <span className="text-[10px] sm:text-xs md:text-sm font-semibold tracking-[0.12em] text-brand-red uppercase">{item.badge}</span>
-              <span className="text-[10px] sm:text-xs text-brand-gray-dark">
+              <span className="text-[10px] sm:text-xs text-gray-400">
                 <i className="far fa-building mr-1 sm:mr-2" />
                 Core capability
               </span>
             </div>
-            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-brand-navy mb-2 sm:mb-3">{item.title}</h2>
-            <p className="text-xs sm:text-sm md:text-base text-brand-gray-dark mb-3 sm:mb-4">{item.summary}</p>
+            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white mb-2 sm:mb-3">{item.title}</h2>
+            <p className="text-xs sm:text-sm md:text-base text-gray-300 mb-3 sm:mb-4">{item.summary}</p>
 
             {item.points ? (
-              <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
-                <ul className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-brand-gray-dark">
+              <div className="grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-2">
+                <ul className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-gray-300">
                   {item.points.map((point) => (
                     <li key={point} className="flex items-start gap-2">
                       <i className="fas fa-check-circle text-brand-red mt-0.5 sm:mt-1 text-xs sm:text-sm" />
@@ -179,7 +176,7 @@ export default function ServicesPage() {
                   ))}
                 </ul>
                 <div className="rounded-xl sm:rounded-2xl bg-brand-gray-light p-4 sm:p-5">
-                  <p className="text-[10px] sm:text-xs md:text-sm italic text-brand-gray-dark">
+                  <p className="text-[10px] sm:text-xs md:text-sm italic text-gray-400">
                     {item.title.includes('Vertiport')
                       ? 'Our approach is not just physical infrastructure - it is network-first thinking, ensuring every vertiport becomes part of a larger intelligent system.'
                       : item.title.includes('eVTOL')

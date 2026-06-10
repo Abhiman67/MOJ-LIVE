@@ -10,23 +10,18 @@ export function Header() {
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
   const isHome = pathname === '/'
-  const isAbout = pathname === '/about-us'
   const navLinks = isHome ? homeNavLinks : pageNavLinks
-  const headerClassName = isAbout ? 'site-header site-header-dark' : 'site-header'
-  const linkClassName = isAbout ? 'home-nav-link transition-colors duration-300' : 'nav-link transition-colors duration-300'
-  const buttonClassName = isAbout ? 'magnetic-btn text-sm px-7 py-3' : 'primary-btn py-3'
-  const logoClassName = isAbout ? 'h-12 w-auto brightness-0 invert' : 'h-12 w-auto'
 
   return (
-    <header className={`${headerClassName} relative z-50`}>
-      <div className="mx-auto flex max-w-8xl items-center justify-between px-6 py-5 lg:px-10">
+    <header className="site-header relative z-50">
+      <div className="mx-auto flex max-w-8xl items-center justify-between px-4 py-4 sm:px-6 sm:py-5 lg:px-10">
         <Link href="/" className="flex items-center gap-3">
           <Image
             src="https://myonlinejet.com/images/Logo.webp"
             alt={siteConfig.name}
             width={172}
             height={56}
-            className={logoClassName}
+            className="h-10 w-auto sm:h-12"
             priority={isHome}
           />
         </Link>
@@ -37,14 +32,14 @@ export function Header() {
               <a
                 key={item.href}
                 href={item.href}
-                className={linkClassName}
+                className="nav-link transition-colors duration-300"
                 target={item.href.startsWith('http') ? '_blank' : undefined}
                 rel={item.href.startsWith('http') ? 'noreferrer noopener' : undefined}
               >
                 {item.label}
               </a>
             ) : (
-              <Link key={item.href} href={item.href} className={linkClassName}>
+              <Link key={item.href} href={item.href} className="nav-link transition-colors duration-300">
                 {item.label}
               </Link>
             )
@@ -53,12 +48,8 @@ export function Header() {
             <a href="#contact" className="primary-btn py-3">
               Contact Us
             </a>
-          ) : isAbout ? (
-            <Link href="/contact" className={buttonClassName}>
-              Contact Us
-            </Link>
           ) : (
-            <Link href="/contact" className={buttonClassName}>
+            <Link href="/contact" className="primary-btn py-3">
               Contact Us
             </Link>
           )}
