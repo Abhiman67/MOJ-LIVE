@@ -33,7 +33,22 @@ const config: Config = {
           'gray-light': '#F8F9FA',
           gray: '#E9ECEF',
           'gray-dark': '#6C757D'
-        }
+        },
+        surface: '#0A0A0A',
+        elevated: '#111111',
+        card: '#141414',
+        hover: '#1A1A1A',
+        textPrimary: '#FAFAFA',
+        textSecondary: '#A1A1AA',
+        textMuted: '#52525B',
+        borderSubtle: '#1F1F1F',
+        borderMedium: '#2A2A2A',
+        brandRed: '#FF2D2D',
+        brandRedGlow: '#FF4444',
+      },
+      fontFamily: {
+        heading: ['"Space Grotesk"', 'sans-serif'],
+        body: ['Inter', 'sans-serif'],
       },
       boxShadow: {
         soft: '0 20px 40px rgba(0, 0, 0, 0.08)'
