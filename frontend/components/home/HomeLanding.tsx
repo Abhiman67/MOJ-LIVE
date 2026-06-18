@@ -11,8 +11,8 @@ type ModalId = 'advisor-modal' | 'career-modal' | null
 const visionCards = [
   {
     className: 'bento-item bento-item-large reveal',
-    iconClass: 'fas fa-city text-3xl text-[#FF4444]',
-    iconWrapClass: 'w-16 h-16 rounded-2xl bg-[#C50000]/10 flex items-center justify-center mb-6 border border-[#C50000]/20',
+    iconClass: 'fas fa-city text-xl sm:text-3xl text-[#FF4444]',
+    iconWrapClass: 'w-12 h-12 rounded-xl sm:w-16 sm:h-16 sm:rounded-2xl bg-[#C50000]/10 flex items-center justify-center mb-4 border border-[#C50000]/20',
     title: 'Urban Integration',
     description:
       "Vertiports designed for seamless integration with existing urban infrastructure and transportation networks. We don't just add flying vehicles - we weave them into the fabric of the city.",
@@ -20,30 +20,30 @@ const visionCards = [
   },
   {
     className: 'bento-item bento-item-tall reveal reveal-delay-1',
-    iconClass: 'fas fa-leaf text-3xl text-green-400',
-    iconWrapClass: 'w-16 h-16 rounded-2xl bg-green-500/10 flex items-center justify-center mb-6 border border-green-500/20',
+    iconClass: 'fas fa-leaf text-xl sm:text-3xl text-green-400',
+    iconWrapClass: 'w-12 h-12 rounded-xl sm:w-16 sm:h-16 sm:rounded-2xl bg-green-500/10 flex items-center justify-center mb-4 border border-green-500/20',
     title: 'Sustainability First',
     description:
       'Electric vehicles and renewable energy-powered infrastructure for minimal environmental impact. Our vertiports generate 40% of their own energy needs.'
   },
   {
     className: 'bento-item reveal reveal-delay-2',
-    iconClass: 'fas fa-shield-alt text-2xl text-blue-400',
-    iconWrapClass: 'w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center mb-5 border border-blue-500/20',
+    iconClass: 'fas fa-shield-alt text-xl sm:text-2xl text-blue-400',
+    iconWrapClass: 'w-10 h-10 rounded-xl sm:w-14 sm:h-14 sm:rounded-2xl bg-blue-500/10 flex items-center justify-center mb-4 border border-blue-500/20',
     title: 'Safety & Reliability',
     description: 'Advanced AI systems and redundant safety mechanisms ensuring passenger security at all times.'
   },
   {
     className: 'bento-item reveal reveal-delay-3',
-    iconClass: 'fas fa-network-wired text-2xl text-purple-400',
-    iconWrapClass: 'w-14 h-14 rounded-2xl bg-purple-500/10 flex items-center justify-center mb-5 border border-purple-500/20',
+    iconClass: 'fas fa-network-wired text-xl sm:text-2xl text-purple-400',
+    iconWrapClass: 'w-10 h-10 rounded-xl sm:w-14 sm:h-14 sm:rounded-2xl bg-purple-500/10 flex items-center justify-center mb-4 border border-purple-500/20',
     title: 'Network Effects',
     description: 'Connected vertiport networks that scale exponentially with each new node added to the grid.'
   },
   {
     className: 'bento-item reveal reveal-delay-2',
-    iconClass: 'fas fa-rocket text-2xl text-orange-400',
-    iconWrapClass: 'w-14 h-14 rounded-2xl bg-orange-500/10 flex items-center justify-center border border-orange-500/20 shrink-0',
+    iconClass: 'fas fa-rocket text-xl sm:text-2xl text-orange-400',
+    iconWrapClass: 'w-10 h-10 rounded-xl sm:w-14 sm:h-14 sm:rounded-2xl bg-orange-500/10 flex items-center justify-center mb-4 border border-orange-500/20 shrink-0',
     title: 'Rapid Deployment',
     description: 'Modular vertiport design enables deployment in under 6 months per location.',
     wide: true
@@ -411,7 +411,7 @@ export function HomeLanding() {
 
           <div className="relative lg:col-span-5 reveal reveal-delay-1">
             <div ref={heroTiltRef} id="heroTilt" className="tilt-card relative">
-              <div className="spotlight-card float-slow p-2 sm:p-3">
+              <div className="spotlight-card p-2 sm:p-3">
                 <div className="relative aspect-[4/5] overflow-hidden rounded-2xl">
                   <Image
                     src="https://myonlinejet.com/images/MOJ_Vertiport.webp"
@@ -496,18 +496,18 @@ export function HomeLanding() {
           <div className="bento-grid">
             {visionCards.map((card) => (
               <div key={card.title} className={card.className}>
-                <div className="h-full flex flex-col justify-between">
+                <div className="flex flex-col">
                   <div className={card.iconWrapClass}>
                     <i className={card.iconClass} />
                   </div>
                   <div>
-                    <h3 className="mb-3 font-display text-2xl text-white sm:text-3xl">{card.title}</h3>
+                    <h3 className="mb-2 font-display text-lg text-white sm:text-2xl lg:text-3xl">{card.title}</h3>
                     <p className={`leading-relaxed ${card.wide ? 'text-sm text-gray-400' : 'text-sm text-gray-400 sm:text-lg'}`}>
                       {card.description}
                     </p>
                   </div>
                   {'chips' in card && card.chips ? (
-                    <div className="mt-8 flex gap-4">
+                    <div className="mt-4 flex gap-4">
                       {card.chips.map((chip) => (
                         <div key={chip} className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-gray-400">
                           {chip}

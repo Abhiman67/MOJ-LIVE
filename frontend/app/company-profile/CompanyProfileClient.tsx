@@ -175,6 +175,14 @@ const styles = `
     .glass-card { padding: 1rem !important; border-radius: 12px; }
     .icon-box { width: 40px; height: 40px; font-size: 1rem; }
   }
+  @media (max-width: 380px) {
+    .hero-title { font-size: clamp(1.3rem, 7vw, 1.6rem); }
+    .section-title { font-size: clamp(1rem, 4.5vw, 1.2rem); }
+    .stat-number { font-size: 1.6rem; }
+    .glass-card { padding: 0.75rem !important; border-radius: 10px; }
+    .icon-box { width: 32px; height: 32px; font-size: 14px; border-radius: 8px; }
+    .card-title { font-size: 1rem; }
+  }
 `
 
 export function CompanyProfileClient() {

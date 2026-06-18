@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
-import { homeNavLinks, pageNavLinks, siteConfig } from '@/lib/site'
+import { homeNavLinks, pageNavLinks } from '@/lib/site'
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false)
@@ -18,11 +18,11 @@ export function Header() {
         <Link href="/" className="flex items-center gap-3">
           <Image
             src="https://myonlinejet.com/images/Logo.webp"
-            alt={siteConfig.name}
-            width={172}
-            height={56}
-            className="h-10 w-auto sm:h-12"
-            priority={isHome}
+            alt="MyOnlineJet"
+            width={168}
+            height={48}
+            className="h-8 w-auto brightness-0 invert sm:h-10"
+            priority
           />
         </Link>
 
@@ -57,8 +57,8 @@ export function Header() {
 
         <button
           type="button"
-          aria-label="Toggle mobile menu"
-          className={`mobile-toggle inline-flex h-11 w-11 flex-col items-center justify-center gap-1.5 lg:hidden ${isOpen ? 'hamburger-active' : ''}`}
+          aria-label={isOpen ? 'Close mobile menu' : 'Open mobile menu'}
+          className={`mobile-toggle z-50 inline-flex h-11 w-11 flex-col items-center justify-center gap-1.5 lg:hidden ${isOpen ? 'hamburger-active' : ''}`}
           onClick={() => setIsOpen((current) => !current)}
         >
           <span className="hamburger-line" />

@@ -473,8 +473,16 @@ export default function ContactPage() {
         }
         @media (max-width: 480px) {
           .contact-page .heading-hero { font-size: clamp(1.5rem, 8vw, 1.8rem); }
+          .contact-page .heading-section { font-size: clamp(1.1rem, 5vw, 1.4rem); }
           .contact-page .glass-card { padding: 1rem !important; border-radius: 12px; }
           .contact-page .icon-box { width: 40px; height: 40px; font-size: 1rem; }
+        }
+        @media (max-width: 380px) {
+          .contact-page .heading-hero { font-size: clamp(1.2rem, 7vw, 1.5rem); }
+          .contact-page .heading-section { font-size: clamp(1rem, 4.5vw, 1.2rem); }
+          .contact-page .glass-card { padding: 0.75rem !important; border-radius: 10px; }
+          .contact-page .icon-box { width: 32px; height: 32px; font-size: 14px; border-radius: 8px; }
+          .contact-page .heading-card { font-size: 1rem; }
         }
         `
       }} />

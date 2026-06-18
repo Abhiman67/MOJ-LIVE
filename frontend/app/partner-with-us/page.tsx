@@ -324,6 +324,7 @@ export default function PartnerWithUsPage() {
         @media (max-width:768px) { .partner-page .heading-hero-page { font-size:clamp(1.8rem,7vw,2.5rem); } .partner-page .section-title { font-size:1.8rem; } .partner-page .glass-card { padding:1.25rem !important; } .partner-page .process-step-page { padding:1rem; } }
         @media (max-width:640px) { .partner-page .heading-hero-page { font-size:clamp(1.6rem,8vw,2rem); } .partner-page .section-title { font-size:1.5rem; } .partner-page .partner-logo-card-page { padding:1.25rem; } .partner-page .partner-logo-card-page img { max-height:100px; } .partner-page .process-step-page .step-circle-page { width:28px; height:28px; font-size:14px; } }
         @media (max-width:480px) { .partner-page .heading-hero-page { font-size:clamp(1.4rem,9vw,1.7rem); } .partner-page .section-title { font-size:1.3rem; } .partner-page .glass-card { padding:1rem !important; border-radius:12px; } .partner-page .icon-box { width:40px; height:40px; font-size:1rem; } }
+        @media (max-width:380px) { .partner-page .heading-hero-page { font-size:clamp(1.1rem,8vw,1.4rem); } .partner-page .section-title { font-size:clamp(1rem,4.5vw,1.2rem); } .partner-page .glass-card { padding:0.75rem !important; border-radius:10px; } .partner-page .icon-box { width:32px; height:32px; font-size:14px; border-radius:8px; } .partner-page .heading-card-page { font-size:1rem; } .partner-page .badge-pill-page { font-size:0.55rem; padding:2px 8px; } }
       ` }} />
     </div>
   )

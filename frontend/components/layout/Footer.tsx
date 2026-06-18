@@ -43,7 +43,7 @@ export function Footer() {
                 rel="noreferrer noopener"
                 className="w-9 h-9 sm:w-10 sm:h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#C50000] transition-all duration-300 hover:scale-110"
               >
-                <i className="fab fa-x-twitter text-xs sm:text-sm" />
+                <i className="fab fa-twitter text-xs sm:text-sm" />
               </a>
               <a
                 href="https://www.youtube.com/@myonlinejet"

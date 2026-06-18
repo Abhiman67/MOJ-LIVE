@@ -249,6 +249,22 @@ const pageStyles = `
     .hero-title { font-size: clamp(2rem, 8vw, 2.5rem); }
     .section-title { font-size: clamp(1.5rem, 6vw, 1.8rem); }
   }
+  @media (max-width: 480px) {
+    .hero-title { font-size: clamp(1.6rem, 8vw, 2rem); }
+    .section-title { font-size: clamp(1.2rem, 5vw, 1.5rem); }
+    .glass-card, .solid-card { padding: 1rem !important; border-radius: 12px; }
+    .icon-box-lg { width: 48px; height: 48px; }
+    .stat-card { padding: 1rem; }
+  }
+  @media (max-width: 380px) {
+    .hero-title { font-size: clamp(1.3rem, 7vw, 1.6rem); }
+    .section-title { font-size: clamp(1rem, 4.5vw, 1.2rem); }
+    .glass-card, .solid-card { padding: 0.75rem !important; border-radius: 10px; }
+    .icon-box { width: 32px; height: 32px; font-size: 14px; border-radius: 8px; }
+    .icon-box-lg { width: 40px; height: 40px; }
+    .stat-card { padding: 0.75rem; }
+    .eco-tag { padding: 4px 12px; font-size: 0.7rem; }
+  }
 `
 
 export function TechnologyContent() {

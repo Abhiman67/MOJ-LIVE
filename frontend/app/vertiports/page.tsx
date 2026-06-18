@@ -19,6 +19,8 @@ const pageCss = `
 .text-brandRedGlow{color:#FF4444}
 .gradient-text{background:linear-gradient(135deg,#FAFAFA 0%,#FF2D2D 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 @media(max-width:768px){.vertiport-glow-orb-1{width:300px;height:300px;top:-100px}.vertiport-glow-orb-2{width:250px;height:250px}.vertiport-glow-orb-3{width:200px;height:200px}}
+@media(max-width:480px){.vertiports-page .hero-title{font-size:clamp(1.6rem,8vw,2rem)!important}.vertiports-page .section-title{font-size:clamp(1.2rem,5vw,1.5rem)!important}.vertiports-page .glass-card,.vertiports-page .vertiport-dark-section{padding:1rem!important;border-radius:12px}.vertiports-page .icon-box-lg{width:48px;height:48px}.vertiports-page .badge-pill{font-size:10px;padding:4px 10px}}
+@media(max-width:380px){.vertiports-page .hero-title{font-size:clamp(1.3rem,7vw,1.6rem)!important}.vertiports-page .section-title{font-size:clamp(1rem,4.5vw,1.2rem)!important}.vertiports-page .glass-card,.vertiports-page .vertiport-dark-section{padding:0.75rem!important;border-radius:10px}.vertiports-page .icon-box{width:32px;height:32px;font-size:14px;border-radius:8px}.vertiports-page .icon-box-lg{width:40px;height:40px}}
 `
 
 export const metadata: Metadata = {

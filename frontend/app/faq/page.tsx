@@ -204,8 +204,19 @@ const styles = `
     transform: translateY(0);
   }
   @media (max-width: 768px) {
-    .faq-heading-primary { font-size: 2.5rem; }
-    .faq-section-title { font-size: 1.8rem; }
+    .faq-heading-primary { font-size: clamp(1.8rem, 7vw, 2.5rem); }
+    .faq-section-title { font-size: clamp(1.4rem, 5vw, 1.8rem); }
+  }
+  @media (max-width: 480px) {
+    .faq-heading-primary { font-size: clamp(1.5rem, 8vw, 1.8rem); }
+    .faq-section-title { font-size: clamp(1.1rem, 5vw, 1.4rem); }
+    .faq-modern-card { padding: 1rem !important; border-radius: 12px; }
+  }
+  @media (max-width: 380px) {
+    .faq-heading-primary { font-size: clamp(1.2rem, 7vw, 1.5rem); }
+    .faq-section-title { font-size: clamp(1rem, 4.5vw, 1.2rem); }
+    .faq-modern-card { padding: 0.75rem !important; border-radius: 10px; }
+    .faq-question h3 { font-size: 0.9rem; }
   }
 `
 

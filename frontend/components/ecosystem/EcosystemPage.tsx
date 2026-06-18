@@ -164,8 +164,20 @@ const styles = `
     transform: translateY(0);
   }
   @media (max-width: 768px) {
-    .eco-heading-primary { font-size: 2.5rem; }
-    .eco-section-title { font-size: 1.8rem; }
+    .eco-heading-primary { font-size: clamp(1.8rem, 7vw, 2.5rem); }
+    .eco-section-title { font-size: clamp(1.4rem, 5vw, 1.8rem); }
+  }
+  @media (max-width: 480px) {
+    .eco-heading-primary { font-size: clamp(1.5rem, 8vw, 1.8rem); }
+    .eco-section-title { font-size: clamp(1.1rem, 5vw, 1.4rem); }
+    .eco-icon-box { width: 40px; height: 40px; font-size: 16px; }
+  }
+  @media (max-width: 380px) {
+    .eco-heading-primary { font-size: clamp(1.2rem, 7vw, 1.5rem); }
+    .eco-section-title { font-size: clamp(1rem, 4.5vw, 1.2rem); }
+    .eco-modern-card { padding: 0.75rem !important; border-radius: 10px; }
+    .eco-icon-box { width: 32px; height: 32px; font-size: 14px; border-radius: 8px; }
+    .eco-flow-step { padding: 0.75rem !important; }
   }
 `
 

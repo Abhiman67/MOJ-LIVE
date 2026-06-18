@@ -429,6 +429,39 @@ const styles = `
     .about-step-number {
       font-size: 28px;
     }
+    .about-heading-hero {
+      font-size: clamp(1.6rem, 8vw, 2rem);
+    }
+    .about-heading-section {
+      font-size: clamp(1.2rem, 5vw, 1.5rem);
+    }
+  }
+  @media (max-width: 380px) {
+    .about-heading-hero {
+      font-size: clamp(1.3rem, 7vw, 1.6rem);
+    }
+    .about-heading-section {
+      font-size: clamp(1rem, 4.5vw, 1.2rem);
+    }
+    .about-heading-card {
+      font-size: 0.9rem;
+    }
+    .about-glass-card {
+      padding: 0.85rem !important;
+      border-radius: 0.75rem;
+    }
+    .about-icon-box {
+      width: 36px;
+      height: 36px;
+      font-size: 15px;
+    }
+    .about-step-number {
+      font-size: 24px;
+    }
+    .about-avatar-glow {
+      width: 64px;
+      height: 64px;
+    }
   }
 `
 
