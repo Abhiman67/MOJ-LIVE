@@ -123,16 +123,16 @@ const styles = `
   }
   .faq-glow-orb-1 {
     width: 400px; height: 400px;
-    background: #FF2D2D; top: -100px; right: -100px;
+    background: #C50000; top: -100px; right: -100px;
   }
   .faq-glow-orb-2 {
     width: 300px; height: 300px;
-    background: #FF4444; bottom: 20%; left: -80px;
+    background: #C50000; bottom: 20%; left: -80px;
   }
   .faq-grid-bg {
     position: fixed; top: 0; left: 0;
     width: 100%; height: 100%;
-    background-image: linear-gradient(rgba(255,45,45,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,45,45,0.03) 1px, transparent 1px);
+    background-image: linear-gradient(rgba(197,0,0,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(197,0,0,0.03) 1px, transparent 1px);
     background-size: 60px 60px;
     pointer-events: none; z-index: -1;
   }
@@ -147,8 +147,8 @@ const styles = `
   }
   .faq-modern-card:hover {
     transform: translateY(-2px);
-    border-color: rgba(255,45,45,0.3);
-    box-shadow: 0 20px 40px rgba(255,45,45,0.08), 0 0 60px rgba(255,45,45,0.05);
+    border-color: rgba(197,0,0,0.3);
+    box-shadow: 0 20px 40px rgba(197,0,0,0.08), 0 0 60px rgba(197,0,0,0.05);
   }
   .faq-heading-primary {
     font-family: 'Space Grotesk', sans-serif;
@@ -167,8 +167,8 @@ const styles = `
   }
   .faq-badge {
     display: inline-block;
-    background: rgba(255,45,45,0.1);
-    color: #FF2D2D;
+    background: rgba(197,0,0,0.1);
+    color: #C50000;
     padding: 4px 14px;
     border-radius: 9999px;
     font-size: 12px;
@@ -181,7 +181,7 @@ const styles = `
     transition: all 0.2s ease;
   }
   .faq-question:hover h3 {
-    color: #FF2D2D;
+    color: #C50000;
   }
   .faq-answer {
     max-height: 0;
@@ -282,7 +282,7 @@ export default function FAQPage() {
             <div className="faq-badge mb-6">Answers & Insights</div>
             <h1 className="faq-heading-primary mb-6">
               Frequently Asked Questions<br />
-              <span className="text-[#FF2D2D]">Aviation Infrastructure Technology Company</span>
+              <span className="text-[#C50000]">Aviation Infrastructure Technology Company</span>
             </h1>
             <p className="text-lg text-[#A1A1AA] max-w-3xl mx-auto">
               Everything you need to know about MyOnlineJet — our infrastructure, vertiports, partnerships, early access,
@@ -298,7 +298,7 @@ export default function FAQPage() {
                 <strong className="text-amber-400">Development Phase Notice:</strong> MyOnlineJet is currently in the
                 pre-launch and ecosystem-building phase. All services, partnerships, and offerings are subject to regulatory
                 approvals, infrastructure readiness, and strategic alignment.{' '}
-                <Link href="/legal-disclaimer" className="text-[#FF2D2D] font-semibold hover:underline">
+                <Link href="/legal-disclaimer" className="text-[#C50000] font-semibold hover:underline">
                   Read full disclaimer →
                 </Link>
               </div>
@@ -318,10 +318,10 @@ export default function FAQPage() {
                     infrastructure networks. We are building a unified platform that connects users, infrastructure
                     providers, aviation partners, and enterprises into a scalable air mobility network.
                     <div className="mt-3 flex flex-wrap gap-3">
-                      <Link href="/company-profile" className="text-[#FF2D2D] text-sm font-medium hover:underline">
+                      <Link href="/company-profile" className="text-[#C50000] text-sm font-medium hover:underline">
                         Learn more: Company Profile →
                       </Link>
-                      <Link href="/vision-mission" className="text-[#FF2D2D] text-sm font-medium hover:underline">
+                      <Link href="/vision-mission" className="text-[#C50000] text-sm font-medium hover:underline">
                         Vision & Mission →
                       </Link>
                     </div>
@@ -342,7 +342,7 @@ export default function FAQPage() {
                   <>
                     We are currently in the pre-launch and ecosystem development phase, actively working on partnerships,
                     infrastructure mapping, and early network design.{' '}
-                    <Link href="/press-media" className="text-[#FF2D2D] font-medium hover:underline">
+                    <Link href="/press-media" className="text-[#C50000] font-medium hover:underline">
                       Stay updated: Press & Media →
                     </Link>
                   </>
@@ -361,7 +361,7 @@ export default function FAQPage() {
                   <>
                     To build India&apos;s most advanced and globally scalable air mobility network, powered by intelligent
                     infrastructure and seamless ecosystem integration.{' '}
-                    <Link href="/vision-mission" className="text-[#FF2D2D] font-medium hover:underline">
+                    <Link href="/vision-mission" className="text-[#C50000] font-medium hover:underline">
                       Read in detail →
                     </Link>
                   </>
@@ -373,11 +373,11 @@ export default function FAQPage() {
                   <>
                     Infrastructure-first approach (Vertiports + Network), ecosystem integration (not just aircraft),
                     technology-led coordination layer, and scalable partner-driven model.{' '}
-                    <Link href="/technology" className="text-[#FF2D2D] font-medium hover:underline">
+                    <Link href="/technology" className="text-[#C50000] font-medium hover:underline">
                       Explore Technology →
                     </Link>{' '}
                     |{' '}
-                    <Link href="/ecosystem-integration" className="text-[#FF2D2D] font-medium hover:underline">
+                    <Link href="/ecosystem-integration" className="text-[#C50000] font-medium hover:underline">
                       Ecosystem Integration →
                     </Link>
                   </>
@@ -396,7 +396,7 @@ export default function FAQPage() {
                   <>
                     Smart network orchestration, infrastructure mapping systems, partner integration frameworks,
                     data-driven mobility intelligence.{' '}
-                    <Link href="/technology" className="text-[#FF2D2D] font-medium hover:underline">
+                    <Link href="/technology" className="text-[#C50000] font-medium hover:underline">
                       Full breakdown →
                     </Link>
                   </>
@@ -408,7 +408,7 @@ export default function FAQPage() {
                   <>
                     Specialized infrastructure hubs designed for vertical takeoff and landing aircraft (eVTOLs). They
                     function as boarding/landing hubs, charging systems, and network nodes.{' '}
-                    <Link href="/vertiports" className="text-[#FF2D2D] font-medium hover:underline">
+                    <Link href="/vertiports" className="text-[#C50000] font-medium hover:underline">
                       Learn more →
                     </Link>
                   </>
@@ -419,7 +419,7 @@ export default function FAQPage() {
                 answer={
                   <>
                     Landing pads, charging systems, maintenance support, airspace coordination.{' '}
-                    <Link href="/evtol-infrastructure" className="text-[#FF2D2D] font-medium hover:underline">
+                    <Link href="/evtol-infrastructure" className="text-[#C50000] font-medium hover:underline">
                       Deep dive →
                     </Link>
                   </>
@@ -442,7 +442,7 @@ export default function FAQPage() {
                   <>
                     Future-ready air mobility access, infrastructure integration for partners, network onboarding, early
                     access programs.{' '}
-                    <Link href="/services" className="text-[#FF2D2D] font-medium hover:underline">
+                    <Link href="/services" className="text-[#C50000] font-medium hover:underline">
                       All Services →
                     </Link>
                   </>
@@ -454,11 +454,11 @@ export default function FAQPage() {
                   <>
                     Real estate & infrastructure owners, hotels, hospitals, tourism operators, aviation companies,
                     technology providers.{' '}
-                    <Link href="/partners" className="text-[#FF2D2D] font-medium hover:underline">
+                    <Link href="/partners" className="text-[#C50000] font-medium hover:underline">
                       Partners Page →
                     </Link>{' '}
                     |{' '}
-                    <Link href="/partner-with-us" className="text-[#FF2D2D] font-medium hover:underline">
+                    <Link href="/partner-with-us" className="text-[#C50000] font-medium hover:underline">
                       Partner With Us →
                     </Link>
                   </>
@@ -480,7 +480,7 @@ export default function FAQPage() {
                 answer={
                   <>
                     Priority access to future services, exclusive benefits, join the network before public launch.{' '}
-                    <Link href="/early-access" className="text-[#FF2D2D] font-medium hover:underline">
+                    <Link href="/early-access" className="text-[#C50000] font-medium hover:underline">
                       Join Early Access →
                     </Link>
                   </>
@@ -491,7 +491,7 @@ export default function FAQPage() {
                 answer={
                   <>
                     Priority access, exclusive updates, network benefits.{' '}
-                    <Link href="/subscribe" className="text-[#FF2D2D] font-medium hover:underline">
+                    <Link href="/subscribe" className="text-[#C50000] font-medium hover:underline">
                       Explore plans →
                     </Link>
                   </>
@@ -502,7 +502,7 @@ export default function FAQPage() {
                 answer={
                   <>
                     Yes, engaging with strategic investors aligned with long-term vision.{' '}
-                    <Link href="/investors" className="text-[#FF2D2D] font-medium hover:underline">
+                    <Link href="/investors" className="text-[#C50000] font-medium hover:underline">
                       Investors Page →
                     </Link>
                   </>
@@ -520,7 +520,7 @@ export default function FAQPage() {
                 answer={
                   <>
                     Active roles for interns, researchers, and industry professionals.{' '}
-                    <Link href="/careers" className="text-[#FF2D2D] font-medium hover:underline">
+                    <Link href="/careers" className="text-[#C50000] font-medium hover:underline">
                       Apply here →
                     </Link>
                   </>
@@ -530,13 +530,13 @@ export default function FAQPage() {
                 question="Where can I find official updates & research?"
                 answer={
                   <div className="flex flex-wrap gap-3">
-                    <Link href="/press-media" className="text-[#FF2D2D] font-medium hover:underline">
+                    <Link href="/press-media" className="text-[#C50000] font-medium hover:underline">
                       Press & Media
                     </Link>
-                    <Link href="/whitepaper" className="text-[#FF2D2D] font-medium hover:underline">
+                    <Link href="/whitepaper" className="text-[#C50000] font-medium hover:underline">
                       Whitepaper
                     </Link>
-                    <Link href="/blog" className="text-[#FF2D2D] font-medium hover:underline">
+                    <Link href="/blog" className="text-[#C50000] font-medium hover:underline">
                       Blog →
                     </Link>
                   </div>
@@ -547,7 +547,7 @@ export default function FAQPage() {
                 answer={
                   <>
                     Yes, regulatory alignment, safety-first approach. We integrate with certified operators.{' '}
-                    <Link href="/legal-disclaimer" className="text-[#FF2D2D] font-medium hover:underline">
+                    <Link href="/legal-disclaimer" className="text-[#C50000] font-medium hover:underline">
                       Legal terms →
                     </Link>
                   </>
@@ -572,7 +572,7 @@ export default function FAQPage() {
                 <input
                   type="text"
                   required
-                  className="w-full bg-[#111] border border-[#2A2A2A] rounded-xl p-3 text-[#FAFAFA] focus:border-[#FF2D2D] outline-none transition-colors"
+                  className="w-full bg-[#111] border border-[#2A2A2A] rounded-xl p-3 text-[#FAFAFA] focus:border-[#C50000] outline-none transition-colors"
                 />
               </div>
               <div>
@@ -580,21 +580,21 @@ export default function FAQPage() {
                 <input
                   type="email"
                   required
-                  className="w-full bg-[#111] border border-[#2A2A2A] rounded-xl p-3 text-[#FAFAFA] focus:border-[#FF2D2D] outline-none transition-colors"
+                  className="w-full bg-[#111] border border-[#2A2A2A] rounded-xl p-3 text-[#FAFAFA] focus:border-[#C50000] outline-none transition-colors"
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium text-[#D1D5DB] mb-1">Phone Number</label>
                 <input
                   type="tel"
-                  className="w-full bg-[#111] border border-[#2A2A2A] rounded-xl p-3 text-[#FAFAFA] focus:border-[#FF2D2D] outline-none transition-colors"
+                  className="w-full bg-[#111] border border-[#2A2A2A] rounded-xl p-3 text-[#FAFAFA] focus:border-[#C50000] outline-none transition-colors"
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium text-[#D1D5DB] mb-1">Category *</label>
                 <select
                   required
-                  className="w-full bg-[#111] border border-[#2A2A2A] rounded-xl p-3 text-[#FAFAFA] focus:border-[#FF2D2D] outline-none transition-colors"
+                  className="w-full bg-[#111] border border-[#2A2A2A] rounded-xl p-3 text-[#FAFAFA] focus:border-[#C50000] outline-none transition-colors"
                 >
                   <option value="General Inquiry">General Inquiry</option>
                   <option value="Partnership">Partnership</option>
@@ -607,14 +607,14 @@ export default function FAQPage() {
                 <label className="block text-sm font-medium text-[#D1D5DB] mb-1">Message</label>
                 <textarea
                   rows={4}
-                  className="w-full bg-[#111] border border-[#2A2A2A] rounded-xl p-3 text-[#FAFAFA] focus:border-[#FF2D2D] outline-none transition-colors"
+                  className="w-full bg-[#111] border border-[#2A2A2A] rounded-xl p-3 text-[#FAFAFA] focus:border-[#C50000] outline-none transition-colors"
                 />
               </div>
               <div className="flex items-start gap-2">
-                <input type="checkbox" required className="mt-1 accent-[#FF2D2D]" />
+                <input type="checkbox" required className="mt-1 accent-[#C50000]" />
                 <span className="text-sm text-[#A1A1AA]">
                   I agree to the{' '}
-                  <Link href="/legal-disclaimer" className="text-[#FF2D2D] hover:underline">
+                  <Link href="/legal-disclaimer" className="text-[#C50000] hover:underline">
                     Terms & Privacy Policy
                   </Link>{' '}
                   *
@@ -634,7 +634,7 @@ export default function FAQPage() {
               <strong className="text-[#D1D5DB]">Important Disclaimer:</strong> MyOnlineJet is currently in the development
               and ecosystem-building phase. All services, partnerships, and offerings are subject to regulatory approvals,
               infrastructure readiness, and strategic alignment. For full details:{' '}
-              <Link href="/legal-disclaimer" className="text-[#FF2D2D] font-semibold hover:underline">
+              <Link href="/legal-disclaimer" className="text-[#C50000] font-semibold hover:underline">
                 Legal Disclaimer Page →
               </Link>
             </span>

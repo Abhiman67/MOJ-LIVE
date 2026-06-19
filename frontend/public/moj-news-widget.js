@@ -46,10 +46,10 @@
                     }
                   </div>
                   <div class="p-6">
-                    <div class="mb-2 text-xs font-semibold uppercase tracking-wider text-[#FF4444]">AAM News</div>
+                    <div class="mb-2 text-xs font-semibold uppercase tracking-wider text-[#C50000]">AAM News</div>
                     <h3 class="mb-2 font-display text-xl text-white line-clamp-2">${title}</h3>
                     <p class="mb-4 text-sm text-gray-500 line-clamp-2">${excerpt}${excerpt ? '...' : ''}</p>
-                    <a href="${link}" target="_blank" rel="noreferrer noopener" class="inline-flex items-center text-sm font-medium text-[#FF4444] transition-colors hover:text-[#FF6666]">
+                    <a href="${link}" target="_blank" rel="noreferrer noopener" class="inline-flex items-center text-sm font-medium text-[#C50000] transition-colors hover:text-[#FF6666]">
                       Read more <i class="fas fa-arrow-right ml-2 text-xs"></i>
                     </a>
                   </div>
@@ -61,7 +61,7 @@
         .catch(() => {
           if (loader) {
             loader.innerHTML =
-              'Unable to load news. <a href="https://news.myonlinejet.com" class="text-[#FF4444]">Visit our news portal</a>'
+              'Unable to load news. <a href="https://news.myonlinejet.com" class="text-[#C50000]">Visit our news portal</a>'
           }
         })
     }

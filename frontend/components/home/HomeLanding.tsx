@@ -11,7 +11,7 @@ type ModalId = 'advisor-modal' | 'career-modal' | null
 const visionCards = [
   {
     className: 'bento-item bento-item-large reveal',
-    iconClass: 'fas fa-city text-xl sm:text-3xl text-[#FF4444]',
+    iconClass: 'fas fa-city text-xl sm:text-3xl text-[#C50000]',
     iconWrapClass: 'w-12 h-12 rounded-xl sm:w-16 sm:h-16 sm:rounded-2xl bg-[#C50000]/10 flex items-center justify-center mb-4 border border-[#C50000]/20',
     title: 'Urban Integration',
     description:
@@ -444,7 +444,7 @@ export function HomeLanding() {
               <div className="glass absolute -bottom-3 -left-3 z-20 rounded-lg px-3 py-2 float-medium sm:-bottom-4 sm:-left-4 sm:rounded-xl sm:px-4 sm:py-3" style={{ animationDelay: '1s' }}>
                 <div className="flex items-center gap-2 sm:gap-3">
                   <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#C50000]/20 sm:h-8 sm:w-8">
-                    <i className="fas fa-satellite-dish text-[10px] text-[#FF4444] sm:text-xs" />
+                    <i className="fas fa-satellite-dish text-[10px] text-[#C50000] sm:text-xs" />
                   </div>
                   <div>
                     <p className="text-[10px] font-semibold text-white sm:text-xs">AI Traffic Control</p>
@@ -613,7 +613,7 @@ export function HomeLanding() {
               {advisoryChecks.map((item) => (
                 <div key={item} className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/5 p-3 sm:gap-4 sm:p-4">
                   <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#C50000]/10 sm:h-10 sm:w-10">
-                    <i className="fas fa-check text-xs text-[#FF4444] sm:text-sm" />
+                    <i className="fas fa-check text-xs text-[#C50000] sm:text-sm" />
                   </div>
                   <span className="pt-1 text-xs text-gray-300 sm:pt-2 sm:text-sm">{item}</span>
                 </div>
@@ -640,7 +640,7 @@ export function HomeLanding() {
                           : 'border-[#C50000]/20 bg-[#C50000]/10'
                   }`}
                 >
-                  <i className={`${card.icon} text-xl sm:text-3xl ${card.tone === 'blue' ? 'text-blue-400' : card.tone === 'yellow' ? 'text-yellow-400' : card.tone === 'purple' ? 'text-purple-400' : 'text-[#FF4444]'}`} />
+                  <i className={`${card.icon} text-xl sm:text-3xl ${card.tone === 'blue' ? 'text-blue-400' : card.tone === 'yellow' ? 'text-yellow-400' : card.tone === 'purple' ? 'text-purple-400' : 'text-[#C50000]'}`} />
                 </div>
                 <h4 className="mb-1 font-display text-base text-white sm:mb-2 sm:text-lg">{card.title}</h4>
                 <p className="text-xs text-gray-500 sm:text-sm">{card.subtitle}</p>
@@ -685,7 +685,7 @@ export function HomeLanding() {
           <div className="spotlight-card mb-10 border-l-4 border-l-[#C50000] p-5 sm:p-8 lg:p-12 reveal">
             <div className="mb-6 flex flex-col items-start gap-4 sm:mb-8 sm:flex-row sm:gap-6">
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#C50000]/20 bg-[#C50000]/10 sm:h-14 sm:w-14 sm:rounded-2xl">
-                <i className="fas fa-bullhorn text-base text-[#FF4444] sm:text-xl" />
+                <i className="fas fa-bullhorn text-base text-[#C50000] sm:text-xl" />
               </div>
               <div>
                 <h3 className="mb-2 font-display text-lg text-white sm:text-2xl">Career Opportunities Notice</h3>
@@ -698,7 +698,7 @@ export function HomeLanding() {
             <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
               {careerHighlights.map((item) => (
                 <div key={item} className="flex items-start gap-2 rounded-xl bg-white/5 p-3 sm:gap-3 sm:p-4">
-                  <i className="fas fa-check mt-0.5 text-xs text-[#FF4444] sm:mt-1 sm:text-sm" />
+                  <i className="fas fa-check mt-0.5 text-xs text-[#C50000] sm:mt-1 sm:text-sm" />
                   <span className="text-xs text-gray-300 sm:text-sm">{item}</span>
                 </div>
               ))}
@@ -748,7 +748,7 @@ export function HomeLanding() {
                 </div>
                 <h4 className="mb-3 font-display text-base text-white sm:mb-4 sm:text-xl">{item.title}</h4>
                 <p className="mb-4 text-xs leading-relaxed text-gray-400 sm:mb-6 sm:text-sm">{item.description}</p>
-                <div className="mt-auto text-xs font-medium text-[#FF4444] sm:text-sm">FUTURE OPENINGS</div>
+                <div className="mt-auto text-xs font-medium text-[#C50000] sm:text-sm">FUTURE OPENINGS</div>
               </div>
             ))}
           </div>
@@ -974,15 +974,15 @@ export function HomeLanding() {
                     <p className="mb-2 text-white font-medium">Recruitment Process:</p>
                     <div className="space-y-1 sm:space-y-2">
                       <div className="flex items-start gap-2">
-                        <i className="fas fa-info-circle mt-0.5 text-[10px] text-[#FF4444] sm:mt-1 sm:text-xs" />
+                        <i className="fas fa-info-circle mt-0.5 text-[10px] text-[#C50000] sm:mt-1 sm:text-xs" />
                         <span>All positions will be formally advertised when available</span>
                       </div>
                       <div className="flex items-start gap-2">
-                        <i className="fas fa-info-circle mt-0.5 text-[10px] text-[#FF4444] sm:mt-1 sm:text-xs" />
+                        <i className="fas fa-info-circle mt-0.5 text-[10px] text-[#C50000] sm:mt-1 sm:text-xs" />
                         <span>Selection will follow transparent, merit-based procedures</span>
                       </div>
                       <div className="flex items-start gap-2">
-                        <i className="fas fa-info-circle mt-0.5 text-[10px] text-[#FF4444] sm:mt-1 sm:text-xs" />
+                        <i className="fas fa-info-circle mt-0.5 text-[10px] text-[#C50000] sm:mt-1 sm:text-xs" />
                         <span>Registered candidates will receive notifications of relevant openings</span>
                       </div>
                     </div>

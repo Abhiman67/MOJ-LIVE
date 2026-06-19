@@ -74,13 +74,13 @@ const styles = `
   }
   .eco-glow-orb-1 {
     width: 400px; height: 400px;
-    background: #FF2D2D;
+    background: #C50000;
     top: -100px;
     right: -100px;
   }
   .eco-glow-orb-2 {
     width: 300px; height: 300px;
-    background: #FF4444;
+    background: #C50000;
     bottom: 20%;
     left: -80px;
   }
@@ -88,7 +88,7 @@ const styles = `
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background-image: linear-gradient(rgba(255,45,45,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,45,45,0.03) 1px, transparent 1px);
+    background-image: linear-gradient(rgba(197,0,0,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(197,0,0,0.03) 1px, transparent 1px);
     background-size: 60px 60px;
     pointer-events: none;
     z-index: -1;
@@ -104,8 +104,8 @@ const styles = `
   }
   .eco-modern-card:hover {
     transform: translateY(-2px);
-    border-color: rgba(255,45,45,0.3);
-    box-shadow: 0 20px 40px rgba(255,45,45,0.08), 0 0 60px rgba(255,45,45,0.05);
+    border-color: rgba(197,0,0,0.3);
+    box-shadow: 0 20px 40px rgba(197,0,0,0.08), 0 0 60px rgba(197,0,0,0.05);
   }
   .eco-heading-primary {
     font-family: 'Space Grotesk', sans-serif;
@@ -123,19 +123,19 @@ const styles = `
     color: #FAFAFA;
   }
   .eco-flow-step {
-    background: rgba(255,45,45,0.05);
+    background: rgba(197,0,0,0.05);
     border-radius: 1rem;
     transition: all 0.2s;
     border: 1px solid #1F1F1F;
   }
   .eco-flow-step:hover {
-    background: rgba(255,45,45,0.1);
-    border-color: rgba(255,45,45,0.2);
+    background: rgba(197,0,0,0.1);
+    border-color: rgba(197,0,0,0.2);
   }
   .eco-badge {
     display: inline-block;
-    background: rgba(255,45,45,0.1);
-    color: #FF2D2D;
+    background: rgba(197,0,0,0.1);
+    color: #C50000;
     padding: 4px 14px;
     border-radius: 9999px;
     font-size: 12px;
@@ -146,11 +146,11 @@ const styles = `
   .eco-icon-box {
     width: 48px; height: 48px;
     border-radius: 12px;
-    background: rgba(255,45,45,0.1);
+    background: rgba(197,0,0,0.1);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #FF2D2D;
+    color: #C50000;
     font-size: 20px;
     flex-shrink: 0;
   }
@@ -215,7 +215,7 @@ export function EcosystemPage() {
           <div className="text-center mb-20 eco-reveal">
             <div className="eco-badge mb-6">Ecosystem Integration</div>
             <h1 className="eco-heading-primary mb-6">
-              Building India&apos;s Most Intelligent <br /><span className="text-[#FF2D2D]">Air Mobility Network</span>
+              Building India&apos;s Most Intelligent <br /><span className="text-[#C50000]">Air Mobility Network</span>
             </h1>
             <p className="text-xl text-[#A1A1AA] max-w-3xl mx-auto">
               MyOnlineJet is not just enabling air mobility&mdash;we are architecting a fully integrated, intelligent ecosystem where aviation, infrastructure, technology, and real-world services operate as one seamless network.
@@ -232,12 +232,12 @@ export function EcosystemPage() {
             <p className="text-[#A1A1AA] text-lg mb-4">The future of aviation will not be defined by aircraft alone&mdash;but by how effectively systems connect.</p>
             <div className="grid md:grid-cols-2 gap-12 mt-6">
               <div>
-                <p className="font-semibold text-[#FF2D2D] mb-2">Fragmented infrastructure leads to:</p>
+                <p className="font-semibold text-[#C50000] mb-2">Fragmented infrastructure leads to:</p>
                 <ul className="space-y-2 text-[#A1A1AA]">
-                  <li><i className="fas fa-times-circle text-[#FF2D2D] mr-2"></i> Inefficient operations</li>
-                  <li><i className="fas fa-times-circle text-[#FF2D2D] mr-2"></i> Low asset utilization</li>
-                  <li><i className="fas fa-times-circle text-[#FF2D2D] mr-2"></i> Poor user experience</li>
-                  <li><i className="fas fa-times-circle text-[#FF2D2D] mr-2"></i> Regulatory bottlenecks</li>
+                  <li><i className="fas fa-times-circle text-[#C50000] mr-2"></i> Inefficient operations</li>
+                  <li><i className="fas fa-times-circle text-[#C50000] mr-2"></i> Low asset utilization</li>
+                  <li><i className="fas fa-times-circle text-[#C50000] mr-2"></i> Poor user experience</li>
+                  <li><i className="fas fa-times-circle text-[#C50000] mr-2"></i> Regulatory bottlenecks</li>
                 </ul>
               </div>
               <div>
@@ -251,8 +251,8 @@ export function EcosystemPage() {
               </div>
             </div>
             <div className="mt-6 flex flex-wrap gap-4 text-sm">
-              <Link href="/vertiports" className="text-[#FF2D2D] font-medium hover:underline">&rarr; Explore vertiport infrastructure</Link>
-              <Link href="/advanced-air-mobility" className="text-[#FF2D2D] font-medium hover:underline">&rarr; Understand the aircraft layer</Link>
+              <Link href="/vertiports" className="text-[#C50000] font-medium hover:underline">&rarr; Explore vertiport infrastructure</Link>
+              <Link href="/advanced-air-mobility" className="text-[#C50000] font-medium hover:underline">&rarr; Understand the aircraft layer</Link>
             </div>
           </div>
 
@@ -265,19 +265,19 @@ export function EcosystemPage() {
             <p className="text-[#A1A1AA] text-center mb-6">Each vertiport, partner, aircraft, and service is designed to:</p>
             <div className="grid md:grid-cols-3 gap-6 text-center">
               <div className="p-4">
-                <i className="fas fa-share-alt text-3xl text-[#FF2D2D] mb-3"></i>
+                <i className="fas fa-share-alt text-3xl text-[#C50000] mb-3"></i>
                 <p className="font-semibold text-[#FAFAFA]">Share intelligence</p>
               </div>
               <div className="p-4">
-                <i className="fas fa-chart-line text-3xl text-[#FF2D2D] mb-3"></i>
+                <i className="fas fa-chart-line text-3xl text-[#C50000] mb-3"></i>
                 <p className="font-semibold text-[#FAFAFA]">Improve efficiency across the system</p>
               </div>
               <div className="p-4">
-                <i className="fas fa-globe text-3xl text-[#FF2D2D] mb-3"></i>
+                <i className="fas fa-globe text-3xl text-[#C50000] mb-3"></i>
                 <p className="font-semibold text-[#FAFAFA]">Contribute to network-wide optimization</p>
               </div>
             </div>
-            <p className="text-center text-[#52525B] mt-6">This creates a <strong className="text-[#FF2D2D]">network effect</strong>&mdash;where every addition increases the value of the entire ecosystem.</p>
+            <p className="text-center text-[#52525B] mt-6">This creates a <strong className="text-[#C50000]">network effect</strong>&mdash;where every addition increases the value of the entire ecosystem.</p>
           </div>
 
           {/* Core Layers of Ecosystem */}
@@ -286,55 +286,55 @@ export function EcosystemPage() {
           <div className="grid gap-6 mb-20">
             {/* Layer 1 */}
             <div className="eco-modern-card p-6 md:p-8 flex flex-col md:flex-row gap-6 items-start eco-reveal">
-              <div className="w-16 h-16 rounded-full bg-[rgba(255,45,45,0.1)] flex items-center justify-center shrink-0">
-                <i className="fas fa-building text-3xl text-[#FF2D2D]"></i>
+              <div className="w-16 h-16 rounded-full bg-[rgba(197,0,0,0.1)] flex items-center justify-center shrink-0">
+                <i className="fas fa-building text-3xl text-[#C50000]"></i>
               </div>
               <div>
                 <h3 className="text-2xl font-bold mb-2 text-[#FAFAFA]">1. Infrastructure Layer : Vertiports &amp; Ground Network</h3>
                 <p className="text-[#A1A1AA] mb-3">Our ecosystem begins with strategically placed vertiports integrated into hospitals, hotels &amp; luxury properties, business districts, tourism hubs, airports and multimodal transit points. Each vertiport is a connected node within a national network.</p>
                 <div className="flex gap-4">
-                  <Link href="/vertiports" className="text-[#FF2D2D] font-medium text-sm">Learn more on Vertiports &rarr;</Link>
-                  <Link href="/evtol-infrastructure" className="text-[#FF2D2D] font-medium text-sm">eVTOL Infrastructure &rarr;</Link>
+                  <Link href="/vertiports" className="text-[#C50000] font-medium text-sm">Learn more on Vertiports &rarr;</Link>
+                  <Link href="/evtol-infrastructure" className="text-[#C50000] font-medium text-sm">eVTOL Infrastructure &rarr;</Link>
                 </div>
               </div>
             </div>
             {/* Layer 2 */}
             <div className="eco-modern-card p-6 md:p-8 flex flex-col md:flex-row gap-6 items-start eco-reveal">
-              <div className="w-16 h-16 rounded-full bg-[rgba(255,45,45,0.1)] flex items-center justify-center shrink-0">
-                <i className="fas fa-fan text-3xl text-[#FF2D2D]"></i>
+              <div className="w-16 h-16 rounded-full bg-[rgba(197,0,0,0.1)] flex items-center justify-center shrink-0">
+                <i className="fas fa-fan text-3xl text-[#C50000]"></i>
               </div>
               <div>
                 <h3 className="text-2xl font-bold mb-2 text-[#FAFAFA]">2. Air Mobility Layer : eVTOL &amp; Advanced Aircraft</h3>
                 <p className="text-[#A1A1AA] mb-3">We integrate next-generation eVTOL aircraft to enable rapid intra-city movement, inter-city regional connectivity, emergency and medical transport, and premium time-critical mobility. Aircraft are dynamically managed within our ecosystem.</p>
-                <Link href="/advanced-air-mobility" className="text-[#FF2D2D] font-medium text-sm">Read more on Advanced Air Mobility &rarr;</Link>
+                <Link href="/advanced-air-mobility" className="text-[#C50000] font-medium text-sm">Read more on Advanced Air Mobility &rarr;</Link>
               </div>
             </div>
             {/* Layer 3 */}
             <div className="eco-modern-card p-6 md:p-8 flex flex-col md:flex-row gap-6 items-start eco-reveal">
-              <div className="w-16 h-16 rounded-full bg-[rgba(255,45,45,0.1)] flex items-center justify-center shrink-0">
-                <i className="fas fa-microchip text-3xl text-[#FF2D2D]"></i>
+              <div className="w-16 h-16 rounded-full bg-[rgba(197,0,0,0.1)] flex items-center justify-center shrink-0">
+                <i className="fas fa-microchip text-3xl text-[#C50000]"></i>
               </div>
               <div>
                 <h3 className="text-2xl font-bold mb-2 text-[#FAFAFA]">3. Digital Intelligence Layer</h3>
                 <p className="text-[#A1A1AA] mb-3">Real-time network orchestration, demand-supply optimization, predictive route planning, fleet and vertiport coordination, smart booking &mdash; this digital backbone transforms a static network into a living, intelligent system.</p>
-                <Link href="/technology" className="text-[#FF2D2D] font-medium text-sm">Explore Technology &rarr;</Link>
+                <Link href="/technology" className="text-[#C50000] font-medium text-sm">Explore Technology &rarr;</Link>
               </div>
             </div>
             {/* Layer 4 */}
             <div className="eco-modern-card p-6 md:p-8 flex flex-col md:flex-row gap-6 items-start eco-reveal">
-              <div className="w-16 h-16 rounded-full bg-[rgba(255,45,45,0.1)] flex items-center justify-center shrink-0">
-                <i className="fas fa-handshake text-3xl text-[#FF2D2D]"></i>
+              <div className="w-16 h-16 rounded-full bg-[rgba(197,0,0,0.1)] flex items-center justify-center shrink-0">
+                <i className="fas fa-handshake text-3xl text-[#C50000]"></i>
               </div>
               <div>
                 <h3 className="text-2xl font-bold mb-2 text-[#FAFAFA]">4. Partner Ecosystem Layer</h3>
                 <p className="text-[#A1A1AA] mb-3">Healthcare &rarr; Emergency access, organ transport. Hospitality &rarr; Premium guest mobility. Tourism &rarr; Destination connectivity. Real Estate &rarr; High-value infrastructure integration. Enterprise &amp; Corporates &rarr; Time-critical mobility. Every partner becomes a network contributor.</p>
-                <Link href="/partner-with-us" className="text-[#FF2D2D] font-medium text-sm">See collaboration models &rarr;</Link>
+                <Link href="/partner-with-us" className="text-[#C50000] font-medium text-sm">See collaboration models &rarr;</Link>
               </div>
             </div>
             {/* Layer 5 */}
             <div className="eco-modern-card p-6 md:p-8 flex flex-col md:flex-row gap-6 items-start eco-reveal">
-              <div className="w-16 h-16 rounded-full bg-[rgba(255,45,45,0.1)] flex items-center justify-center shrink-0">
-                <i className="fas fa-gavel text-3xl text-[#FF2D2D]"></i>
+              <div className="w-16 h-16 rounded-full bg-[rgba(197,0,0,0.1)] flex items-center justify-center shrink-0">
+                <i className="fas fa-gavel text-3xl text-[#C50000]"></i>
               </div>
               <div>
                 <h3 className="text-2xl font-bold mb-2 text-[#FAFAFA]">5. Regulatory &amp; Public Infrastructure Alignment</h3>
@@ -348,23 +348,23 @@ export function EcosystemPage() {
             <h2 className="eco-section-title text-center mb-8">How the Ecosystem Works</h2>
             <div className="grid md:grid-cols-5 gap-4 text-center">
               <div className="eco-flow-step p-4">
-                <span className="font-bold text-2xl text-[#FF2D2D]">1</span>
+                <span className="font-bold text-2xl text-[#C50000]">1</span>
                 <p className="text-sm mt-2 text-[#A1A1AA]">User books a trip through MyOnlineJet</p>
               </div>
               <div className="eco-flow-step p-4">
-                <span className="font-bold text-2xl text-[#FF2D2D]">2</span>
+                <span className="font-bold text-2xl text-[#C50000]">2</span>
                 <p className="text-sm mt-2 text-[#A1A1AA]">System identifies optimal routes, aircraft, vertiports</p>
               </div>
               <div className="eco-flow-step p-4">
-                <span className="font-bold text-2xl text-[#FF2D2D]">3</span>
+                <span className="font-bold text-2xl text-[#C50000]">3</span>
                 <p className="text-sm mt-2 text-[#A1A1AA]">Ground + air infrastructure dynamically allocated</p>
               </div>
               <div className="eco-flow-step p-4">
-                <span className="font-bold text-2xl text-[#FF2D2D]">4</span>
+                <span className="font-bold text-2xl text-[#C50000]">4</span>
                 <p className="text-sm mt-2 text-[#A1A1AA]">Partners integrated into journey</p>
               </div>
               <div className="eco-flow-step p-4">
-                <span className="font-bold text-2xl text-[#FF2D2D]">5</span>
+                <span className="font-bold text-2xl text-[#C50000]">5</span>
                 <p className="text-sm mt-2 text-[#A1A1AA]">Real-time coordination ensures seamless execution</p>
               </div>
             </div>
@@ -375,15 +375,15 @@ export function EcosystemPage() {
           {/* Network Effects + India-first */}
           <div className="grid md:grid-cols-2 gap-6 mb-20">
             <div className="eco-modern-card p-8 eco-reveal">
-              <i className="fas fa-chart-network text-4xl text-[#FF2D2D] mb-4"></i>
+              <i className="fas fa-chart-network text-4xl text-[#C50000] mb-4"></i>
               <h3 className="text-2xl font-bold mb-3 text-[#FAFAFA]">Network Effects: The True Power</h3>
               <p className="text-[#A1A1AA]">More vertiports &rarr; Greater coverage. More partners &rarr; Higher utility. More users &rarr; Better optimization. More data &rarr; Smarter operations. This creates a compounding advantage that is difficult to replicate.</p>
             </div>
             <div className="eco-modern-card p-8 eco-reveal">
-              <i className="fas fa-flag-checkered text-4xl text-[#FF2D2D] mb-4"></i>
+              <i className="fas fa-flag-checkered text-4xl text-[#C50000] mb-4"></i>
               <h3 className="text-2xl font-bold mb-3 text-[#FAFAFA]">India-First, Globally Scalable</h3>
               <p className="text-[#A1A1AA]">High-density urban challenges, diverse infrastructure conditions, rapidly growing demand. Once validated, the same model is designed to scale globally.</p>
-              <Link href="/company" className="inline-block mt-4 text-[#FF2D2D] font-semibold">Company Profile &rarr;</Link>
+              <Link href="/company" className="inline-block mt-4 text-[#C50000] font-semibold">Company Profile &rarr;</Link>
             </div>
           </div>
 
@@ -407,7 +407,7 @@ export function EcosystemPage() {
           {/* Closing Perspective */}
           <div className="mt-20 border-t border-[#1F1F1F] pt-10 text-center eco-reveal">
             <p className="text-xl text-[#A1A1AA] italic max-w-3xl mx-auto">The future of mobility will not belong to isolated players. It will belong to those who build connected ecosystems&mdash;where infrastructure, intelligence, and access converge. MyOnlineJet is building that future.</p>
-            <div className="mt-6 text-[#FF2D2D] font-semibold">#BuildingTheNextLayer</div>
+            <div className="mt-6 text-[#C50000] font-semibold">#BuildingTheNextLayer</div>
           </div>
         </div>
       </div>

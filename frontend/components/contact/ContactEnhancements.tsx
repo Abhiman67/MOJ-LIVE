@@ -79,12 +79,32 @@ export function ContactEnhancements() {
         form.reset()
         const advancedDiv = page.querySelector<HTMLElement>('#advancedBusinessFields')
         if (advancedDiv) advancedDiv.classList.add('hidden')
+        const fileNameSpan = page.querySelector<HTMLElement>('.file-upload-btn .file-name')
+        if (fileNameSpan) fileNameSpan.textContent = ''
         setTimeout(() => {
           msgDiv.classList.add('hidden')
         }, 8000)
       }
       form.addEventListener('submit', handleSubmit)
       return () => form.removeEventListener('submit', handleSubmit)
+    }
+    return undefined
+  }, [])
+
+  useEffect(() => {
+    const page = document.querySelector('.contact-page')
+    if (!page) return
+
+    // File input - show selected file name
+    const fileInput = page.querySelector<HTMLInputElement>('#fileAttachment')
+    const fileNameSpan = page.querySelector<HTMLElement>('.file-upload-btn .file-name')
+    if (fileInput && fileNameSpan) {
+      const handleFileChange = () => {
+        const file = fileInput.files?.[0]
+        fileNameSpan.textContent = file ? file.name : ''
+      }
+      fileInput.addEventListener('change', handleFileChange)
+      return () => fileInput.removeEventListener('change', handleFileChange)
     }
     return undefined
   }, [])

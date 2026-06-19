@@ -134,13 +134,13 @@ export default function ContactPage() {
           <div className="text-center mb-20 reveal">
             <div className="badge mb-5">Engage With Intent</div>
             <h1 className="heading-hero mb-5">
-              Let&apos;s Build the Future <br />of <span className="text-[#FF2D2D]">Air Mobility, Together</span>
+              Let&apos;s Build the Future <br />of <span className="text-[#C50000]">Air Mobility, Together</span>
             </h1>
             <p className="text-xl text-text-secondary max-w-3xl mx-auto">
               At MyOnlineJet, we are shaping the next era of aviation, where Advanced Air Mobility (AAM), intelligent vertiport networks, and seamless urban air transportation redefine how the world moves.<br />
               Whether you are a strategic partner, investor, infrastructure provider, technology innovator, or early adopter, we are open to meaningful conversations that align with our long-term vision.
             </p>
-            <p className="text-[#FF2D2D] font-medium mt-4">We don&apos;t just respond, we engage with intent.</p>
+            <p className="text-[#C50000] font-medium mt-4">We don&apos;t just respond, we engage with intent.</p>
           </div>
 
           {/* Two column layout: form + info */}
@@ -149,7 +149,7 @@ export default function ContactPage() {
             <div className="lg:col-span-2">
               <div className="glass-card p-6 md:p-8 reveal">
                 <h2 className="heading-card mb-2 flex items-center gap-2">
-                  <i className="fas fa-pen-alt text-[#FF2D2D]" /> Contact Form
+                  <i className="fas fa-pen-alt text-[#C50000]" /> Contact Form
                 </h2>
                 <p className="text-text-muted text-sm mb-6 border-b border-border-subtle pb-3">
                   Primary mode of communication: all submissions are reviewed by the relevant team.
@@ -158,16 +158,16 @@ export default function ContactPage() {
                 <form id="enterpriseContactForm" action="#" method="POST">
                   {/* Basic Information */}
                   <div className="mb-8">
-                    <h3 className="font-bold text-lg mb-4 text-text-primary border-l-4 border-[#FF2D2D] pl-3 font-['Space_Grotesk']">
+                    <h3 className="font-bold text-lg mb-4 text-text-primary border-l-4 border-[#C50000] pl-3 font-['Space_Grotesk']">
                       Basic Information
                     </h3>
                     <div className="grid md:grid-cols-2 gap-5">
                       <div>
-                        <label className="block text-sm font-semibold mb-1 text-text-secondary">Full Name <span className="text-[#FF2D2D]">*</span></label>
+                        <label className="block text-sm font-semibold mb-1 text-text-secondary">Full Name <span className="text-[#C50000]">*</span></label>
                         <input type="text" name="fullName" required className="form-input" />
                       </div>
                       <div>
-                        <label className="block text-sm font-semibold mb-1 text-text-secondary">Email Address <span className="text-[#FF2D2D]">*</span></label>
+                        <label className="block text-sm font-semibold mb-1 text-text-secondary">Email Address <span className="text-[#C50000]">*</span></label>
                         <input type="email" name="email" required className="form-input" />
                       </div>
                       <div>
@@ -187,12 +187,12 @@ export default function ContactPage() {
 
                   {/* Inquiry Details */}
                   <div className="mb-8">
-                    <h3 className="font-bold text-lg mb-4 text-text-primary border-l-4 border-[#FF2D2D] pl-3 font-['Space_Grotesk']">
+                    <h3 className="font-bold text-lg mb-4 text-text-primary border-l-4 border-[#C50000] pl-3 font-['Space_Grotesk']">
                       Inquiry Details
                     </h3>
                     <div className="grid md:grid-cols-2 gap-5">
                       <div>
-                        <label className="block text-sm font-semibold mb-1 text-text-secondary">Inquiry Type <span className="text-[#FF2D2D]">*</span></label>
+                        <label className="block text-sm font-semibold mb-1 text-text-secondary">Inquiry Type <span className="text-[#C50000]">*</span></label>
                         <select id="inquiryType" name="inquiryType" required className="form-select">
                           <option value="">Select one</option>
                           <option value="partnerships">Partnerships</option>
@@ -206,19 +206,19 @@ export default function ContactPage() {
                         </select>
                       </div>
                       <div>
-                        <label className="block text-sm font-semibold mb-1 text-text-secondary">Subject <span className="text-[#FF2D2D]">*</span></label>
+                        <label className="block text-sm font-semibold mb-1 text-text-secondary">Subject <span className="text-[#C50000]">*</span></label>
                         <input type="text" name="subject" required className="form-input" />
                       </div>
                     </div>
                     <div className="mt-5">
-                      <label className="block text-sm font-semibold mb-1 text-text-secondary">Message <span className="text-[#FF2D2D]">*</span></label>
+                      <label className="block text-sm font-semibold mb-1 text-text-secondary">Message <span className="text-[#C50000]">*</span></label>
                       <textarea name="message" rows={5} required className="form-textarea" placeholder="Please describe your intent clearly. Relevant details help us respond faster." />
                     </div>
                   </div>
 
                   {/* Advanced Inputs (conditional) */}
                   <div id="advancedBusinessFields" className="mb-8 conditional-group hidden">
-                    <h3 className="font-bold text-lg mb-4 text-text-primary border-l-4 border-[#FF2D2D] pl-3 font-['Space_Grotesk']">
+                    <h3 className="font-bold text-lg mb-4 text-text-primary border-l-4 border-[#C50000] pl-3 font-['Space_Grotesk']">
                       Advanced Inputs (For Business / Partners / Investors)
                     </h3>
                     <div className="grid md:grid-cols-2 gap-5">
@@ -248,19 +248,26 @@ export default function ContactPage() {
                     </div>
                     <div className="mt-4">
                       <label className="block text-sm font-semibold mb-1 text-text-secondary">Attachments (Optional)</label>
-                      <input type="file" name="attachment" className="form-input text-text-muted" accept=".pdf,.docx,.pptx" />
+                      <div className="relative">
+                        <input type="file" name="attachment" id="fileAttachment" className="hidden" accept=".pdf,.docx,.pptx" />
+                        <label htmlFor="fileAttachment" className="file-upload-btn">
+                          <i className="fas fa-cloud-upload-alt mr-2" />
+                          <span>Choose File</span>
+                          <span className="file-name text-text-muted ml-2 truncate max-w-[200px]"></span>
+                        </label>
+                      </div>
                     </div>
                   </div>
 
                   {/* Consent & Privacy */}
                   <div className="space-y-3 mb-8">
                     <label className="flex items-center gap-2 cursor-pointer">
-                      <input type="checkbox" required className="w-4 h-4 accent-[#FF2D2D] rounded" />
+                      <input type="checkbox" required className="w-4 h-4 accent-[#C50000] rounded" />
                       <span className="text-sm text-text-secondary">
                         I agree to the{' '}
-                        <Link href="/privacy-policy" className="text-[#FF2D2D] underline hover:text-[#FF4444]">Privacy Policy</Link>
+                        <Link href="/privacy-policy" className="text-[#C50000] underline hover:text-[#C50000]">Privacy Policy</Link>
                         {' '}and{' '}
-                        <Link href="/terms-conditions" className="text-[#FF2D2D] underline hover:text-[#FF4444]">Terms & Conditions</Link>.
+                        <Link href="/terms-conditions" className="text-[#C50000] underline hover:text-[#C50000]">Terms & Conditions</Link>.
                       </span>
                     </label>
                   </div>
@@ -277,16 +284,16 @@ export default function ContactPage() {
               {/* Direct Communication Section */}
               <div className="glass-card p-6 mt-8 reveal">
                 <h3 className="heading-card mb-3">
-                  <i className="fas fa-envelope-open-text text-[#FF2D2D] mr-2" /> Direct Communication
+                  <i className="fas fa-envelope-open-text text-[#C50000] mr-2" /> Direct Communication
                 </h3>
                 <p className="text-text-secondary mb-4">
                   For all categories, you may also reach us directly (form submissions prioritized):
                 </p>
                 <div className="grid sm:grid-cols-2 gap-3 text-sm">
                   <div className="flex items-center gap-2">
-                    <i className="fas fa-handshake text-[#FF2D2D] w-5" />
+                    <i className="fas fa-handshake text-[#C50000] w-5" />
                     <span className="text-text-secondary">Contact:</span>{' '}
-                    <a href="mailto:contact@myonlinejet.com" className="text-[#FF2D2D] hover:text-[#FF4444] break-all">
+                    <a href="mailto:contact@myonlinejet.com" className="text-[#C50000] hover:text-[#C50000] break-all">
                       contact@myonlinejet.com
                     </a>
                   </div>
@@ -310,16 +317,16 @@ export default function ContactPage() {
                 <div className="icon-box mb-3"><i className="fas fa-compass" /></div>
                 <h3 className="heading-card mb-3">Explore More</h3>
                 <ul className="space-y-2 text-sm">
-                  <li><a href="/vision-mission" className="text-text-secondary hover:text-[#FF2D2D] flex items-center gap-1 transition-colors">→ Vision & Mission</a></li>
-                  <li><a href="/vertiports" className="text-text-secondary hover:text-[#FF2D2D] transition-colors">→ Vertiport Infrastructure Strategy</a></li>
-                  <li><a href="/technology" className="text-text-secondary hover:text-[#FF2D2D] transition-colors">→ Technology Stack</a></li>
-                  <li><a href="/partners" className="text-text-secondary hover:text-[#FF2D2D] transition-colors">→ Partner With Us</a></li>
-                  <li><a href="/investors" className="text-text-secondary hover:text-[#FF2D2D] transition-colors">→ Investor Relations</a></li>
-                  <li><a href="/early-access" className="text-text-secondary hover:text-[#FF2D2D] transition-colors">→ Early Access Ecosystem</a></li>
+                  <li><a href="/vision-mission" className="text-text-secondary hover:text-[#C50000] flex items-center gap-1 transition-colors">→ Vision & Mission</a></li>
+                  <li><a href="/vertiports" className="text-text-secondary hover:text-[#C50000] transition-colors">→ Vertiport Infrastructure Strategy</a></li>
+                  <li><a href="/technology" className="text-text-secondary hover:text-[#C50000] transition-colors">→ Technology Stack</a></li>
+                  <li><a href="/partners" className="text-text-secondary hover:text-[#C50000] transition-colors">→ Partner With Us</a></li>
+                  <li><a href="/investors" className="text-text-secondary hover:text-[#C50000] transition-colors">→ Investor Relations</a></li>
+                  <li><a href="/early-access" className="text-text-secondary hover:text-[#C50000] transition-colors">→ Early Access Ecosystem</a></li>
                 </ul>
               </div>
-              <div className="glass-card p-6 border-l-4 border-[#FF2D2D] bg-[#FF2D2D]/5 reveal">
-                <p className="text-sm font-semibold uppercase tracking-wide text-[#FF2D2D]">Global Outlook, Local Execution</p>
+              <div className="glass-card p-6 border-l-4 border-[#C50000] bg-[#C50000]/5 reveal">
+                <p className="text-sm font-semibold uppercase tracking-wide text-[#C50000]">Global Outlook, Local Execution</p>
                 <p className="text-xs text-text-secondary mt-2">
                   India-first focus, built with global mindset. Actively exploring urban air corridors, smart city networks, and aviation tech ecosystems.
                 </p>
@@ -375,9 +382,9 @@ export default function ContactPage() {
               Submission of this form does not constitute any contractual obligation. MyOnlineJet reserves the right to respond selectively based on relevance and alignment. Please do not share confidential or proprietary information unless formally requested under a defined agreement.
             </p>
             <div className="flex justify-center gap-6 mt-4 text-xs">
-              <a href="/legal-disclaimer" className="hover:text-[#FF2D2D] transition-colors">Legal Disclaimer</a> |
-              <a href="/privacy-policy" className="hover:text-[#FF2D2D] transition-colors">Privacy Policy</a> |
-              <a href="/terms-conditions" className="hover:text-[#FF2D2D] transition-colors">Terms of Service</a>
+              <a href="/legal-disclaimer" className="hover:text-[#C50000] transition-colors">Legal Disclaimer</a> |
+              <a href="/privacy-policy" className="hover:text-[#C50000] transition-colors">Privacy Policy</a> |
+              <a href="/terms-conditions" className="hover:text-[#C50000] transition-colors">Terms of Service</a>
             </div>
             <p className="mt-6 italic text-text-secondary">
               If you&apos;re here, you&apos;re likely thinking ahead. So are we. Let&apos;s connect, only if you&apos;re serious about building something that actually matters at scale.
@@ -398,28 +405,28 @@ export default function ContactPage() {
         .contact-page .glow-orb-1 {
           width: 400px;
           height: 400px;
-          background: rgba(255, 45, 45, 0.08);
+          background: rgba(197, 0, 0, 0.08);
           top: -100px;
           right: -100px;
         }
         .contact-page .glow-orb-2 {
           width: 300px;
           height: 300px;
-          background: rgba(255, 45, 45, 0.05);
+          background: rgba(197, 0, 0, 0.05);
           bottom: 20%;
           left: -100px;
         }
         .contact-page .glow-orb-3 {
           width: 250px;
           height: 250px;
-          background: rgba(255, 45, 45, 0.06);
+          background: rgba(197, 0, 0, 0.06);
           top: 50%;
           right: 10%;
         }
         .contact-page .badge {
           display: inline-block;
-          background: rgba(255, 45, 45, 0.1);
-          color: #FF2D2D;
+          background: rgba(197, 0, 0, 0.1);
+          color: #C50000;
           padding: 4px 12px;
           border-radius: 999px;
           font-size: 12px;
@@ -450,21 +457,50 @@ export default function ContactPage() {
         .contact-page .icon-box {
           width: 48px;
           height: 48px;
-          background: rgba(255, 45, 45, 0.1);
+          background: rgba(197, 0, 0, 0.1);
           border-radius: 12px;
           display: flex;
           align-items: center;
           justify-content: center;
-          color: #FF2D2D;
+          color: #C50000;
           font-size: 1.2rem;
         }
         .contact-page .conditional-group {
           transition: all 0.2s ease;
         }
         .contact-page .glass-card:hover {
-          border-color: rgba(255, 45, 45, 0.3);
+          border-color: rgba(197, 0, 0, 0.3);
           transform: translateY(-2px);
-          box-shadow: 0 8px 32px rgba(255, 45, 45, 0.08), 0 0 0 1px rgba(255, 45, 45, 0.1);
+          box-shadow: 0 8px 32px rgba(197, 0, 0, 0.08), 0 0 0 1px rgba(197, 0, 0, 0.1);
+        }
+        .contact-page .file-upload-btn {
+          display: inline-flex;
+          align-items: center;
+          padding: 10px 20px;
+          background: linear-gradient(135deg, #C50000 0%, #a00000 100%);
+          color: #fff;
+          border-radius: 10px;
+          font-size: 14px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          border: none;
+          box-shadow: 0 4px 15px rgba(197, 0, 0, 0.3);
+          font-family: 'Inter', sans-serif;
+          width: 100%;
+          justify-content: center;
+        }
+        .contact-page .file-upload-btn:hover {
+          background: linear-gradient(135deg, #d40000 0%, #b00000 100%);
+          box-shadow: 0 6px 25px rgba(197, 0, 0, 0.4);
+          transform: translateY(-1px);
+        }
+        .contact-page .file-upload-btn:active {
+          transform: translateY(0);
+          box-shadow: 0 2px 10px rgba(197, 0, 0, 0.3);
+        }
+        .file-upload-btn i {
+          font-size: 16px;
         }
         @media (max-width: 768px) {
           .contact-page .heading-hero { font-size: clamp(1.8rem, 7vw, 2.5rem); }

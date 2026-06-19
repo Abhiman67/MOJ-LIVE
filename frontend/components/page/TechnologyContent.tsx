@@ -14,8 +14,8 @@ const pageStyles = `
     --text-muted: #52525B;
     --border-subtle: #1F1F1F;
     --border-medium: #2A2A2A;
-    --brand-red: #FF2D2D;
-    --brand-red-glow: #FF4444;
+    --brand-red: #C50000;
+    --brand-red-glow: #C50000;
     --success: #22C55E;
   }
 
@@ -38,17 +38,17 @@ const pageStyles = `
   }
   .glow-orb-1 {
     width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(255,45,45,0.08), transparent 70%);
+    background: radial-gradient(circle, rgba(197,0,0,0.08), transparent 70%);
     top: -10%; right: -10%;
   }
   .glow-orb-2 {
     width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(255,45,45,0.06), transparent 70%);
+    background: radial-gradient(circle, rgba(197,0,0,0.06), transparent 70%);
     bottom: 10%; left: -10%;
   }
   .glow-orb-3 {
     width: 300px; height: 300px;
-    background: radial-gradient(circle, rgba(255,45,45,0.04), transparent 70%);
+    background: radial-gradient(circle, rgba(197,0,0,0.04), transparent 70%);
     top: 40%; left: 50%;
     transform: translateX(-50%);
   }
@@ -58,8 +58,8 @@ const pageStyles = `
     top: 0; left: 0;
     width: 100%; height: 100%;
     background-image:
-      linear-gradient(rgba(255,45,45,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,45,45,0.03) 1px, transparent 1px);
+      linear-gradient(rgba(197,0,0,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(197,0,0,0.03) 1px, transparent 1px);
     background-size: 60px 60px;
     pointer-events: none;
     z-index: 1;
@@ -97,9 +97,9 @@ const pageStyles = `
     transition: all 0.4s cubic-bezier(0.2, 0, 0, 1);
   }
   .glass-card:hover {
-    border-color: rgba(255, 45, 45, 0.3);
+    border-color: rgba(197, 0, 0, 0.3);
     transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(255, 45, 45, 0.08), 0 0 0 1px rgba(255, 45, 45, 0.1);
+    box-shadow: 0 8px 32px rgba(197, 0, 0, 0.08), 0 0 0 1px rgba(197, 0, 0, 0.1);
   }
 
   .solid-card {
@@ -109,14 +109,14 @@ const pageStyles = `
     transition: all 0.4s cubic-bezier(0.2, 0, 0, 1);
   }
   .solid-card:hover {
-    border-color: rgba(255, 45, 45, 0.3);
+    border-color: rgba(197, 0, 0, 0.3);
     transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(255, 45, 45, 0.08);
+    box-shadow: 0 8px 32px rgba(197, 0, 0, 0.08);
   }
 
   .badge {
     display: inline-block;
-    background: rgba(255, 45, 45, 0.1);
+    background: rgba(197, 0, 0, 0.1);
     color: var(--brand-red);
     padding: 6px 16px;
     border-radius: 9999px;
@@ -130,7 +130,7 @@ const pageStyles = `
   .icon-box {
     width: 48px; height: 48px;
     display: flex; align-items: center; justify-content: center;
-    background: rgba(255, 45, 45, 0.1);
+    background: rgba(197, 0, 0, 0.1);
     border-radius: 12px;
     color: var(--brand-red);
     font-size: 1.25rem;
@@ -150,7 +150,7 @@ const pageStyles = `
     transition: all 0.3s ease;
   }
   .stat-card:hover {
-    border-color: rgba(255, 45, 45, 0.2);
+    border-color: rgba(197, 0, 0, 0.2);
   }
 
   .pillar-card {
@@ -214,7 +214,7 @@ const pageStyles = `
   .btn-primary:hover::after { left: 100%; }
   .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 30px rgba(255, 45, 45, 0.4);
+    box-shadow: 0 0 30px rgba(197, 0, 0, 0.4);
   }
 
   .btn-secondary {

@@ -3,21 +3,21 @@ import { VertiportClient } from '@/components/vertiports/VertiportClient'
 
 const pageCss = `
 .vertiports-page{position:relative;overflow:hidden;min-height:100vh;background:#0A0A0A;color:#FAFAFA}
-.vertiport-glow-orb-1{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0;opacity:0.15;width:600px;height:600px;background:radial-gradient(circle,#FF2D2D 0%,transparent 70%);top:-200px;right:-100px}
-.vertiport-glow-orb-2{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0;opacity:0.15;width:500px;height:500px;background:radial-gradient(circle,#FF4444 0%,transparent 70%);bottom:10%;left:-150px}
-.vertiport-glow-orb-3{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0;opacity:0.08;width:400px;height:400px;background:radial-gradient(circle,#FF2D2D 0%,transparent 70%);top:50%;right:-100px}
-.vertiport-grid-pattern{position:fixed;inset:0;pointer-events:none;z-index:1;background-image:linear-gradient(rgba(255,45,45,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,45,45,0.03) 1px,transparent 1px);background-size:60px 60px}
+.vertiport-glow-orb-1{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0;opacity:0.15;width:600px;height:600px;background:radial-gradient(circle,#C50000 0%,transparent 70%);top:-200px;right:-100px}
+.vertiport-glow-orb-2{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0;opacity:0.15;width:500px;height:500px;background:radial-gradient(circle,#C50000 0%,transparent 70%);bottom:10%;left:-150px}
+.vertiport-glow-orb-3{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0;opacity:0.08;width:400px;height:400px;background:radial-gradient(circle,#C50000 0%,transparent 70%);top:50%;right:-100px}
+.vertiport-grid-pattern{position:fixed;inset:0;pointer-events:none;z-index:1;background-image:linear-gradient(rgba(197,0,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(197,0,0,0.03) 1px,transparent 1px);background-size:60px 60px}
 .vertiport-dark-section{background:#111111;border-radius:24px;border:1px solid #1F1F1F}
 .font-heading{font-family:'Space Grotesk',sans-serif}
 .font-body{font-family:'Inter',sans-serif}
-.badge-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(255,45,45,0.1);color:#FF2D2D;padding:6px 16px;border-radius:40px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;border:1px solid rgba(255,45,45,0.15)}
+.badge-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(197,0,0,0.1);color:#C50000;padding:6px 16px;border-radius:40px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;border:1px solid rgba(197,0,0,0.15)}
 .icon-box-lg{width:64px;height:64px;border-radius:16px}
 .icon-box-lg i{font-size:24px}
 .reveal{opacity:0;transform:translateY(30px);transition:opacity 0.8s ease,transform 0.8s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
-.text-brandRed{color:#FF2D2D}
-.text-brandRedGlow{color:#FF4444}
-.gradient-text{background:linear-gradient(135deg,#FAFAFA 0%,#FF2D2D 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.text-brandRed{color:#C50000}
+.text-brandRedGlow{color:#C50000}
+.gradient-text{background:linear-gradient(135deg,#FAFAFA 0%,#C50000 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 @media(max-width:768px){.vertiport-glow-orb-1{width:300px;height:300px;top:-100px}.vertiport-glow-orb-2{width:250px;height:250px}.vertiport-glow-orb-3{width:200px;height:200px}}
 @media(max-width:480px){.vertiports-page .hero-title{font-size:clamp(1.6rem,8vw,2rem)!important}.vertiports-page .section-title{font-size:clamp(1.2rem,5vw,1.5rem)!important}.vertiports-page .glass-card,.vertiports-page .vertiport-dark-section{padding:1rem!important;border-radius:12px}.vertiports-page .icon-box-lg{width:48px;height:48px}.vertiports-page .badge-pill{font-size:10px;padding:4px 10px}}
 @media(max-width:380px){.vertiports-page .hero-title{font-size:clamp(1.3rem,7vw,1.6rem)!important}.vertiports-page .section-title{font-size:clamp(1rem,4.5vw,1.2rem)!important}.vertiports-page .glass-card,.vertiports-page .vertiport-dark-section{padding:0.75rem!important;border-radius:10px}.vertiports-page .icon-box{width:32px;height:32px;font-size:14px;border-radius:8px}.vertiports-page .icon-box-lg{width:40px;height:40px}}
@@ -67,12 +67,12 @@ export default function VertiportsPage() {
           <p className="text-xl text-text-secondary max-w-3xl mx-auto font-body leading-relaxed">
             Urban air mobility will not scale because of aircraft alone. It will scale because of infrastructure that is intelligently designed, strategically located, and deeply integrated into the ecosystem.
           </p>
-          <div className="mt-10 flex flex-wrap justify-center gap-4">
-            <a href="/partner-with-us" className="btn-primary">
+          <div className="mt-10 flex flex-col sm:flex-row justify-center gap-3 sm:gap-5">
+            <a href="/partner-with-us" className="btn-primary inline-flex items-center justify-center gap-2.5 w-full sm:w-auto">
               <i className="fas fa-handshake" />
               Partner With Us
             </a>
-            <a href="/early-access" className="btn-secondary">
+            <a href="/early-access" className="btn-secondary inline-flex items-center justify-center gap-2.5 w-full sm:w-auto">
               <i className="fas fa-rocket" />
               Early Access
             </a>
@@ -385,12 +385,12 @@ export default function VertiportsPage() {
           <p className="text-text-secondary max-w-2xl mx-auto mb-8 font-body">
             If you own or manage high-potential locations — real estate, hotels, hospitals, infrastructure assets — this is the moment to be part of the network.
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <a href="/partner-with-us" className="btn-primary">
+          <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-5">
+            <a href="/partner-with-us" className="btn-primary inline-flex items-center justify-center gap-2.5 w-full sm:w-auto">
               <i className="fas fa-building" />
               Become a Partner
             </a>
-            <a href="/contact" className="btn-secondary">
+            <a href="/contact" className="btn-secondary inline-flex items-center justify-center gap-2.5 w-full sm:w-auto">
               Contact Infrastructure Team
             </a>
           </div>
@@ -405,12 +405,12 @@ export default function VertiportsPage() {
           <p className="text-text-secondary max-w-2xl mx-auto mb-8 font-body">
             We are onboarding strategic partners, early adopters, and infrastructure collaborators. Register now for priority updates and exclusive collaboration opportunities.
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <a href="/early-access" className="btn-primary">
+          <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-5">
+            <a href="/early-access" className="btn-primary inline-flex items-center justify-center gap-2.5 w-full sm:w-auto">
               <i className="fas fa-rocket" />
               Join Early Access
             </a>
-            <a href="/subscribe" className="btn-secondary">
+            <a href="/subscribe" className="btn-secondary inline-flex items-center justify-center gap-2.5 w-full sm:w-auto">
               <i className="fas fa-bell" />
               Subscribe for Updates
             </a>

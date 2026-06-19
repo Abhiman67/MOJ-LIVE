@@ -223,7 +223,7 @@ export default function ServicesPage() {
           </div>
 
           {/* 7. Early Access & Pre-Launch Programs */}
-          <div className="glass-card p-6 md:p-8 reveal" style={{ background: 'linear-gradient(135deg, rgba(20,20,20,0.6) 0%, rgba(255,45,45,0.05) 100%)' }}>
+          <div className="glass-card p-6 md:p-8 reveal" style={{ background: 'linear-gradient(135deg, rgba(20,20,20,0.6) 0%, rgba(197,0,0,0.05) 100%)' }}>
             <div className="flex items-center gap-3 mb-5">
               <div className="icon-box"><i className="fas fa-rocket" /></div>
               <div>

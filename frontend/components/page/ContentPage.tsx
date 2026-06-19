@@ -85,7 +85,7 @@ export function ContentPage({ data }: { data: ContentPageData }) {
                 {heroHighlights.map((item, index) => (
                   <div key={`${item.eyebrow}-${item.title}`} className="glass-card p-3 sm:p-4 text-left">
                     <div className="mb-2 flex items-center justify-between sm:mb-3">
-                      <span className="text-[10px] uppercase tracking-[0.18em] text-[#FF4444] sm:text-xs">{item.eyebrow}</span>
+                      <span className="text-[10px] uppercase tracking-[0.18em] text-[#C50000] sm:text-xs">{item.eyebrow}</span>
                       <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#C50000]/10 text-[10px] font-semibold text-white sm:h-8 sm:w-8 sm:text-sm">
                         0{index + 1}
                       </span>
@@ -100,13 +100,13 @@ export function ContentPage({ data }: { data: ContentPageData }) {
 
           <div className="lg:pl-4">
             <div className="glass-card p-3 sm:p-4 md:p-6">
-              <div className="relative overflow-hidden rounded-xl border border-border-subtle bg-[radial-gradient(circle_at_top,rgba(255,45,45,0.14),rgba(26,26,26,0.55)_50%,rgba(10,10,10,0.96)_100%)] p-3 sm:rounded-[1.5rem] sm:p-5 md:p-6">
+              <div className="relative overflow-hidden rounded-xl border border-border-subtle bg-[radial-gradient(circle_at_top,rgba(197,0,0,0.14),rgba(26,26,26,0.55)_50%,rgba(10,10,10,0.96)_100%)] p-3 sm:rounded-[1.5rem] sm:p-5 md:p-6">
                 <div className="mb-4 flex items-center justify-between sm:mb-6 md:mb-8">
                   <div className="min-w-0 flex-1">
                     <p className="text-[10px] uppercase tracking-[0.2em] text-text-muted sm:text-xs">At a glance</p>
                     <h2 className="mt-1 font-display text-base text-white sm:mt-2 sm:text-xl md:text-2xl truncate">Network Snapshot</h2>
                   </div>
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#C50000]/10 text-[#FF4444] sm:h-12 sm:w-12 sm:rounded-2xl">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#C50000]/10 text-[#C50000] sm:h-12 sm:w-12 sm:rounded-2xl">
                     <i className="fas fa-layer-group text-xs sm:text-xl" />
                   </div>
                 </div>
@@ -122,7 +122,7 @@ export function ContentPage({ data }: { data: ContentPageData }) {
                   ).map((item) => (
                     <div key={item.title} className="rounded-lg border border-border-subtle bg-surface-card p-2 sm:rounded-2xl sm:p-4">
                       <div className="flex items-start gap-2 sm:gap-4">
-                        <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#C50000]/10 text-[#FF4444] sm:mt-1 sm:h-10 sm:w-10">
+                        <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#C50000]/10 text-[#C50000] sm:mt-1 sm:h-10 sm:w-10">
                           <i className="fas fa-arrow-right text-[8px] sm:text-xs" />
                         </div>
                         <div className="min-w-0">
@@ -159,7 +159,7 @@ export function ContentPage({ data }: { data: ContentPageData }) {
               <div className="mt-4 grid gap-3 sm:mt-6 sm:gap-5 md:mt-8 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
                 {section.cards.map((card) => (
                   <article key={card.title} className="glass-card rounded-xl p-3 sm:rounded-[1.25rem] sm:p-5 md:p-6">
-                    <div className="mb-2 inline-flex h-8 w-8 items-center justify-center rounded-lg bg-[#C50000]/10 text-[#FF4444] sm:mb-4 sm:h-12 sm:w-12 sm:rounded-2xl">
+                    <div className="mb-2 inline-flex h-8 w-8 items-center justify-center rounded-lg bg-[#C50000]/10 text-[#C50000] sm:mb-4 sm:h-12 sm:w-12 sm:rounded-2xl">
                       <i className="fas fa-circle-notch text-[9px] sm:text-xs" />
                     </div>
                     <h3 className="text-sm font-semibold text-white sm:text-lg md:text-xl">
@@ -188,7 +188,7 @@ export function ContentPage({ data }: { data: ContentPageData }) {
                     key={bullet}
                     className="flex gap-2 rounded-lg border border-border-subtle bg-surface-card p-2 text-xs text-text-secondary sm:gap-3 sm:rounded-2xl sm:p-4 sm:text-sm"
                   >
-                    <span className="mt-0.5 text-[#FF4444] sm:mt-1 shrink-0">-</span>
+                    <span className="mt-0.5 text-[#C50000] sm:mt-1 shrink-0">-</span>
                     <span className="break-words">{bullet}</span>
                   </li>
                 ))}

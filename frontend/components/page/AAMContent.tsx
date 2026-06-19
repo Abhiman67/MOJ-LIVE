@@ -14,21 +14,21 @@ const styles = `
   .glow-orb-1 {
     width: 400px;
     height: 400px;
-    background: rgba(255, 45, 45, 0.08);
+    background: rgba(197, 0, 0, 0.08);
     top: -100px;
     right: -100px;
   }
   .glow-orb-2 {
     width: 300px;
     height: 300px;
-    background: rgba(255, 45, 45, 0.06);
+    background: rgba(197, 0, 0, 0.06);
     bottom: 20%;
     left: -100px;
   }
   .glow-orb-3 {
     width: 250px;
     height: 250px;
-    background: rgba(255, 45, 45, 0.05);
+    background: rgba(197, 0, 0, 0.05);
     top: 50%;
     right: 10%;
   }
@@ -63,8 +63,8 @@ const styles = `
     letter-spacing: -0.01em;
   }
   .badge-pill {
-    background: rgba(255, 45, 45, 0.1);
-    color: #FF2D2D;
+    background: rgba(197, 0, 0, 0.1);
+    color: #C50000;
     border-radius: 100px;
     padding: 0.4rem 1rem;
     font-weight: 600;
@@ -76,12 +76,12 @@ const styles = `
   .icon-box {
     width: 48px;
     height: 48px;
-    background: rgba(255, 45, 45, 0.1);
+    background: rgba(197, 0, 0, 0.1);
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #FF2D2D;
+    color: #C50000;
     font-size: 1.25rem;
     flex-shrink: 0;
   }
@@ -150,7 +150,7 @@ export function AAMContent() {
             <div className="badge-pill mb-6">The Next Mobility Layer</div>
             <h1 className="heading-primary mb-6">
               Advanced Air Mobility <br />
-              <span className="text-[#FF2D2D]">Redefining Movement. Engineering the Next Layer of Civilization.</span>
+              <span className="text-[#C50000]">Redefining Movement. Engineering the Next Layer of Civilization.</span>
             </h1>
             <p className="text-xl text-[#A1A1AA] max-w-3xl mx-auto">
               Advanced Air Mobility is not an upgrade to aviation. It is the emergence of an entirely new mobility layer above the roads, beyond congestion, independent of legacy constraints. At MyOnlineJet, we are designing, structuring, and enabling it at scale.
@@ -165,12 +165,12 @@ export function AAMContent() {
                 <h2 className="section-title mt-4 mb-5">What is Advanced Air Mobility?</h2>
                 <p className="text-[#A1A1AA] mb-4">Advanced Air Mobility (AAM) integrates next-generation electric aircraft, primarily eVTOL into urban, regional, and intercity networks. But most conversations limit AAM to aircraft innovation. That is incomplete.</p>
                 <p className="text-[#FAFAFA] font-medium">At MyOnlineJet, we define AAM as:</p>
-                <p className="text-[#A1A1AA] bg-[#111111] p-4 rounded-xl mt-2 italic border-l-4 border-[#FF2D2D]">A fully integrated mobility ecosystem combining eVTOL aircraft, vertiport infrastructure, airspace intelligence, AI orchestration, and multi-sector connectivity.</p>
+                <p className="text-[#A1A1AA] bg-[#111111] p-4 rounded-xl mt-2 italic border-l-4 border-[#C50000]">A fully integrated mobility ecosystem combining eVTOL aircraft, vertiport infrastructure, airspace intelligence, AI orchestration, and multi-sector connectivity.</p>
                 <div className="mt-5 space-y-2 text-sm text-[#A1A1AA]">
-                  <span className="inline-flex items-center gap-2 mr-4"><i className="fas fa-check-circle text-[#FF2D2D]" /> Urban air taxis</span>
-                  <span className="inline-flex items-center gap-2 mr-4"><i className="fas fa-check-circle text-[#FF2D2D]" /> Intercity corridors</span>
-                  <span className="inline-flex items-center gap-2 mr-4"><i className="fas fa-check-circle text-[#FF2D2D]" /> Medical logistics</span>
-                  <span className="inline-flex items-center gap-2"><i className="fas fa-check-circle text-[#FF2D2D]" /> Tourism &amp; premium mobility</span>
+                  <span className="inline-flex items-center gap-2 mr-4"><i className="fas fa-check-circle text-[#C50000]" /> Urban air taxis</span>
+                  <span className="inline-flex items-center gap-2 mr-4"><i className="fas fa-check-circle text-[#C50000]" /> Intercity corridors</span>
+                  <span className="inline-flex items-center gap-2 mr-4"><i className="fas fa-check-circle text-[#C50000]" /> Medical logistics</span>
+                  <span className="inline-flex items-center gap-2"><i className="fas fa-check-circle text-[#C50000]" /> Tourism &amp; premium mobility</span>
                 </div>
               </div>
               <div className="bg-[#111111] rounded-2xl p-6 border border-[#1F1F1F]">
@@ -182,7 +182,7 @@ export function AAMContent() {
                   <li><span className="font-bold text-[#FAFAFA]">Time-efficient demand</span> accelerating globally</li>
                   <li><span className="font-bold text-[#FAFAFA]">eVTOL tech readiness</span> has reached real deployment stage</li>
                 </ul>
-                <p className="mt-5 pt-3 border-t border-[#1F1F1F] text-[#FF2D2D] font-semibold">India: one of the most significant AAM opportunities: dense clusters, rapid infra growth &amp; aviation expansion.</p>
+                <p className="mt-5 pt-3 border-t border-[#1F1F1F] text-[#C50000] font-semibold">India: one of the most significant AAM opportunities: dense clusters, rapid infra growth &amp; aviation expansion.</p>
               </div>
             </div>
           </div>
@@ -191,7 +191,7 @@ export function AAMContent() {
           <div className="mb-20 reveal">
             <div className="text-center mb-12">
               <h2 className="section-title">MyOnlineJet&apos;s Strategic Positioning in AAM</h2>
-              <div className="w-16 h-1 bg-[#FF2D2D] mx-auto mt-3 rounded-full" />
+              <div className="w-16 h-1 bg-[#C50000] mx-auto mt-3 rounded-full" />
               <p className="text-[#A1A1AA] max-w-2xl mx-auto mt-4">We are not an aircraft manufacturer. We are not a traditional operator. We are building India&apos;s first integrated, intelligence-driven AAM infrastructure and network platform.</p>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
@@ -199,25 +199,25 @@ export function AAMContent() {
                 <div className="icon-box mx-auto mb-4"><i className="fas fa-draw-polygon" /></div>
                 <h3 className="card-title mb-2">Infrastructure First</h3>
                 <p className="text-[#52525B] text-sm">Vertiport planning, rooftop hubs, integration with airports &amp; commercial nodes.</p>
-                <Link href="/vertiports" className="inline-block mt-3 text-[#FF2D2D] text-sm font-semibold hover:underline">Explore vertiports →</Link>
+                <Link href="/vertiports" className="inline-block mt-3 text-[#C50000] text-sm font-semibold hover:underline">Explore vertiports →</Link>
               </div>
               <div className="glass-card p-6 text-center">
                 <div className="icon-box mx-auto mb-4"><i className="fas fa-microchip" /></div>
                 <h3 className="card-title mb-2">eVTOL Ecosystem</h3>
                 <p className="text-[#52525B] text-sm">Collaborating with global eVTOL innovators, enabling route networks, landing infra &amp; scalability.</p>
-                <Link href="/evtol-infrastructure" className="inline-block mt-3 text-[#FF2D2D] text-sm font-semibold hover:underline">eVTOL infra →</Link>
+                <Link href="/evtol-infrastructure" className="inline-block mt-3 text-[#C50000] text-sm font-semibold hover:underline">eVTOL infra →</Link>
               </div>
               <div className="glass-card p-6 text-center">
                 <div className="icon-box mx-auto mb-4"><i className="fas fa-brain" /></div>
                 <h3 className="card-title mb-2">Intelligent Network Layer</h3>
                 <p className="text-[#52525B] text-sm">Real-time orchestration, demand-supply balancing, predictive utilization.</p>
-                <Link href="/technology" className="inline-block mt-3 text-[#FF2D2D] text-sm font-semibold hover:underline">Technology →</Link>
+                <Link href="/technology" className="inline-block mt-3 text-[#C50000] text-sm font-semibold hover:underline">Technology →</Link>
               </div>
               <div className="glass-card p-6 text-center">
                 <div className="icon-box mx-auto mb-4"><i className="fas fa-link" /></div>
                 <h3 className="card-title mb-2">Multi-Sector Integration</h3>
                 <p className="text-[#52525B] text-sm">Hospitals, luxury hotels, logistics, corporate districts — ecosystem ready.</p>
-                <Link href="/ecosystem" className="inline-block mt-3 text-[#FF2D2D] text-sm font-semibold hover:underline">Integration →</Link>
+                <Link href="/ecosystem" className="inline-block mt-3 text-[#C50000] text-sm font-semibold hover:underline">Integration →</Link>
               </div>
             </div>
           </div>
@@ -228,28 +228,28 @@ export function AAMContent() {
             <p className="text-center text-[#A1A1AA] max-w-2xl mx-auto mb-10">Our model is structured around network thinking, not isolated deployments.</p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
               <div>
-                <div className="text-3xl font-black text-[#FF2D2D] mb-2 font-heading">01</div>
+                <div className="text-3xl font-black text-[#C50000] mb-2 font-heading">01</div>
                 <h3 className="font-bold text-xl text-[#FAFAFA] mb-2">Strategic Alignment</h3>
                 <p className="text-[#A1A1AA] text-sm">Infrastructure partners, real estate owners, high-value corridors.</p>
-                <Link href="/partner-with-us" className="text-[#FF4444] text-sm mt-2 inline-block hover:underline">Partner →</Link>
+                <Link href="/partner-with-us" className="text-[#C50000] text-sm mt-2 inline-block hover:underline">Partner →</Link>
               </div>
               <div>
-                <div className="text-3xl font-black text-[#FF2D2D] mb-2 font-heading">02</div>
+                <div className="text-3xl font-black text-[#C50000] mb-2 font-heading">02</div>
                 <h3 className="font-bold text-xl text-[#FAFAFA] mb-2">Vertiport Network</h3>
                 <p className="text-[#A1A1AA] text-sm">Scalable vertiports, regulatory alignment, integration with aviation ecosystems.</p>
-                <Link href="/vertiports" className="text-[#FF4444] text-sm mt-2 inline-block hover:underline">Vertiports →</Link>
+                <Link href="/vertiports" className="text-[#C50000] text-sm mt-2 inline-block hover:underline">Vertiports →</Link>
               </div>
               <div>
-                <div className="text-3xl font-black text-[#FF2D2D] mb-2 font-heading">03</div>
+                <div className="text-3xl font-black text-[#C50000] mb-2 font-heading">03</div>
                 <h3 className="font-bold text-xl text-[#FAFAFA] mb-2">Aircraft Integration</h3>
                 <p className="text-[#A1A1AA] text-sm">eVTOL alignment, operational readiness, pilot routes.</p>
-                <Link href="/evtol-infrastructure" className="text-[#FF4444] text-sm mt-2 inline-block hover:underline">eVTOL →</Link>
+                <Link href="/evtol-infrastructure" className="text-[#C50000] text-sm mt-2 inline-block hover:underline">eVTOL →</Link>
               </div>
               <div>
-                <div className="text-3xl font-black text-[#FF2D2D] mb-2 font-heading">04</div>
+                <div className="text-3xl font-black text-[#C50000] mb-2 font-heading">04</div>
                 <h3 className="font-bold text-xl text-[#FAFAFA] mb-2">Public Access &amp; Scale</h3>
                 <p className="text-[#A1A1AA] text-sm">Premium &amp; mass users, AI-driven optimization, multi-city expansion.</p>
-                <Link href="/early-access" className="text-[#FF4444] text-sm mt-2 inline-block hover:underline">Early access →</Link>
+                <Link href="/early-access" className="text-[#C50000] text-sm mt-2 inline-block hover:underline">Early access →</Link>
               </div>
             </div>
           </div>
@@ -315,19 +315,19 @@ export function AAMContent() {
               <div className="icon-box mb-4"><i className="fas fa-flag-checkered" /></div>
               <h2 className="section-title mb-3">India&apos;s Defining Opportunity</h2>
               <p className="text-[#A1A1AA]">India is not just a market, it is a defining landscape for AAM. With the right infrastructure strategy, India can leapfrog traditional mobility limits, build one of the world&apos;s largest AAM networks, and integrate aviation into everyday urban life. MyOnlineJet is contributing through early infrastructure development, strategic ecosystem partnerships, and scalable network design.</p>
-              <Link href="/partners" className="inline-block mt-4 text-[#FF2D2D] font-semibold hover:underline">Join the transformation →</Link>
+              <Link href="/partners" className="inline-block mt-4 text-[#C50000] font-semibold hover:underline">Join the transformation →</Link>
             </div>
             <div className="glass-card p-8">
               <div className="icon-box mb-4"><i className="fas fa-shield-alt" /></div>
               <h2 className="section-title mb-3">Safety, Regulation &amp; Trust</h2>
               <p className="text-[#A1A1AA]">AAM cannot scale without trust. We align with national aviation authorities, global best practices in airspace safety, infrastructure compliance. Speed of innovation must never compromise safety. Our philosophy is rooted in structural credibility, long-term thinking, and uncompromising operational reliability.</p>
-              <Link href="/technology#safety" className="inline-block mt-4 text-[#FF2D2D] font-semibold hover:underline">Safety framework →</Link>
+              <Link href="/technology#safety" className="inline-block mt-4 text-[#C50000] font-semibold hover:underline">Safety framework →</Link>
             </div>
           </div>
 
           {/* Visual Divider block: Intelligent network quote */}
-          <div className="bg-[#FF2D2D]/5 border border-[#FF2D2D]/10 rounded-2xl p-10 text-center mb-20 reveal">
-            <i className="fas fa-quote-left text-4xl text-[#FF2D2D] opacity-50 mb-4" />
+          <div className="bg-[#C50000]/5 border border-[#C50000]/10 rounded-2xl p-10 text-center mb-20 reveal">
+            <i className="fas fa-quote-left text-4xl text-[#C50000] opacity-50 mb-4" />
             <p className="text-xl md:text-2xl font-medium text-[#FAFAFA] max-w-3xl mx-auto font-heading">The future of air mobility will not be defined by individual aircraft but by how effectively the entire system is coordinated. MyOnlineJet is building that coordination layer.</p>
             <div className="mt-6"><span className="font-bold text-[#A1A1AA]">— Amit Kumar, Founder &amp; CEO</span></div>
           </div>
@@ -344,12 +344,49 @@ export function AAMContent() {
           </div>
 
           {/* Section: Explore ecosystem deep dive */}
-          <div className="mt-20 pt-6 border-t border-[#1F1F1F] reveal">
-            <div className="grid md:grid-cols-4 gap-5 text-center">
-              <Link href="/vertiports" className="text-[#A1A1AA] hover:text-[#FF2D2D] transition-colors"><i className="fas fa-building text-2xl mb-1 block" />Vertiports</Link>
-              <Link href="/evtol-infrastructure" className="text-[#A1A1AA] hover:text-[#FF2D2D] transition-colors"><i className="fas fa-fan text-2xl mb-1 block" />eVTOL Infra</Link>
-              <Link href="/ecosystem" className="text-[#A1A1AA] hover:text-[#FF2D2D] transition-colors"><i className="fas fa-project-diagram text-2xl mb-1 block" />Ecosystem Integration</Link>
-              <Link href="/technology" className="text-[#A1A1AA] hover:text-[#FF2D2D] transition-colors"><i className="fas fa-microchip text-2xl mb-1 block" />Intelligence Layer</Link>
+          <div className="mt-20 pt-8 border-t border-[#1F1F1F] reveal">
+            <h3 className="text-center text-[#A1A1AA] text-sm uppercase tracking-widest font-semibold mb-6">Explore Ecosystem Deep Dive</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <Link
+                href="/vertiports"
+                className="glass-card flex flex-col items-center justify-center p-6 md:p-8 text-center group hover:border-[#C50000]/30 transition-all"
+              >
+                <div className="icon-box mb-3 group-hover:bg-[#C50000] group-hover:text-white transition-all">
+                  <i className="fas fa-building" />
+                </div>
+                <span className="text-[#A1A1AA] group-hover:text-[#FAFAFA] font-semibold text-sm transition-colors">Vertiports</span>
+                <span className="text-[#52525B] text-xs mt-1">Rooftop hubs &amp; networks</span>
+              </Link>
+              <Link
+                href="/evtol-infrastructure"
+                className="glass-card flex flex-col items-center justify-center p-6 md:p-8 text-center group hover:border-[#C50000]/30 transition-all"
+              >
+                <div className="icon-box mb-3 group-hover:bg-[#C50000] group-hover:text-white transition-all">
+                  <i className="fas fa-fan" />
+                </div>
+                <span className="text-[#A1A1AA] group-hover:text-[#FAFAFA] font-semibold text-sm transition-colors">eVTOL Infrastructure</span>
+                <span className="text-[#52525B] text-xs mt-1">Aircraft &amp; operations</span>
+              </Link>
+              <Link
+                href="/ecosystem"
+                className="glass-card flex flex-col items-center justify-center p-6 md:p-8 text-center group hover:border-[#C50000]/30 transition-all"
+              >
+                <div className="icon-box mb-3 group-hover:bg-[#C50000] group-hover:text-white transition-all">
+                  <i className="fas fa-project-diagram" />
+                </div>
+                <span className="text-[#A1A1AA] group-hover:text-[#FAFAFA] font-semibold text-sm transition-colors">Ecosystem Integration</span>
+                <span className="text-[#52525B] text-xs mt-1">Partners &amp; connectivity</span>
+              </Link>
+              <Link
+                href="/technology"
+                className="glass-card flex flex-col items-center justify-center p-6 md:p-8 text-center group hover:border-[#C50000]/30 transition-all"
+              >
+                <div className="icon-box mb-3 group-hover:bg-[#C50000] group-hover:text-white transition-all">
+                  <i className="fas fa-microchip" />
+                </div>
+                <span className="text-[#A1A1AA] group-hover:text-[#FAFAFA] font-semibold text-sm transition-colors">Intelligence Layer</span>
+                <span className="text-[#52525B] text-xs mt-1">AI &amp; orchestration</span>
+              </Link>
             </div>
           </div>
 

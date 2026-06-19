@@ -61,17 +61,17 @@ export default function PartnerWithUsPage() {
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
 
           {/* Hero */}
-          <div className="text-center mb-20 reveal" id="partner-hero">
+          <div className="text-center mb-20 reveal active" id="partner-hero">
             <span className="badge-pill-page">PARTNER WITH US</span>
             <h1 className="heading-hero-page mt-6 mb-5">
-              Building India&apos;s Most Advanced <br /><span className="text-[#FF2D2D]">Air Mobility Network — Together</span>
+              Building India&apos;s Most Advanced <br /><span className="text-[#C50000]">Air Mobility Network — Together</span>
             </h1>
             <p className="text-lg text-text-secondary max-w-2xl mx-auto">
               At MyOnlineJet, we are not just building an aviation service — we are architecting a nationwide Advanced Air Mobility (AAM) ecosystem that will redefine how people, businesses, and cities move. This is a foundational moment. And ecosystems are never built alone.
             </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <a href="#partnerForm" className="btn-primary">Start Your Partnership &rarr;</a>
-              <a href="#whyPartner" className="btn-secondary">Discover Opportunities</a>
+            <div className="mt-8 flex flex-col sm:flex-row justify-center gap-3 sm:gap-5">
+              <a href="#partnerForm" className="btn-primary text-center w-full sm:w-auto">Start Your Partnership &rarr;</a>
+              <a href="#whyPartner" className="btn-secondary text-center w-full sm:w-auto">Discover Opportunities</a>
             </div>
           </div>
 
@@ -120,7 +120,7 @@ export default function PartnerWithUsPage() {
                 </div>
                 <div className="flex-1 text-center md:text-left">
                   <h3 className="text-2xl font-bold text-text-primary font-display">iAlpha Technologies Private Limited</h3>
-                  <p className="text-[#FF2D2D] font-semibold text-sm mt-1">Founding Technology &amp; Infrastructure Partner</p>
+                  <p className="text-[#C50000] font-semibold text-sm mt-1">Founding Technology &amp; Infrastructure Partner</p>
                   <p className="text-text-secondary mt-3">As a core enabler of MyOnlineJet&apos;s digital backbone, iAlpha Technologies brings deep expertise in AI-driven fleet orchestration, vertiport management systems, and enterprise-grade mobility platforms. Together we are co-developing the intelligent control layer for India&apos;s vertiport network.</p>
                   <div className="mt-4 flex flex-wrap gap-3 justify-center md:justify-start">
                     <span className="bg-surface-hover text-text-secondary text-xs px-3 py-1 rounded-full border border-border-subtle">Vertiport OS</span>
@@ -133,7 +133,7 @@ export default function PartnerWithUsPage() {
             </div>
             <div className="mt-10 text-center border-t border-border-subtle pt-8">
               <div className="inline-flex items-center gap-2 bg-surface-card rounded-full px-5 py-2 border border-border-subtle">
-                <i className="fas fa-plus-circle text-[#FF2D2D]" />
+                <i className="fas fa-plus-circle text-[#C50000]" />
                 <span className="text-sm font-medium text-text-secondary">More anchor partners will be announced as we expand our vertiport footprint across India.</span>
               </div>
               <p className="text-xs text-text-muted mt-4">Join the select group of industry pioneers shaping India&apos;s Advanced Air Mobility infrastructure.</p>
@@ -178,21 +178,21 @@ export default function PartnerWithUsPage() {
             <h2 className="section-title text-center mb-8">Partnership Models — Built for Scale</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-7">
               <div>
-                <div className="font-bold text-xl text-[#FF2D2D] font-display">A. Vertiport Hosting</div>
+                <div className="font-bold text-xl text-[#C50000] font-display">A. Vertiport Hosting</div>
                 <p className="text-text-secondary text-sm mt-2">You provide infrastructure. We bring technology, network, operations. Revenue sharing + early-mover advantage.</p>
               </div>
               <div>
-                <div className="font-bold text-xl text-[#FF2D2D] font-display">B. Strategic Technology</div>
+                <div className="font-bold text-xl text-[#C50000] font-display">B. Strategic Technology</div>
                 <p className="text-text-secondary text-sm mt-2">You bring tech. We bring deployment scale. API integration &amp; co-development from pilot to scale.</p>
               </div>
               <div>
-                <div className="font-bold text-xl text-[#FF2D2D] font-display">C. Ecosystem Integration</div>
+                <div className="font-bold text-xl text-[#C50000] font-display">C. Ecosystem Integration</div>
                 <p className="text-text-secondary text-sm mt-2">You bring services/users. We connect you into aerial mobility layer. Joint offerings &amp; market expansion.</p>
               </div>
               <div>
-                <div className="font-bold text-xl text-[#FF2D2D] font-display">D. Founding / Anchor Partner</div>
+                <div className="font-bold text-xl text-[#C50000] font-display">D. Founding / Anchor Partner</div>
                 <p className="text-text-secondary text-sm mt-2">Selective high-impact. Deep strategic collaboration, co-branding, long-term positioning.</p>
-                <a href="/investors" className="text-xs text-[#FF2D2D] font-semibold mt-1 inline-block">Investor relations &rarr;</a>
+                <a href="/investors" className="text-xs text-[#C50000] font-semibold mt-1 inline-block">Investor relations &rarr;</a>
               </div>
             </div>
           </div>
@@ -207,7 +207,7 @@ export default function PartnerWithUsPage() {
               <li>Network effects will define market leaders</li>
               <li>Infrastructure control = long-term power</li>
             </ul>
-            <div className="mt-6 p-4 bg-[rgba(255,45,45,0.05)] rounded-xl text-center border border-[rgba(255,45,45,0.1)]">
+            <div className="mt-6 p-4 bg-[rgba(197,0,0,0.05)] rounded-xl text-center border border-[rgba(197,0,0,0.1)]">
               <p className="font-semibold text-text-primary">MyOnlineJet is focused on building that control layer — ethically, strategically, and at scale.</p>
             </div>
           </div>
@@ -261,7 +261,7 @@ export default function PartnerWithUsPage() {
                 <div className="flex flex-wrap gap-4 mt-2">
                   {['Vertiport Hosting', 'Technology Integration', 'Ecosystem Services', 'Strategic Partnership', 'Other'].map((opt) => (
                     <label key={opt} className="flex items-center gap-2 text-text-secondary">
-                      <input type="checkbox" className="accent-[#FF2D2D]" /> {opt}
+                      <input type="checkbox" className="accent-[#C50000]" /> {opt}
                     </label>
                   ))}
                 </div>
@@ -271,7 +271,7 @@ export default function PartnerWithUsPage() {
               <div className="mb-6"><label className="block font-semibold mb-2 text-text-primary">Additional Information (Optional)</label><textarea rows={2} className="form-textarea" placeholder="Anything else you'd like us to know" /></div>
               <div className="mb-8">
                 <label className="flex items-start gap-3">
-                  <input type="checkbox" required className="mt-1 accent-[#FF2D2D]" />
+                  <input type="checkbox" required className="mt-1 accent-[#C50000]" />
                   <span className="text-sm text-text-secondary">I agree to be contacted by MyOnlineJet regarding partnership opportunities and understand that submission does not guarantee acceptance.</span>
                 </label>
               </div>
@@ -294,9 +294,9 @@ export default function PartnerWithUsPage() {
               The next decade of aviation will not be defined by aircraft alone — <br />it will be defined by infrastructure, integration, and ecosystem control.
             </p>
             <p className="text-text-secondary mt-4 max-w-2xl mx-auto">MyOnlineJet is building that foundation. If you see the future the way we do — we should be building it together.</p>
-            <div className="flex justify-center gap-5 mt-7 flex-wrap">
-              <a href="/contact" className="btn-secondary">General Inquiry</a>
-              <a href="#partnerForm" className="btn-primary">Submit Partnership Interest</a>
+            <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-5 mt-7">
+              <a href="/contact" className="btn-secondary text-center w-full sm:w-auto">General Inquiry</a>
+              <a href="#partnerForm" className="btn-primary text-center w-full sm:w-auto">Submit Partnership Interest</a>
             </div>
           </div>
 
@@ -304,22 +304,22 @@ export default function PartnerWithUsPage() {
       </div>
 
       <style dangerouslySetInnerHTML={{ __html: `
-        .partner-page .glow-orb-1-custom { position:fixed; top:-20%; right:-10%; width:600px; height:600px; background:radial-gradient(circle,rgba(255,45,45,0.08) 0%,transparent 70%); pointer-events:none; z-index:0; }
-        .partner-page .glow-orb-2-custom { position:fixed; bottom:-10%; left:-5%; width:500px; height:500px; background:radial-gradient(circle,rgba(255,45,45,0.05) 0%,transparent 70%); pointer-events:none; z-index:0; }
+        .partner-page .glow-orb-1-custom { position:fixed; top:-20%; right:-10%; width:600px; height:600px; background:radial-gradient(circle,rgba(197,0,0,0.08) 0%,transparent 70%); pointer-events:none; z-index:0; }
+        .partner-page .glow-orb-2-custom { position:fixed; bottom:-10%; left:-5%; width:500px; height:500px; background:radial-gradient(circle,rgba(197,0,0,0.05) 0%,transparent 70%); pointer-events:none; z-index:0; }
         .partner-page .grid-bg-custom { position:fixed; top:0; left:0; width:100%; height:100%; background-image:linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px); background-size:60px 60px; pointer-events:none; z-index:0; }
-        .partner-page .badge-pill-page { display:inline-block; background:rgba(255,45,45,0.1); color:#FF2D2D; padding:4px 16px; border-radius:9999px; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; font-family:'Inter',sans-serif; }
+        .partner-page .badge-pill-page { display:inline-block; background:rgba(197,0,0,0.1); color:#C50000; padding:4px 16px; border-radius:9999px; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; font-family:'Inter',sans-serif; }
         .partner-page .heading-hero-page { font-family:'Space Grotesk',sans-serif; font-size:clamp(2.5rem,5vw,4rem); font-weight:800; line-height:1.1; letter-spacing:-0.03em; }
         .partner-page .heading-card-page { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.25rem; letter-spacing:-0.01em; color:#FAFAFA; }
-        .partner-page .link-brand-page { color:#FF2D2D; font-weight:600; transition:all 0.3s ease; display:inline-flex; align-items:center; gap:0.25rem; }
-        .partner-page .link-brand-page:hover { gap:0.5rem; color:#FF4444; }
+        .partner-page .link-brand-page { color:#C50000; font-weight:600; transition:all 0.3s ease; display:inline-flex; align-items:center; gap:0.25rem; }
+        .partner-page .link-brand-page:hover { gap:0.5rem; color:#C50000; }
         .partner-page .partner-logo-card-page { transition:all 0.3s cubic-bezier(0.2,0.9,0.4,1.1); }
-        .partner-page .partner-logo-card-page:hover { transform:scale(1.02); box-shadow:0 20px 35px -12px rgba(0,0,0,0.4); border-color:#FF2D2D !important; }
+        .partner-page .partner-logo-card-page:hover { transform:scale(1.02); box-shadow:0 20px 35px -12px rgba(0,0,0,0.4); border-color:#C50000 !important; }
         .partner-page .process-step-page { background:#141414; border:1px solid #1F1F1F; border-radius:16px; padding:1.5rem; transition:all 0.3s ease; }
-        .partner-page .process-step-page:hover { border-color:rgba(255,45,45,0.3); transform:translateY(-2px); }
-        .partner-page .step-circle-page { width:32px; height:32px; background:#FF2D2D; color:#fff; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-weight:700; font-family:'Space Grotesk',sans-serif; }
-        .partner-page .section-title { font-family:'Space Grotesk',sans-serif; font-weight:700; letter-spacing:-0.03em; font-size:clamp(1.8rem,3vw,2.8rem); background:linear-gradient(135deg,#FAFAFA,#FF2D2D); -webkit-background-clip:text; background-clip:text; color:transparent; }
-        .partner-page .glass-card:hover { border-color:rgba(255,45,45,0.3); transform:translateY(-2px); box-shadow:0 12px 40px rgba(255,45,45,0.08); }
-        .partner-page .reveal { opacity:0; transform:translateY(24px); transition:opacity 0.7s ease,transform 0.7s ease; }
+        .partner-page .process-step-page:hover { border-color:rgba(197,0,0,0.3); transform:translateY(-2px); }
+        .partner-page .step-circle-page { width:32px; height:32px; background:#C50000; color:#fff; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-weight:700; font-family:'Space Grotesk',sans-serif; }
+        .partner-page .section-title { font-family:'Space Grotesk',sans-serif; font-weight:700; letter-spacing:-0.03em; font-size:clamp(1.8rem,3vw,2.8rem); background:linear-gradient(135deg,#FAFAFA,#C50000); -webkit-background-clip:text; background-clip:text; color:transparent; }
+        .partner-page .glass-card:hover { border-color:rgba(197,0,0,0.3); transform:translateY(-2px); box-shadow:0 12px 40px rgba(197,0,0,0.08); }
+        .partner-page .reveal { opacity:0; transform:translateY(24px); transition:opacity 0.4s ease,transform 0.4s ease; }
         .partner-page .reveal.active { opacity:1; transform:translateY(0); }
         @media (max-width:768px) { .partner-page .heading-hero-page { font-size:clamp(1.8rem,7vw,2.5rem); } .partner-page .section-title { font-size:1.8rem; } .partner-page .glass-card { padding:1.25rem !important; } .partner-page .process-step-page { padding:1rem; } }
         @media (max-width:640px) { .partner-page .heading-hero-page { font-size:clamp(1.6rem,8vw,2rem); } .partner-page .section-title { font-size:1.5rem; } .partner-page .partner-logo-card-page { padding:1.25rem; } .partner-page .partner-logo-card-page img { max-height:100px; } .partner-page .process-step-page .step-circle-page { width:28px; height:28px; font-size:14px; } }

@@ -295,7 +295,7 @@ export default function CareersPage() {
           </div>
 
           {/* ===== IMPORTANT NOTE ===== */}
-          <div className="glass-card p-8 rounded-2xl mb-20 reveal" style={{ borderLeft: '3px solid #ff2d2d' }}>
+          <div className="glass-card p-8 rounded-2xl mb-20 reveal" style={{ borderLeft: '3px solid #c50000' }}>
             <p className="font-bold text-lg text-text-primary mb-3"><i className="fas fa-triangle-exclamation text-brand-red mr-2" />Important Note</p>
             <p className="text-text-secondary leading-relaxed">We are building in a high-ownership, high-expectation environment. This is not for passive contributors, short-term seekers, or low-effort participation. This is for people who want to build something meaningful.</p>
           </div>
@@ -351,7 +351,7 @@ export default function CareersPage() {
               <textarea rows={4} placeholder="What problem excites you the most in this space? (Long answer) *" required className="form-textarea resize-none" />
               <div>
                 <label className="block mb-2 text-sm text-text-secondary font-medium">Upload Resume (PDF)</label>
-                <input type="file" accept=".pdf" className="form-input py-3 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-brand-red file:text-white hover:file:bg-[#ff4444] file:transition-colors file:cursor-pointer" />
+                <input type="file" accept=".pdf" className="form-input py-3 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-brand-red file:text-white hover:file:bg-[#c50000] file:transition-colors file:cursor-pointer" />
               </div>
               <button type="submit" className="btn-primary w-full md:w-auto">Apply Now</button>
             </form>

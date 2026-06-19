@@ -43,8 +43,8 @@ const config: Config = {
         textMuted: '#52525B',
         borderSubtle: '#1F1F1F',
         borderMedium: '#2A2A2A',
-        brandRed: '#FF2D2D',
-        brandRedGlow: '#FF4444',
+        brandRed: '#C50000',
+        brandRedGlow: '#C50000',
       },
       fontFamily: {
         heading: ['"Space Grotesk"', 'sans-serif'],

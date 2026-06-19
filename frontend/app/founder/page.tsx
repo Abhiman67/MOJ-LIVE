@@ -18,7 +18,7 @@ export default function Page() {
 
       <section className="mx-auto max-w-6xl">
         <div className="text-center mb-16">
-          <div className="inline-block rounded-full border border-white/10 bg-white/5 px-5 py-2 text-sm font-semibold uppercase tracking-[0.18em] text-[#FF4444]">
+          <div className="inline-block rounded-full border border-white/10 bg-white/5 px-5 py-2 text-sm font-semibold uppercase tracking-[0.18em] text-[#C50000]">
             FOUNDER&apos;S VISION
           </div>
           <h1 className="content-hero-title mt-8 mb-6 max-w-5xl mx-auto">
@@ -38,7 +38,7 @@ export default function Page() {
             That is where MyOnlineJet stands. We are building not just infrastructure, but alignment across the ecosystem. This is not a short-term play. This is foundational.
           </p>
           <div className="rounded-xl border border-border-subtle bg-surface-card p-6 mt-8">
-            <p className="text-xl font-bold text-[#FF4444]">&mdash; Amit Kumar, Founder &amp; CEO</p>
+            <p className="text-xl font-bold text-[#C50000]">&mdash; Amit Kumar, Founder &amp; CEO</p>
             <div className="flex gap-4 mt-6 flex-wrap">
               <a href="/advanced-air-mobility" className="btn-primary">
                 Advanced Air Mobility &rarr;
@@ -52,14 +52,14 @@ export default function Page() {
 
         <div className="grid md:grid-cols-2 gap-8">
           <div className="glass-card rounded-2xl p-8">
-            <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#C50000]/10 text-3xl text-[#FF4444]">
+            <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#C50000]/10 text-3xl text-[#C50000]">
               <i className="fas fa-brain" />
             </div>
             <h3 className="text-xl font-bold text-white">First principles infrastructure</h3>
             <p className="mt-3 text-text-secondary">No legacy constraints. Designing for 2050, not yesterday.</p>
           </div>
           <div className="glass-card rounded-2xl p-8">
-            <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#C50000]/10 text-3xl text-[#FF4444]">
+            <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#C50000]/10 text-3xl text-[#C50000]">
               <i className="fas fa-handshake" />
             </div>
             <h3 className="text-xl font-bold text-white">Ecosystem-first alignment</h3>
