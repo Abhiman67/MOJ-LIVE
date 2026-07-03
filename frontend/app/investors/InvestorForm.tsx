@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { LockedFormOverlay } from '@/components/ui/LockedFormOverlay'
 
 export function InvestorForm() {
   const [submitted, setSubmitted] = useState(false)
@@ -13,6 +14,7 @@ export function InvestorForm() {
   }
 
   return (
+    <LockedFormOverlay formType="investor">
     <form id="investorForm" onSubmit={handleSubmit}>
       <div className="grid md:grid-cols-2 gap-6 mb-6">
         <div><label className="block font-semibold mb-1 text-white">Full Name *</label><input type="text" required className="w-full rounded-2xl border border-border-subtle bg-surface-card px-4 py-3 text-white placeholder-text-muted focus:border-[#C50000] focus:outline-none focus:ring-[3px] focus:ring-[rgba(197,0,0,0.1)]" placeholder="e.g., Rajiv Malhotra" /></div>
@@ -82,5 +84,6 @@ export function InvestorForm() {
         </div>
       )}
     </form>
+    </LockedFormOverlay>
   )
 }

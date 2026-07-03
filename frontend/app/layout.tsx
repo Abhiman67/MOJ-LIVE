@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
 import type { ReactNode } from 'react'
+import { SessionProvider } from 'next-auth/react'
 import { SiteShell } from '@/components/layout/SiteShell'
 import { siteConfig } from '@/lib/site'
 import './globals.css'
@@ -72,10 +73,11 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
-
       </head>
       <body>
-        <SiteShell>{children}</SiteShell>
+        <SessionProvider>
+          <SiteShell>{children}</SiteShell>
+        </SessionProvider>
 
         <Script
           id="site-structured-data"

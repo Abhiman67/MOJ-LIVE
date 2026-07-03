@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { PartnerEnhancements } from './PartnerEnhancements'
+import { LockedFormOverlay } from '@/components/ui/LockedFormOverlay'
 
 export const metadata: Metadata = {
   title: 'Partner With Us | MyOnlineJet — Build India\'s Advanced Air Mobility Network',
@@ -230,6 +231,7 @@ export default function PartnerWithUsPage() {
           <div id="partnerForm" className="scroll-mt-28 glass-card p-6 md:p-10 my-20 reveal">
             <h2 className="text-3xl font-bold text-center mb-2 font-display">Partner With Us — Application Form</h2>
             <p className="text-center text-text-secondary mb-8">Simple, clean, high-conversion. Serious inquiries only.</p>
+            <LockedFormOverlay formType="partner">
             <form id="partnershipForm" action="#" method="POST">
               <div className="grid md:grid-cols-2 gap-6 mb-6">
                 <div><label className="block font-semibold mb-2 text-text-primary">Full Name *</label><input type="text" className="form-input" required placeholder="Amit Sharma" /></div>
@@ -278,6 +280,7 @@ export default function PartnerWithUsPage() {
               <div className="text-center"><button type="submit" className="btn-primary text-lg px-10 py-3">Apply for Partnership &rarr;</button></div>
               <p className="text-xs text-center text-text-muted mt-6">All information is handled with strict confidentiality. Submission does not constitute binding agreement.</p>
             </form>
+            </LockedFormOverlay>
           </div>
 
           {/* Confidentiality */}

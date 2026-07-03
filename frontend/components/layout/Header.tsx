@@ -4,13 +4,17 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
+import { useSession, signOut } from 'next-auth/react'
 import { homeNavLinks, pageNavLinks } from '@/lib/site'
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false)
+  const [dropdownOpen, setDropdownOpen] = useState(false)
   const pathname = usePathname()
+  const { status } = useSession()
   const isHome = pathname === '/'
   const navLinks = isHome ? homeNavLinks : pageNavLinks
+  const isAuthenticated = status === 'authenticated'
 
   return (
     <header className="site-header relative z-50">
@@ -44,13 +48,50 @@ export function Header() {
               </Link>
             )
           ))}
-          {isHome ? (
-            <a href="#contact" className="primary-btn py-3">
-              Contact Us
-            </a>
+          {isAuthenticated ? (
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+                className="primary-btn py-3 flex items-center gap-2"
+              >
+                <i className="fas fa-columns text-sm" />
+                Dashboard
+                <i className={`fas fa-chevron-down text-xs transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+              {dropdownOpen && (
+                <div className="absolute right-0 top-full mt-2 w-48 rounded-xl bg-surface-card border border-border-subtle shadow-xl overflow-hidden">
+                  <Link
+                    href="/dashboard"
+                    className="flex items-center gap-3 px-4 py-3 text-sm text-text-secondary hover:bg-surface-hover hover:text-white transition-colors"
+                    onClick={() => setDropdownOpen(false)}
+                  >
+                    <i className="fas fa-columns w-4 text-[#C50000]" />
+                    Dashboard
+                  </Link>
+                  <Link
+                    href="/profile"
+                    className="flex items-center gap-3 px-4 py-3 text-sm text-text-secondary hover:bg-surface-hover hover:text-white transition-colors"
+                    onClick={() => setDropdownOpen(false)}
+                  >
+                    <i className="fas fa-user w-4 text-[#C50000]" />
+                    Profile
+                  </Link>
+                  <hr className="border-border-subtle" />
+                  <button
+                    type="button"
+                    onClick={() => { setDropdownOpen(false); signOut({ callbackUrl: '/' }) }}
+                    className="flex items-center gap-3 w-full px-4 py-3 text-sm text-text-secondary hover:bg-surface-hover hover:text-[#C50000] transition-colors"
+                  >
+                    <i className="fas fa-sign-out-alt w-4" />
+                    Sign Out
+                  </button>
+                </div>
+              )}
+            </div>
           ) : (
-            <Link href="/contact" className="primary-btn py-3">
-              Contact Us
+            <Link href="/auth" className="primary-btn py-3">
+              Sign In
             </Link>
           )}
         </nav>
@@ -85,7 +126,7 @@ export function Header() {
                       {item.label}
                     </a>
                   ) : (
-                      <Link
+                    <Link
                       key={item.href}
                       href={item.href}
                       className="mobile-menu-item dark"
@@ -96,14 +137,23 @@ export function Header() {
                   )
                 )}
               </div>
-              <div className="mt-4">
-                {isHome ? (
-                  <a href="#contact" className="mobile-menu-cta dark" onClick={() => setIsOpen(false)}>
-                    Contact Us
-                  </a>
+              <div className="mt-4 space-y-2">
+                {isAuthenticated ? (
+                  <>
+                    <Link href="/dashboard" className="mobile-menu-cta dark" onClick={() => setIsOpen(false)}>
+                      <i className="fas fa-columns mr-2" /> Dashboard
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => { setIsOpen(false); signOut({ callbackUrl: '/' }) }}
+                      className="mobile-menu-item dark justify-center text-[#C50000]"
+                    >
+                      <i className="fas fa-sign-out-alt mr-2" /> Sign Out
+                    </button>
+                  </>
                 ) : (
-                  <Link href="/contact" className="mobile-menu-cta dark" onClick={() => setIsOpen(false)}>
-                    Contact Us
+                  <Link href="/auth" className="mobile-menu-cta dark" onClick={() => setIsOpen(false)}>
+                    <i className="fas fa-sign-in-alt mr-2" /> Sign In
                   </Link>
                 )}
               </div>

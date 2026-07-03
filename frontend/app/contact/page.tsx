@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ContactEnhancements } from '@/components/contact/ContactEnhancements'
+import { LockedFormOverlay } from '@/components/ui/LockedFormOverlay'
 
 export const metadata: Metadata = {
   title: 'Contact Us | MyOnlineJet – Aviation Infrastructure Technology for AAM',
@@ -155,6 +156,7 @@ export default function ContactPage() {
                   Primary mode of communication: all submissions are reviewed by the relevant team.
                 </p>
 
+                <LockedFormOverlay formType="contact">
                 <form id="enterpriseContactForm" action="#" method="POST">
                   {/* Basic Information */}
                   <div className="mb-8">
@@ -279,6 +281,7 @@ export default function ContactPage() {
                   </p>
                 </form>
                 <div id="formSuccessMsg" className="hidden mt-4 p-4 bg-[#22C55E]/10 text-[#22C55E] rounded-xl text-center border border-[#22C55E]/20" />
+                </LockedFormOverlay>
               </div>
 
               {/* Direct Communication Section */}

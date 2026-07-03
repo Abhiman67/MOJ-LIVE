@@ -2,9 +2,9 @@
 
 import Image from 'next/image'
 import Script from 'next/script'
-import Link from 'next/link'
 import type { MouseEvent as ReactMouseEvent } from 'react'
 import { createElement, useEffect, useMemo, useRef, useState } from 'react'
+import { LockedFormOverlay } from '@/components/ui/LockedFormOverlay'
 
 type ModalId = 'advisor-modal' | 'career-modal' | null
 
@@ -91,37 +91,6 @@ const careerHighlights = [
   'Transparent and merit-based selection process',
   'Competitive compensation packages with benefits',
   'Opportunities for professional growth and development'
-]
-
-const footerColumns = [
-  {
-    title: 'Company',
-    links: [
-      { href: '/about-us', label: 'About Us' },
-      { href: '/company-profile', label: 'Company Profile' },
-      { href: '/founder', label: 'Founder & CEO' },
-      { href: '/vision-mission', label: 'Vision & Mission' },
-      { href: '/technology', label: 'Technology' }
-    ]
-  },
-  {
-    title: 'Infrastructure',
-    links: [
-      { href: '/vertiports', label: 'Vertiports' },
-      { href: '/evtol-infrastructure', label: 'eVTOL Infrastructure' },
-      { href: '/ecosystem-integration', label: 'Ecosystem Integration' },
-      { href: '/services', label: 'All Services' }
-    ]
-  },
-  {
-    title: 'Resources',
-    links: [
-      { href: 'https://news.myonlinejet.com', label: 'Blog', external: true },
-      { href: '/whitepapers', label: 'Whitepapers' },
-      { href: '/faq', label: 'FAQ' },
-      { href: '/contact', label: 'Contact Us' }
-    ]
-  }
 ]
 
 function useRevealEffects() {
@@ -316,7 +285,7 @@ export function HomeLanding() {
                   </a>
                 )
               )}
-              <a href="#contact" className="btn-primary text-sm px-7 py-3" onClick={scrollToHash('#contact')}>
+              <a href="/auth" className="btn-primary text-sm px-7 py-3">
                 Contact Us
               </a>
             </div>
@@ -352,7 +321,7 @@ export function HomeLanding() {
                   )}
                 </div>
                 <div className="mt-4">
-                  <a href="#contact" className="mobile-menu-cta dark" onClick={(e) => { scrollToHash('#contact')(e); setMobileOpen(false); }}>
+                  <a href="/auth" className="mobile-menu-cta dark" onClick={() => setMobileOpen(false)}>
                     Contact Us
                   </a>
                 </div>
@@ -768,109 +737,6 @@ export function HomeLanding() {
         </div>
       </section>
 
-      <footer id="contact" className="border-t border-white/10 bg-[#030712] px-4 pb-6 pt-10 sm:px-6 sm:pb-10 sm:pt-16 lg:px-10 lg:pt-20">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-12 grid grid-cols-1 gap-8 sm:mb-16 sm:gap-10 md:grid-cols-2 lg:grid-cols-5 lg:gap-12">
-            <div className="md:col-span-2 lg:col-span-2">
-              <Image
-                src="https://myonlinejet.com/images/MyOnlineJet_White_Logo.png"
-                alt="MyOnlineJet"
-                width={220}
-                height={64}
-                className="mb-4 h-10 w-auto opacity-90 sm:mb-6 sm:h-12"
-              />
-              <p className="mb-6 max-w-sm text-xs leading-relaxed text-gray-500 sm:mb-8 sm:text-sm">
-                Building India&apos;s urban air mobility infrastructure for a sustainable transportation future. Starting from Jaipur, reaching every city.
-              </p>
-              <div className="flex gap-2 sm:gap-3">
-                {[
-                  { href: 'https://www.linkedin.com/company/myonlinejet/', icon: 'fab fa-linkedin-in' },
-                  { href: 'https://www.facebook.com/myonlinejet/', icon: 'fab fa-facebook-f' },
-                  { href: 'https://twitter.com/myonlinejet', icon: 'fab fa-twitter' },
-                  { href: 'https://www.youtube.com/@myonlinejet', icon: 'fab fa-youtube' }
-                ].map((social) => (
-                  <a
-                    key={social.href}
-                    href={social.href}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-gray-400 transition-all hover:border-[#C50000]/30 hover:bg-[#C50000]/20 hover:text-white sm:h-10 sm:w-10"
-                  >
-                    <i className={social.icon} />
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            {footerColumns.map((group) => (
-              <div key={group.title}>
-                <h4 className="footer-heading">{group.title}</h4>
-                <div className="mt-3 space-y-2 sm:mt-4 sm:space-y-3">
-                  {group.links.map((link) =>
-                    link.external ? (
-                      <a key={link.href} href={link.href} className="block text-xs text-gray-500 transition-colors hover:text-white sm:text-sm" target="_blank" rel="noreferrer noopener">
-                        {link.label}
-                      </a>
-                    ) : (
-                      <Link key={link.href} href={link.href} className="block text-xs text-gray-500 transition-colors hover:text-white sm:text-sm">
-                        {link.label}
-                      </Link>
-                    )
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mb-6 border-t border-white/10 pt-6 sm:mb-8 sm:pt-8">
-            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-gray-600 sm:gap-x-8 sm:gap-y-3 sm:text-sm">
-              <Link href="/privacy-policy" className="transition-colors hover:text-gray-400">
-                Privacy Policy
-              </Link>
-              <Link href="/terms-conditions" className="transition-colors hover:text-gray-400">
-                Terms of Service
-              </Link>
-              <Link href="/privacy-policy" className="transition-colors hover:text-gray-400">
-                Cookie Policy
-              </Link>
-              <Link href="/legal-disclaimer" className="transition-colors hover:text-gray-400">
-                Legal Disclaimer
-              </Link>
-              <Link href="/sitemap.xml" className="transition-colors hover:text-gray-400">
-                Sitemap
-              </Link>
-            </div>
-          </div>
-
-          <div className="flex flex-col items-center justify-between gap-3 text-xs text-gray-600 sm:gap-4 sm:text-sm md:flex-row">
-            <p>© 2026 MyOnlineJet | iAlpha Technologies Pvt Ltd</p>
-            <p>Jaipur, Rajasthan, India</p>
-          </div>
-
-          <div className="mt-6 rounded-xl border border-white/10 bg-white/5 p-4 sm:mt-8 sm:rounded-2xl sm:p-5 md:p-6">
-            <div className="grid gap-4 text-[10px] text-gray-500 sm:gap-6 sm:text-xs md:grid-cols-2">
-              <div>
-                <h5 className="mb-1 flex items-center gap-2 font-semibold text-white sm:mb-2">
-                  <i className="fas fa-shield-alt text-[#C50000]" />
-                  Data Protection
-                </h5>
-                <p className="leading-relaxed">
-                  Compliant with India&apos;s DPDPA and GDPR standards. Your information is never sold or shared without explicit consent.
-                </p>
-              </div>
-              <div>
-                <h5 className="mb-1 flex items-center gap-2 font-semibold text-white sm:mb-2">
-                  <i className="fas fa-gavel text-[#C50000]" />
-                  Legal Disclaimer
-                </h5>
-                <p className="leading-relaxed">
-                  All projects are subject to regulatory approvals. Information is for informational purposes only and does not constitute an offer.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
 
       {activeModal ? (
         <div className="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6" onClick={(event) => event.target === event.currentTarget && closeModal()}>
@@ -895,6 +761,7 @@ export function HomeLanding() {
               </button>
             </div>
 
+            <LockedFormOverlay formType={activeModal === 'advisor-modal' ? 'advisory' : 'career'}>
             <form
               className="space-y-4 sm:space-y-5 md:space-y-6"
               onSubmit={(event) => {
@@ -995,6 +862,7 @@ export function HomeLanding() {
                 {activeModal === 'advisor-modal' ? 'Submit Expression of Interest' : 'Register Interest'}
               </button>
             </form>
+            </LockedFormOverlay>
           </div>
         </div>
       ) : null}

@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useEffect } from 'react'
+import { LockedFormOverlay } from '@/components/ui/LockedFormOverlay'
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -559,6 +560,7 @@ export default function FAQPage() {
           {/* Inquiry Form */}
           <div className="faq-modern-card p-6 md:p-10 mb-8 faq-reveal">
             <h2 className="faq-section-title text-center mb-8">General Inquiry Form</h2>
+            <LockedFormOverlay formType="faq">
             <form
               className="max-w-2xl mx-auto space-y-5"
               onSubmit={(e) => {
@@ -624,6 +626,7 @@ export default function FAQPage() {
                 Submit Inquiry →
               </button>
             </form>
+            </LockedFormOverlay>
             <p className="text-xs text-[#52525B] text-center mt-4">Your information is secure. We respond within 48 hours.</p>
           </div>
 

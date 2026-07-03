@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CareersEnhancements } from '@/components/careers/CareersEnhancements'
+import { LockedFormOverlay } from '@/components/ui/LockedFormOverlay'
 
 export const metadata: Metadata = {
   title: 'Careers at MyOnlineJet | Build the Future of Urban Air Mobility | Join India\'s AAM Infrastructure Team',
@@ -330,6 +331,7 @@ export default function CareersPage() {
           {/* ===== APPLICATION FORM ===== */}
           <div id="apply-form" className="glass-card p-8 md:p-12 mb-20 scroll-mt-24 reveal">
             <h2 className="heading-section text-center mb-10 text-text-primary">Apply to Join MyOnlineJet</h2>
+            <LockedFormOverlay formType="career">
             <form action="#" method="post" className="space-y-6 max-w-3xl mx-auto">
               <div className="grid md:grid-cols-2 gap-5">
                 <input type="text" placeholder="Full Name *" required className="form-input" />
@@ -355,6 +357,7 @@ export default function CareersPage() {
               </div>
               <button type="submit" className="btn-primary w-full md:w-auto">Apply Now</button>
             </form>
+            </LockedFormOverlay>
           </div>
 
           {/* ===== EARLY TALENT NETWORK ===== */}
