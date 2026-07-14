@@ -9,6 +9,7 @@ import { MongooseAdapter } from '@/lib/mongoose-adapter'
 import type { UserRole } from '@/models/User'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  trustHost: true,
   adapter: MongooseAdapter(),
   session: { strategy: 'jwt' },
   providers: [
