@@ -1,8 +1,17 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { LockedFormOverlay } from '@/components/ui/LockedFormOverlay'
+import { ModernSelect } from '@/components/ui/ModernSelect'
+
+const categoryOptions = [
+  { value: 'General Inquiry', label: 'General Inquiry' },
+  { value: 'Partnership', label: 'Partnership' },
+  { value: 'Investment', label: 'Investment' },
+  { value: 'Careers', label: 'Careers' },
+  { value: 'Media', label: 'Media' },
+]
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -222,6 +231,8 @@ const styles = `
 `
 
 export default function FAQPage() {
+  const [category, setCategory] = useState('')
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -594,16 +605,7 @@ export default function FAQPage() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-[#D1D5DB] mb-1">Category *</label>
-                <select
-                  required
-                  className="w-full bg-[#111] border border-[#2A2A2A] rounded-xl p-3 text-[#FAFAFA] focus:border-[#C50000] outline-none transition-colors"
-                >
-                  <option value="General Inquiry">General Inquiry</option>
-                  <option value="Partnership">Partnership</option>
-                  <option value="Investment">Investment</option>
-                  <option value="Careers">Careers</option>
-                  <option value="Media">Media</option>
-                </select>
+                <ModernSelect name="category" options={categoryOptions} value={category} onChange={setCategory} />
               </div>
               <div>
                 <label className="block text-sm font-medium text-[#D1D5DB] mb-1">Message</label>

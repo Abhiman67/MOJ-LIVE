@@ -177,11 +177,8 @@ export default function ProfileForm({ initialData, user }: { initialData: Profil
             </div>
 
             <div className="flex items-center justify-between border-t border-border-subtle px-6 py-4">
-              <div className="flex items-center gap-3">
-                <div className="flex h-1.5 w-24 rounded-full bg-border-subtle overflow-hidden">
-                  <div className="h-full rounded-full bg-[#C50000] transition-all duration-500" style={{ width: `${pct}%` }} />
-                </div>
-                <span className="text-xs text-text-muted">{filled}/{total}</span>
+              <div className="flex h-1.5 w-24 rounded-full bg-border-subtle overflow-hidden">
+                <div className="h-full rounded-full bg-[#C50000] transition-all duration-500" style={{ width: `${pct}%` }} />
               </div>
               <div className="flex items-center gap-3">
                 {sections.findIndex(s => s.id === tab) < sections.length - 1 && (

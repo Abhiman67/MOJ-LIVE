@@ -5,6 +5,7 @@ import Script from 'next/script'
 import type { MouseEvent as ReactMouseEvent } from 'react'
 import { createElement, useEffect, useMemo, useRef, useState } from 'react'
 import { LockedFormOverlay } from '@/components/ui/LockedFormOverlay'
+import { useSession } from 'next-auth/react'
 
 type ModalId = 'advisor-modal' | 'career-modal' | null
 
@@ -153,6 +154,8 @@ function useStatCounters() {
 }
 
 export function HomeLanding() {
+  const { status } = useSession()
+  const isAuthenticated = status === 'authenticated'
   const [mobileOpen, setMobileOpen] = useState(false)
   const [activeModal, setActiveModal] = useState<ModalId>(null)
   const [scrolled, setScrolled] = useState(false)
@@ -285,8 +288,8 @@ export function HomeLanding() {
                   </a>
                 )
               )}
-              <a href="/auth" className="btn-primary text-sm px-7 py-3">
-                Contact Us
+              <a href={isAuthenticated ? '/contact' : '/auth'} className="btn-primary text-sm px-7 py-3">
+                {isAuthenticated ? 'Contact Us' : 'Sign In'}
               </a>
             </div>
 
@@ -321,8 +324,8 @@ export function HomeLanding() {
                   )}
                 </div>
                 <div className="mt-4">
-                  <a href="/auth" className="mobile-menu-cta dark" onClick={() => setMobileOpen(false)}>
-                    Contact Us
+                  <a href={isAuthenticated ? '/contact' : '/auth'} className="mobile-menu-cta dark" onClick={() => setMobileOpen(false)}>
+                    {isAuthenticated ? 'Contact Us' : 'Sign In'}
                   </a>
                 </div>
               </div>

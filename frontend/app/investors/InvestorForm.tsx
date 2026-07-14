@@ -2,14 +2,47 @@
 
 import { useState } from 'react'
 import { LockedFormOverlay } from '@/components/ui/LockedFormOverlay'
+import { ModernSelect } from '@/components/ui/ModernSelect'
+
+const investorTypeOptions = [
+  { value: 'Venture Capital', label: 'Venture Capital' },
+  { value: 'Angel', label: 'Angel' },
+  { value: 'Institutional', label: 'Institutional' },
+  { value: 'Strategic / Corporate', label: 'Strategic / Corporate' },
+  { value: 'Family Office', label: 'Family Office' },
+  { value: 'Other', label: 'Other' },
+]
+
+const stageOptions = [
+  { value: 'Pre-seed', label: 'Pre-seed' },
+  { value: 'Seed', label: 'Seed' },
+  { value: 'Early Growth', label: 'Early Growth' },
+  { value: 'Growth', label: 'Growth' },
+  { value: 'Flexible', label: 'Flexible' },
+]
+
+const areaOptions = [
+  { value: 'Aviation', label: 'Aviation' },
+  { value: 'Infrastructure', label: 'Infrastructure' },
+  { value: 'Mobility', label: 'Mobility' },
+  { value: 'Deep Tech', label: 'Deep Tech' },
+  { value: 'Urban Systems', label: 'Urban Systems' },
+  { value: 'Other', label: 'Other' },
+]
 
 export function InvestorForm() {
   const [submitted, setSubmitted] = useState(false)
+  const [investorType, setInvestorType] = useState('')
+  const [stage, setStage] = useState('')
+  const [area, setArea] = useState('')
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setSubmitted(true)
     e.currentTarget.reset()
+    setInvestorType('')
+    setStage('')
+    setArea('')
     setTimeout(() => setSubmitted(false), 5000)
   }
 
@@ -26,22 +59,16 @@ export function InvestorForm() {
       </div>
       <div className="grid md:grid-cols-2 gap-6 mb-6">
         <div><label className="block font-semibold mb-1 text-white">Type of Investor *</label>
-          <select className="w-full rounded-2xl border border-border-subtle bg-surface-card px-4 py-3 text-white focus:border-[#C50000] focus:outline-none focus:ring-[3px] focus:ring-[rgba(197,0,0,0.1)]">
-            <option>Venture Capital</option><option>Angel</option><option>Institutional</option><option>Strategic / Corporate</option><option>Family Office</option><option>Other</option>
-          </select>
+          <ModernSelect name="investorType" options={investorTypeOptions} value={investorType} onChange={setInvestorType} />
         </div>
         <div><label className="block font-semibold mb-1 text-white">Investment Stage Preference</label>
-          <select className="w-full rounded-2xl border border-border-subtle bg-surface-card px-4 py-3 text-white focus:border-[#C50000] focus:outline-none focus:ring-[3px] focus:ring-[rgba(197,0,0,0.1)]">
-            <option>Pre-seed</option><option>Seed</option><option>Early Growth</option><option>Growth</option><option>Flexible</option>
-          </select>
+          <ModernSelect name="stage" options={stageOptions} value={stage} onChange={setStage} />
         </div>
       </div>
       <div className="grid md:grid-cols-2 gap-6 mb-6">
         <div><label className="block font-semibold mb-1 text-white">Typical Investment Size (Range)</label><input type="text" className="w-full rounded-2xl border border-border-subtle bg-surface-card px-4 py-3 text-white placeholder-text-muted focus:border-[#C50000] focus:outline-none focus:ring-[3px] focus:ring-[rgba(197,0,0,0.1)]" placeholder="$500k - $2M" /></div>
         <div><label className="block font-semibold mb-1 text-white">Areas of Interest</label>
-          <select className="w-full rounded-2xl border border-border-subtle bg-surface-card px-4 py-3 text-white focus:border-[#C50000] focus:outline-none focus:ring-[3px] focus:ring-[rgba(197,0,0,0.1)]">
-            <option>Aviation</option><option>Infrastructure</option><option>Mobility</option><option>Deep Tech</option><option>Urban Systems</option><option>Other</option>
-          </select>
+          <ModernSelect name="area" options={areaOptions} value={area} onChange={setArea} />
         </div>
       </div>
       <div className="mb-6">

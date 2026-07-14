@@ -3,6 +3,12 @@
 import { signOut } from 'next-auth/react'
 import { useState } from 'react'
 import Link from 'next/link'
+import { ContactForm } from './forms/ContactForm'
+import { CareerForm } from './forms/CareerForm'
+import { InvestorForm } from './forms/InvestorForm'
+import { PartnerForm } from './forms/PartnerForm'
+import { FaqForm } from './forms/FaqForm'
+import { AdvisoryForm } from './forms/AdvisoryForm'
 
 interface Submission {
   _id: string
@@ -20,6 +26,10 @@ const labels: Record<string, string> = {
 const icons: Record<string, string> = {
   contact: 'fa-envelope', career: 'fa-briefcase', investor: 'fa-chart-line',
   partner: 'fa-handshake', faq: 'fa-question-circle', advisory: 'fa-users',
+}
+const forms: Record<string, React.ElementType> = {
+  contact: ContactForm, career: CareerForm, investor: InvestorForm,
+  partner: PartnerForm, faq: FaqForm, advisory: AdvisoryForm,
 }
 const badge: Record<string, { label: string; dot: string; bg: string }> = {
   pending: { label: 'Pending', dot: 'bg-amber-400', bg: 'bg-amber-400/10 text-amber-400 border border-amber-400/20' },
@@ -153,16 +163,29 @@ export default function DashboardContent({
 
           <div className="rounded-xl border border-border-subtle bg-surface-card overflow-hidden">
             {filtered.length === 0 ? (
-              <div className="flex flex-col items-center py-20">
-                <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl border border-border-subtle bg-surface-hover">
-                  <i className="fas fa-inbox text-lg text-text-muted" />
+              filter !== 'all' && forms[filter] ? (
+                <div className="p-6">
+                  <div className="mb-4">
+                    <h3 className="text-base font-semibold text-text-primary">New {labels[filter] || filter} Submission</h3>
+                    <p className="text-xs text-text-secondary mt-0.5">Fill in the form below to submit.</p>
+                  </div>
+                  {(() => {
+                    const Form = forms[filter]
+                    return <Form />
+                  })()}
                 </div>
-                <p className="text-sm font-medium text-text-primary">No submissions</p>
-                <p className="mt-1 text-xs text-text-secondary">Submit a form to track it here.</p>
-                <Link href="/contact" className="mt-5 rounded-lg bg-[#C50000] px-4 py-2 text-xs font-medium text-white hover:bg-[#C50000]/90 transition-colors">
-                  New submission
-                </Link>
-              </div>
+              ) : (
+                <div className="flex flex-col items-center py-20">
+                  <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl border border-border-subtle bg-surface-hover">
+                    <i className="fas fa-inbox text-lg text-text-muted" />
+                  </div>
+                  <p className="text-sm font-medium text-text-primary">No submissions</p>
+                  <p className="mt-1 text-xs text-text-secondary">Submit a form to track it here.</p>
+                  <Link href="/contact" className="mt-5 rounded-lg bg-[#C50000] px-4 py-2 text-xs font-medium text-white hover:bg-[#C50000]/90 transition-colors">
+                    New submission
+                  </Link>
+                </div>
+              )
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full">
