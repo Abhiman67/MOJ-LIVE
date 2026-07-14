@@ -363,7 +363,7 @@ export const pageData: Record<string, ContentPageData> = {
     ],
     cta: {
       title: 'Join the list',
-      description: 'Subscription handling will be connected to the backend in the next phase.',
+      description: 'Stay ahead — be the first to know about early access, investment opportunities, and ecosystem updates.',
       primary: { label: 'Early Access', href: '/early-access' },
       secondary: { label: 'Contact', href: '/contact' }
     }
@@ -507,7 +507,7 @@ export const pageData: Record<string, ContentPageData> = {
     ],
     cta: {
       title: 'Request access when ready',
-      description: 'Whitepaper access and request handling will be wired into backend routes next.',
+      description: 'Access exclusive whitepapers on urban air mobility, vertiport infrastructure, and technology white papers.',
       primary: { label: 'Subscribe', href: '/subscribe' },
       secondary: { label: 'Contact', href: '/contact' }
     }

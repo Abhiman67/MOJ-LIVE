@@ -32,30 +32,55 @@ const areaOptions = [
 
 export function InvestorForm() {
   const [submitted, setSubmitted] = useState(false)
+  const [error, setError] = useState('')
   const [investorType, setInvestorType] = useState('')
   const [stage, setStage] = useState('')
   const [area, setArea] = useState('')
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    setSubmitted(true)
-    e.currentTarget.reset()
-    setInvestorType('')
-    setStage('')
-    setArea('')
-    setTimeout(() => setSubmitted(false), 5000)
+    setError('')
+    setSubmitted(false)
+    const form = e.currentTarget
+    const raw = new FormData(form)
+    const data: Record<string, unknown> = {}
+    for (const [key, val] of raw.entries()) {
+      if (key === 'experience' || key === 'valueAdd') {
+        if (!data[key]) data[key] = []
+        ;(data[key] as string[]).push(val as string)
+      } else {
+        data[key] = val
+      }
+    }
+
+    try {
+      const res = await fetch('/api/forms/investor', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+      if (!res.ok) throw new Error('Submission failed')
+      setSubmitted(true)
+      form.reset()
+      setInvestorType('')
+      setStage('')
+      setArea('')
+      setTimeout(() => setSubmitted(false), 5000)
+    } catch {
+      setError('Something went wrong. Please try again.')
+    }
   }
 
   return (
     <LockedFormOverlay formType="investor">
     <form id="investorForm" onSubmit={handleSubmit}>
       <div className="grid md:grid-cols-2 gap-6 mb-6">
-        <div><label className="block font-semibold mb-1 text-white">Full Name *</label><input type="text" required className="w-full rounded-2xl border border-border-subtle bg-surface-card px-4 py-3 text-white placeholder-text-muted focus:border-[#C50000] focus:outline-none focus:ring-[3px] focus:ring-[rgba(197,0,0,0.1)]" placeholder="e.g., Rajiv Malhotra" /></div>
-        <div><label className="block font-semibold mb-1 text-white">Organization / Fund Name *</label><input type="text" required className="w-full rounded-2xl border border-border-subtle bg-surface-card px-4 py-3 text-white placeholder-text-muted focus:border-[#C50000] focus:outline-none focus:ring-[3px] focus:ring-[rgba(197,0,0,0.1)]" placeholder="Alpha Ventures" /></div>
-        <div><label className="block font-semibold mb-1 text-white">Role / Designation</label><input type="text" className="w-full rounded-2xl border border-border-subtle bg-surface-card px-4 py-3 text-white placeholder-text-muted focus:border-[#C50000] focus:outline-none focus:ring-[3px] focus:ring-[rgba(197,0,0,0.1)]" placeholder="Partner / MD" /></div>
-        <div><label className="block font-semibold mb-1 text-white">Email Address *</label><input type="email" required className="w-full rounded-2xl border border-border-subtle bg-surface-card px-4 py-3 text-white placeholder-text-muted focus:border-[#C50000] focus:outline-none focus:ring-[3px] focus:ring-[rgba(197,0,0,0.1)]" placeholder="contact@fund.com" /></div>
-        <div><label className="block font-semibold mb-1 text-white">Phone Number</label><input type="tel" className="w-full rounded-2xl border border-border-subtle bg-surface-card px-4 py-3 text-white placeholder-text-muted focus:border-[#C50000] focus:outline-none focus:ring-[3px] focus:ring-[rgba(197,0,0,0.1)]" placeholder="+91 ..." /></div>
-        <div><label className="block font-semibold mb-1 text-white">Location (Country/City)</label><input type="text" className="w-full rounded-2xl border border-border-subtle bg-surface-card px-4 py-3 text-white placeholder-text-muted focus:border-[#C50000] focus:outline-none focus:ring-[3px] focus:ring-[rgba(197,0,0,0.1)]" placeholder="India, Mumbai" /></div>
+        <div><label className="block font-semibold mb-1 text-white">Full Name *</label><input name="fullName" type="text" required className="w-full rounded-2xl border border-border-subtle bg-surface-card px-4 py-3 text-white placeholder-text-muted focus:border-[#C50000] focus:outline-none focus:ring-[3px] focus:ring-[rgba(197,0,0,0.1)]" placeholder="e.g., Rajiv Malhotra" /></div>
+        <div><label className="block font-semibold mb-1 text-white">Organization / Fund Name *</label><input name="organization" type="text" required className="w-full rounded-2xl border border-border-subtle bg-surface-card px-4 py-3 text-white placeholder-text-muted focus:border-[#C50000] focus:outline-none focus:ring-[3px] focus:ring-[rgba(197,0,0,0.1)]" placeholder="Alpha Ventures" /></div>
+        <div><label className="block font-semibold mb-1 text-white">Role / Designation</label><input name="role" type="text" className="w-full rounded-2xl border border-border-subtle bg-surface-card px-4 py-3 text-white placeholder-text-muted focus:border-[#C50000] focus:outline-none focus:ring-[3px] focus:ring-[rgba(197,0,0,0.1)]" placeholder="Partner / MD" /></div>
+        <div><label className="block font-semibold mb-1 text-white">Email Address *</label><input name="email" type="email" required className="w-full rounded-2xl border border-border-subtle bg-surface-card px-4 py-3 text-white placeholder-text-muted focus:border-[#C50000] focus:outline-none focus:ring-[3px] focus:ring-[rgba(197,0,0,0.1)]" placeholder="contact@fund.com" /></div>
+        <div><label className="block font-semibold mb-1 text-white">Phone Number</label><input name="phone" type="tel" className="w-full rounded-2xl border border-border-subtle bg-surface-card px-4 py-3 text-white placeholder-text-muted focus:border-[#C50000] focus:outline-none focus:ring-[3px] focus:ring-[rgba(197,0,0,0.1)]" placeholder="+91 ..." /></div>
+        <div><label className="block font-semibold mb-1 text-white">Location (Country/City)</label><input name="location" type="text" className="w-full rounded-2xl border border-border-subtle bg-surface-card px-4 py-3 text-white placeholder-text-muted focus:border-[#C50000] focus:outline-none focus:ring-[3px] focus:ring-[rgba(197,0,0,0.1)]" placeholder="India, Mumbai" /></div>
       </div>
       <div className="grid md:grid-cols-2 gap-6 mb-6">
         <div><label className="block font-semibold mb-1 text-white">Type of Investor *</label>
@@ -66,7 +91,7 @@ export function InvestorForm() {
         </div>
       </div>
       <div className="grid md:grid-cols-2 gap-6 mb-6">
-        <div><label className="block font-semibold mb-1 text-white">Typical Investment Size (Range)</label><input type="text" className="w-full rounded-2xl border border-border-subtle bg-surface-card px-4 py-3 text-white placeholder-text-muted focus:border-[#C50000] focus:outline-none focus:ring-[3px] focus:ring-[rgba(197,0,0,0.1)]" placeholder="$500k - $2M" /></div>
+        <div><label className="block font-semibold mb-1 text-white">Typical Investment Size (Range)</label><input name="investmentSize" type="text" className="w-full rounded-2xl border border-border-subtle bg-surface-card px-4 py-3 text-white placeholder-text-muted focus:border-[#C50000] focus:outline-none focus:ring-[3px] focus:ring-[rgba(197,0,0,0.1)]" placeholder="$500k - $2M" /></div>
         <div><label className="block font-semibold mb-1 text-white">Areas of Interest</label>
           <ModernSelect name="area" options={areaOptions} value={area} onChange={setArea} />
         </div>
@@ -75,7 +100,7 @@ export function InvestorForm() {
         <label className="block font-semibold mb-2 text-white">Do you have experience in: (Select all)</label>
         <div className="flex flex-wrap gap-4">
           {['Aviation/Aerospace','Mobility Platforms','Infrastructure Development','Government/Policy'].map((v) => (
-            <label key={v} className="flex items-center gap-1 text-text-secondary"><input type="checkbox" value={v} /> {v}</label>
+            <label key={v} className="flex items-center gap-1 text-text-secondary"><input type="checkbox" name="experience" value={v} /> {v}</label>
           ))}
         </div>
       </div>
@@ -83,23 +108,24 @@ export function InvestorForm() {
         <label className="block font-semibold mb-1 text-white">Value Beyond Capital (Can support in)</label>
         <div className="flex flex-wrap gap-3">
           {['Strategic Partnerships','Govt/Institutional Access','Global Expansion','Technology Scaling','Talent & Leadership'].map((v) => (
-            <label key={v} className="flex items-center gap-1 text-text-secondary"><input type="checkbox" value={v} /> {v}</label>
+            <label key={v} className="flex items-center gap-1 text-text-secondary"><input type="checkbox" name="valueAdd" value={v} /> {v}</label>
           ))}
         </div>
       </div>
       <div className="mb-6">
         <label className="block font-semibold mb-1 text-white">Message / Investment Thesis (Why MyOnlineJet?)</label>
-        <textarea rows={3} className="w-full rounded-2xl border border-border-subtle bg-surface-card px-4 py-3 text-white placeholder-text-muted focus:border-[#C50000] focus:outline-none focus:ring-[3px] focus:ring-[rgba(197,0,0,0.1)]" placeholder="Share your perspective..." />
+        <textarea name="message" rows={3} className="w-full rounded-2xl border border-border-subtle bg-surface-card px-4 py-3 text-white placeholder-text-muted focus:border-[#C50000] focus:outline-none focus:ring-[3px] focus:ring-[rgba(197,0,0,0.1)]" placeholder="Share your perspective..." />
       </div>
       <div className="mb-6">
         <label className="block font-semibold mb-1 text-white">Optional: Investor Deck / Profile (Dropbox/Drive link)</label>
-        <input type="url" className="w-full rounded-2xl border border-border-subtle bg-surface-card px-4 py-3 text-white placeholder-text-muted focus:border-[#C50000] focus:outline-none focus:ring-[3px] focus:ring-[rgba(197,0,0,0.1)]" placeholder="https://..." />
+        <input name="deckLink" type="url" className="w-full rounded-2xl border border-border-subtle bg-surface-card px-4 py-3 text-white placeholder-text-muted focus:border-[#C50000] focus:outline-none focus:ring-[3px] focus:ring-[rgba(197,0,0,0.1)]" placeholder="https://..." />
       </div>
       <div className="mb-6">
         <label className="flex items-center gap-2 text-text-secondary">
-          <input type="checkbox" required /> <span className="text-sm">I agree to be contacted by MyOnlineJet regarding investment opportunities.</span>
+          <input name="consent" type="checkbox" required /> <span className="text-sm">I agree to be contacted by MyOnlineJet regarding investment opportunities.</span>
         </label>
       </div>
+      {error && <p className="text-sm text-red-400 text-center">{error}</p>}
       <div className="text-center">
         <button type="submit" className="btn-primary w-full md:w-auto px-10">Submit Enquiry &rarr;</button>
       </div>

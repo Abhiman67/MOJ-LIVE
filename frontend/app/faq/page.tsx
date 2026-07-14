@@ -354,7 +354,7 @@ export default function FAQPage() {
                   <>
                     We are currently in the pre-launch and ecosystem development phase, actively working on partnerships,
                     infrastructure mapping, and early network design.{' '}
-                    <Link href="/press-media" className="text-[#C50000] font-medium hover:underline">
+                    <Link href="/contact" className="text-[#C50000] font-medium hover:underline">
                       Stay updated: Press & Media →
                     </Link>
                   </>
@@ -542,13 +542,13 @@ export default function FAQPage() {
                 question="Where can I find official updates & research?"
                 answer={
                   <div className="flex flex-wrap gap-3">
-                    <Link href="/press-media" className="text-[#C50000] font-medium hover:underline">
+                    <Link href="/contact" className="text-[#C50000] font-medium hover:underline">
                       Press & Media
                     </Link>
-                    <Link href="/whitepaper" className="text-[#C50000] font-medium hover:underline">
+                    <Link href="/whitepapers" className="text-[#C50000] font-medium hover:underline">
                       Whitepaper
                     </Link>
-                    <Link href="/blog" className="text-[#C50000] font-medium hover:underline">
+                    <Link href="https://news.myonlinejet.com" className="text-[#C50000] font-medium hover:underline">
                       Blog →
                     </Link>
                   </div>
@@ -574,34 +574,31 @@ export default function FAQPage() {
             <LockedFormOverlay formType="faq">
             <form
               className="max-w-2xl mx-auto space-y-5"
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault()
-                alert('Thank you for reaching out. Our team will get back to you shortly.')
-                ;(e.target as HTMLFormElement).reset()
+                const data = Object.fromEntries(new FormData(e.currentTarget))
+                try {
+                  const res = await fetch('/api/forms/faq', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+                  if (!res.ok) throw new Error()
+                  alert('Thank you for reaching out. Our team will get back to you shortly.')
+                  ;(e.target as HTMLFormElement).reset()
+                  setCategory('')
+                } catch {
+                  alert('Something went wrong. Please try again.')
+                }
               }}
             >
               <div>
                 <label className="block text-sm font-medium text-[#D1D5DB] mb-1">Full Name *</label>
-                <input
-                  type="text"
-                  required
-                  className="w-full bg-[#111] border border-[#2A2A2A] rounded-xl p-3 text-[#FAFAFA] focus:border-[#C50000] outline-none transition-colors"
-                />
+                <input name="fullName" type="text" required className="w-full bg-[#111] border border-[#2A2A2A] rounded-xl p-3 text-[#FAFAFA] focus:border-[#C50000] outline-none transition-colors" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-[#D1D5DB] mb-1">Email Address *</label>
-                <input
-                  type="email"
-                  required
-                  className="w-full bg-[#111] border border-[#2A2A2A] rounded-xl p-3 text-[#FAFAFA] focus:border-[#C50000] outline-none transition-colors"
-                />
+                <input name="email" type="email" required className="w-full bg-[#111] border border-[#2A2A2A] rounded-xl p-3 text-[#FAFAFA] focus:border-[#C50000] outline-none transition-colors" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-[#D1D5DB] mb-1">Phone Number</label>
-                <input
-                  type="tel"
-                  className="w-full bg-[#111] border border-[#2A2A2A] rounded-xl p-3 text-[#FAFAFA] focus:border-[#C50000] outline-none transition-colors"
-                />
+                <input name="phone" type="tel" className="w-full bg-[#111] border border-[#2A2A2A] rounded-xl p-3 text-[#FAFAFA] focus:border-[#C50000] outline-none transition-colors" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-[#D1D5DB] mb-1">Category *</label>
@@ -609,13 +606,10 @@ export default function FAQPage() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-[#D1D5DB] mb-1">Message</label>
-                <textarea
-                  rows={4}
-                  className="w-full bg-[#111] border border-[#2A2A2A] rounded-xl p-3 text-[#FAFAFA] focus:border-[#C50000] outline-none transition-colors"
-                />
+                <textarea name="message" rows={4} className="w-full bg-[#111] border border-[#2A2A2A] rounded-xl p-3 text-[#FAFAFA] focus:border-[#C50000] outline-none transition-colors" />
               </div>
               <div className="flex items-start gap-2">
-                <input type="checkbox" required className="mt-1 accent-[#C50000]" />
+                <input type="checkbox" name="consent" required className="mt-1 accent-[#C50000]" />
                 <span className="text-sm text-[#A1A1AA]">
                   I agree to the{' '}
                   <Link href="/legal-disclaimer" className="text-[#C50000] hover:underline">

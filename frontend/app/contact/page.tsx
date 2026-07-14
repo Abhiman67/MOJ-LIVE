@@ -264,7 +264,7 @@ export default function ContactPage() {
                   {/* Consent & Privacy */}
                   <div className="space-y-3 mb-8">
                     <label className="flex items-center gap-2 cursor-pointer">
-                      <input type="checkbox" required className="w-4 h-4 accent-[#C50000] rounded" />
+                      <input type="checkbox" name="consent" required className="w-4 h-4 accent-[#C50000] rounded" />
                       <span className="text-sm text-text-secondary">
                         I agree to the{' '}
                         <Link href="/privacy-policy" className="text-[#C50000] underline hover:text-[#C50000]">Privacy Policy</Link>

@@ -7,7 +7,7 @@ export default function NotFound() {
         <p className="section-kicker">404</p>
         <h1 className="mt-2 text-4xl font-bold text-white">Page not found</h1>
         <p className="mt-4 text-gray-300">
-          The route does not exist in the new Next.js shell yet. We&apos;ll migrate it in the next phase.
+          The page you&apos;re looking for doesn&apos;t exist or has been moved.
         </p>
         <div className="mt-8 flex justify-center gap-4">
           <Link href="/" className="primary-btn">

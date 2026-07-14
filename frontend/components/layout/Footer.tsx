@@ -91,13 +91,13 @@ export function Footer() {
             <Link href="/terms-conditions" className="text-gray-400 hover:text-white transition-colors">
               Terms of Service
             </Link>
-            <Link href="/privacy-policy" className="text-gray-400 hover:text-white transition-colors">
+            <Link href="/legal-disclaimer" className="text-gray-400 hover:text-white transition-colors">
               Cookie Policy
             </Link>
             <Link href="/legal-disclaimer" className="text-gray-400 hover:text-white transition-colors">
               Legal Disclaimer
             </Link>
-            <Link href="/privacy-policy" className="text-gray-400 hover:text-white transition-colors">
+            <Link href="/terms-conditions" className="text-gray-400 hover:text-white transition-colors">
               Refund Policy
             </Link>
             <Link href="/sitemap.xml" className="text-gray-400 hover:text-white transition-colors">

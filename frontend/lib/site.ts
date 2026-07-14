@@ -150,13 +150,14 @@ export const footerGroups = [
       { label: 'Partner With Us', href: '/partner-with-us' },
       { label: 'Investors', href: '/investors' },
       { label: 'Careers', href: '/careers' },
+      { label: 'Advisory', href: '/advisory' },
       { label: 'Early Access', href: '/early-access' }
     ]
   },
   {
     title: 'Resources',
     links: [
-      { label: 'Press & Media', href: '/' },
+      { label: 'Press & Media', href: '/contact' },
       { label: 'Whitepapers', href: '/whitepapers' },
       { label: 'Reports', href: '/reports' },
       { label: 'FAQ', href: '/faq' },
@@ -169,7 +170,7 @@ export const footerGroups = [
     links: [
       { label: 'Privacy Policy', href: '/privacy-policy' },
       { label: 'Terms & Conditions', href: '/terms-conditions' },
-      { label: 'Cookie Policy', href: '/privacy-policy' },
+      { label: 'Cookie Policy', href: '/legal-disclaimer' },
       { label: 'Legal Disclaimer', href: '/legal-disclaimer' }
     ]
   }

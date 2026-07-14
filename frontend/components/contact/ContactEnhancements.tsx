@@ -7,7 +7,6 @@ export function ContactEnhancements() {
     const page = document.querySelector('.contact-page')
     if (!page) return
 
-    // Scroll Reveal Animation
     const revealElements = Array.from(page.querySelectorAll<HTMLElement>('.reveal'))
     if (typeof IntersectionObserver !== 'undefined') {
       const observer = new IntersectionObserver(
@@ -24,7 +23,6 @@ export function ContactEnhancements() {
       revealElements.forEach((el) => observer.observe(el))
       return () => observer.disconnect()
     }
-
     revealElements.forEach((el) => el.classList.add('active'))
     return undefined
   }, [])
@@ -32,8 +30,6 @@ export function ContactEnhancements() {
   useEffect(() => {
     const page = document.querySelector('.contact-page')
     if (!page) return
-
-    // Trigger hero reveal immediately
     const heroReveal = page.querySelector<HTMLElement>('.reveal')
     if (heroReveal) {
       setTimeout(() => heroReveal.classList.add('active'), 100)
@@ -44,7 +40,6 @@ export function ContactEnhancements() {
     const page = document.querySelector('.contact-page')
     if (!page) return
 
-    // Toggle advanced fields based on inquiry type
     const inquirySelect = page.querySelector<HTMLSelectElement>('#inquiryType')
     const advancedDiv = page.querySelector<HTMLElement>('#advancedBusinessFields')
     if (inquirySelect && advancedDiv) {
@@ -67,23 +62,42 @@ export function ContactEnhancements() {
     const page = document.querySelector('.contact-page')
     if (!page) return
 
-    // Form submission
     const form = page.querySelector<HTMLFormElement>('#enterpriseContactForm')
     const msgDiv = page.querySelector<HTMLElement>('#formSuccessMsg')
     if (form && msgDiv) {
-      const handleSubmit = (e: Event) => {
+      const handleSubmit = async (e: Event) => {
         e.preventDefault()
-        msgDiv.classList.remove('hidden')
-        msgDiv.innerHTML =
-          '<i class="fas fa-check-circle mr-2"></i> Your inquiry has been submitted. Our team will respond within 24–72 business hours. We engage with intent.'
-        form.reset()
-        const advancedDiv = page.querySelector<HTMLElement>('#advancedBusinessFields')
-        if (advancedDiv) advancedDiv.classList.add('hidden')
-        const fileNameSpan = page.querySelector<HTMLElement>('.file-upload-btn .file-name')
-        if (fileNameSpan) fileNameSpan.textContent = ''
-        setTimeout(() => {
-          msgDiv.classList.add('hidden')
-        }, 8000)
+        const raw = new FormData(form)
+        const data: Record<string, unknown> = {}
+        for (const [key, val] of raw.entries()) {
+          if (key === 'attachment') continue
+          if (data[key]) {
+            data[key] = [data[key], val].flat()
+          } else {
+            data[key] = val
+          }
+        }
+
+        try {
+          const res = await fetch('/api/forms/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+          })
+          if (!res.ok) throw new Error('Submission failed')
+          msgDiv.classList.remove('hidden')
+          msgDiv.innerHTML = '<i class="fas fa-check-circle mr-2"></i> Your inquiry has been submitted. Our team will respond within 24–72 business hours.'
+          form.reset()
+          const advancedDiv = page.querySelector<HTMLElement>('#advancedBusinessFields')
+          if (advancedDiv) advancedDiv.classList.add('hidden')
+          const fileNameSpan = page.querySelector<HTMLElement>('.file-upload-btn .file-name')
+          if (fileNameSpan) fileNameSpan.textContent = ''
+        } catch {
+          msgDiv.classList.remove('hidden')
+          msgDiv.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i> Something went wrong. Please try again.'
+        }
+
+        setTimeout(() => { msgDiv.classList.add('hidden') }, 8000)
       }
       form.addEventListener('submit', handleSubmit)
       return () => form.removeEventListener('submit', handleSubmit)
@@ -95,7 +109,6 @@ export function ContactEnhancements() {
     const page = document.querySelector('.contact-page')
     if (!page) return
 
-    // File input - show selected file name
     const fileInput = page.querySelector<HTMLInputElement>('#fileAttachment')
     const fileNameSpan = page.querySelector<HTMLElement>('.file-upload-btn .file-name')
     if (fileInput && fileNameSpan) {

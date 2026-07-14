@@ -334,14 +334,14 @@ export default function CareersPage() {
             <LockedFormOverlay formType="career">
             <form action="#" method="post" className="space-y-6 max-w-3xl mx-auto">
               <div className="grid md:grid-cols-2 gap-5">
-                <input type="text" placeholder="Full Name *" required className="form-input" />
-                <input type="email" placeholder="Email Address *" required className="form-input" />
-                <input type="tel" placeholder="Phone Number *" required className="form-input" />
-                <input type="text" placeholder="Current Role / Education" className="form-input" />
-                <input type="url" placeholder="LinkedIn Profile" className="form-input" />
-                <input type="text" placeholder="Portfolio / Work Links (optional)" className="form-input" />
+                <input type="text" name="fullName" placeholder="Full Name *" required className="form-input" />
+                <input type="email" name="email" placeholder="Email Address *" required className="form-input" />
+                <input type="tel" name="phone" placeholder="Phone Number *" required className="form-input" />
+                <input type="text" name="currentRole" placeholder="Current Role / Education" className="form-input" />
+                <input type="url" name="linkedIn" placeholder="LinkedIn Profile" className="form-input" />
+                <input type="text" name="portfolio" placeholder="Portfolio / Work Links (optional)" className="form-input" />
               </div>
-              <select className="form-select" defaultValue="">
+              <select name="areaOfInterest" className="form-select" defaultValue="">
                 <option value="" disabled>Area of Interest</option>
                 <option value="technology">Technology</option>
                 <option value="aviation-research">Aviation Research</option>
@@ -349,11 +349,11 @@ export default function CareersPage() {
                 <option value="operations">Operations</option>
                 <option value="content-media">Content & Media</option>
               </select>
-              <textarea rows={4} placeholder="Why do you want to work with MyOnlineJet? (Long answer) *" required className="form-textarea resize-none" />
-              <textarea rows={4} placeholder="What problem excites you the most in this space? (Long answer) *" required className="form-textarea resize-none" />
+              <textarea name="whyWork" rows={4} placeholder="Why do you want to work with MyOnlineJet? (Long answer) *" required className="form-textarea resize-none" />
+              <textarea name="problem" rows={4} placeholder="What problem excites you the most in this space? (Long answer) *" required className="form-textarea resize-none" />
               <div>
                 <label className="block mb-2 text-sm text-text-secondary font-medium">Upload Resume (PDF)</label>
-                <input type="file" accept=".pdf" className="form-input py-3 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-brand-red file:text-white hover:file:bg-[#c50000] file:transition-colors file:cursor-pointer" />
+                <input type="file" name="resume" accept=".pdf" className="form-input py-3 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-brand-red file:text-white hover:file:bg-[#c50000] file:transition-colors file:cursor-pointer" />
               </div>
               <button type="submit" className="btn-primary w-full md:w-auto">Apply Now</button>
             </form>

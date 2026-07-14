@@ -767,14 +767,23 @@ export function HomeLanding() {
             <LockedFormOverlay formType={activeModal === 'advisor-modal' ? 'advisory' : 'career'}>
             <form
               className="space-y-4 sm:space-y-5 md:space-y-6"
-              onSubmit={(event) => {
+              onSubmit={async (event) => {
                 event.preventDefault()
-                alert(
-                  activeModal === 'advisor-modal'
-                    ? 'Thank you for expressing interest in our advisory network. We will review your submission and contact you if there is a potential match.'
-                    : 'Thank you for registering your interest. You will be notified when relevant career opportunities become available.'
-                )
-                closeModal()
+                const form = event.currentTarget
+                const data = Object.fromEntries(new FormData(form))
+                const endpoint = activeModal === 'advisor-modal' ? '/api/forms/advisory' : '/api/forms/career'
+                try {
+                  const res = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+                  if (!res.ok) throw new Error()
+                  alert(
+                    activeModal === 'advisor-modal'
+                      ? 'Thank you for expressing interest in our advisory network. We will review your submission and contact you if there is a potential match.'
+                      : 'Thank you for registering your interest. You will be notified when relevant career opportunities become available.'
+                  )
+                  closeModal()
+                } catch {
+                  alert('Something went wrong. Please try again.')
+                }
               }}
             >
               {activeModal === 'advisor-modal' ? (
@@ -782,20 +791,20 @@ export function HomeLanding() {
                   <div className="grid gap-4 sm:gap-5 md:grid-cols-2 md:gap-6">
                     <div>
                       <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Full Name</label>
-                      <input type="text" className="modern-input" required />
+                      <input name="fullName" type="text" className="modern-input" required />
                     </div>
                     <div>
                       <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Current Position</label>
-                      <input type="text" className="modern-input" required />
+                      <input name="position" type="text" className="modern-input" required />
                     </div>
                   </div>
                   <div>
                     <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Email Address</label>
-                    <input type="email" className="modern-input" required />
+                    <input name="email" type="email" className="modern-input" required />
                   </div>
                   <div>
                     <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Area of Expertise</label>
-                    <select className="modern-input">
+                    <select name="expertise" className="modern-input">
                       <option value="">Select your expertise area</option>
                       <option value="aviation">Aviation & Aerospace</option>
                       <option value="urban">Urban Planning & Infrastructure</option>
@@ -807,7 +816,7 @@ export function HomeLanding() {
                   </div>
                   <div>
                     <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Brief Background (Optional)</label>
-                    <textarea rows={3} className="modern-input" placeholder="Briefly describe your relevant experience" />
+                    <textarea name="background" rows={3} className="modern-input" placeholder="Briefly describe your relevant experience" />
                   </div>
                   <p className="text-[10px] text-gray-500 sm:text-xs">
                     By submitting this form, you express interest in being considered for our advisory network. Selected candidates will be contacted for further discussion.
@@ -818,16 +827,16 @@ export function HomeLanding() {
                   <div className="grid gap-4 sm:gap-5 md:grid-cols-2 md:gap-6">
                     <div>
                       <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Full Name</label>
-                      <input type="text" className="modern-input" required />
+                      <input name="fullName" type="text" className="modern-input" required />
                     </div>
                     <div>
                       <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Email Address</label>
-                      <input type="email" className="modern-input" required />
+                      <input name="email" type="email" className="modern-input" required />
                     </div>
                   </div>
                   <div>
                     <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Area of Interest</label>
-                    <select className="modern-input">
+                    <select name="areaOfInterest" className="modern-input">
                       <option value="">Select area of interest</option>
                       <option value="engineering">Engineering & Infrastructure</option>
                       <option value="technology">Technology & AI Systems</option>
@@ -838,7 +847,7 @@ export function HomeLanding() {
                   </div>
                   <div>
                     <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Qualifications (Optional)</label>
-                    <textarea rows={3} className="modern-input" placeholder="Briefly mention your qualifications or background" />
+                    <textarea name="qualifications" rows={3} className="modern-input" placeholder="Briefly mention your qualifications or background" />
                   </div>
                   <div className="rounded-xl border border-white/10 bg-white/5 p-3 text-xs text-gray-400 sm:p-4 sm:text-sm">
                     <p className="mb-2 text-white font-medium">Recruitment Process:</p>
