@@ -1,8 +1,20 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { CustomAlert } from '@/components/ui/CustomAlert'
 
 export function CareersEnhancements() {
+  const [alertState, setAlertState] = useState<{
+    isOpen: boolean
+    title: string
+    message: string
+    type: 'success' | 'error'
+  }>({
+    isOpen: false,
+    title: '',
+    message: '',
+    type: 'success'
+  })
   useEffect(() => {
     const page = document.querySelector('.careers-page')
     if (!page) return
@@ -72,10 +84,20 @@ export function CareersEnhancements() {
             body: JSON.stringify(data),
           })
           if (!res.ok) throw new Error('Submission failed')
-          alert('Thank you for your application. We will review and reach out if there is a match.')
+          setAlertState({
+            isOpen: true,
+            title: 'Application Received',
+            message: 'Thank you for your application. We will review and reach out if there is a match.',
+            type: 'success'
+          })
           form.reset()
         } catch {
-          alert('Something went wrong. Please try again.')
+          setAlertState({
+            isOpen: true,
+            title: 'Error',
+            message: 'Something went wrong. Please try again.',
+            type: 'error'
+          })
         }
       }
       form.addEventListener('submit', handleSubmit)
@@ -84,5 +106,13 @@ export function CareersEnhancements() {
     return undefined
   }, [])
 
-  return null
+  return (
+    <CustomAlert
+      isOpen={alertState.isOpen}
+      title={alertState.title}
+      message={alertState.message}
+      type={alertState.type}
+      onClose={() => setAlertState((prev) => ({ ...prev, isOpen: false }))}
+    />
+  )
 }

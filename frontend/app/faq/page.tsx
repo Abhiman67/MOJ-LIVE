@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { LockedFormOverlay } from '@/components/ui/LockedFormOverlay'
 import { ModernSelect } from '@/components/ui/ModernSelect'
+import { CustomAlert } from '@/components/ui/CustomAlert'
 
 const categoryOptions = [
   { value: 'General Inquiry', label: 'General Inquiry' },
@@ -232,6 +233,17 @@ const styles = `
 
 export default function FAQPage() {
   const [category, setCategory] = useState('')
+  const [alertState, setAlertState] = useState<{
+    isOpen: boolean
+    title: string
+    message: string
+    type: 'success' | 'error'
+  }>({
+    isOpen: false,
+    title: '',
+    message: '',
+    type: 'success'
+  })
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -580,11 +592,21 @@ export default function FAQPage() {
                 try {
                   const res = await fetch('/api/forms/faq', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
                   if (!res.ok) throw new Error()
-                  alert('Thank you for reaching out. Our team will get back to you shortly.')
+                  setAlertState({
+                    isOpen: true,
+                    title: 'Message Sent',
+                    message: 'Thank you for reaching out. Our team will get back to you shortly.',
+                    type: 'success'
+                  })
                   ;(e.target as HTMLFormElement).reset()
                   setCategory('')
                 } catch {
-                  alert('Something went wrong. Please try again.')
+                  setAlertState({
+                    isOpen: true,
+                    title: 'Error',
+                    message: 'Something went wrong. Please try again.',
+                    type: 'error'
+                  })
                 }
               }}
             >
@@ -640,6 +662,14 @@ export default function FAQPage() {
           </div>
         </div>
       </div>
+
+      <CustomAlert
+        isOpen={alertState.isOpen}
+        title={alertState.title}
+        message={alertState.message}
+        type={alertState.type}
+        onClose={() => setAlertState((prev) => ({ ...prev, isOpen: false }))}
+      />
     </>
   )
 }

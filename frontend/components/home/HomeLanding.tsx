@@ -6,6 +6,7 @@ import type { MouseEvent as ReactMouseEvent } from 'react'
 import { createElement, useEffect, useMemo, useRef, useState } from 'react'
 import { LockedFormOverlay } from '@/components/ui/LockedFormOverlay'
 import { useSession } from 'next-auth/react'
+import { CustomAlert } from '@/components/ui/CustomAlert'
 
 type ModalId = 'advisor-modal' | 'career-modal' | null
 
@@ -159,6 +160,17 @@ export function HomeLanding() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [activeModal, setActiveModal] = useState<ModalId>(null)
   const [scrolled, setScrolled] = useState(false)
+  const [alertState, setAlertState] = useState<{
+    isOpen: boolean
+    title: string
+    message: string
+    type: 'success' | 'error'
+  }>({
+    isOpen: false,
+    title: '',
+    message: '',
+    type: 'success'
+  })
   const heroTiltRef = useRef<HTMLDivElement | null>(null)
 
   useRevealEffects()
@@ -775,14 +787,25 @@ export function HomeLanding() {
                 try {
                   const res = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
                   if (!res.ok) throw new Error()
-                  alert(
-                    activeModal === 'advisor-modal'
-                      ? 'Thank you for expressing interest in our advisory network. We will review your submission and contact you if there is a potential match.'
-                      : 'Thank you for registering your interest. You will be notified when relevant career opportunities become available.'
-                  )
+                  
+                  const isAdvisor = activeModal === 'advisor-modal'
                   closeModal()
+                  
+                  setAlertState({
+                    isOpen: true,
+                    title: isAdvisor ? 'Submission Received' : 'Registration Received',
+                    message: isAdvisor
+                      ? 'Thank you for expressing interest in our advisory network. We will review your submission and contact you if there is a potential match.'
+                      : 'Thank you for registering your interest. You will be notified when relevant career opportunities become available.',
+                    type: 'success'
+                  })
                 } catch {
-                  alert('Something went wrong. Please try again.')
+                  setAlertState({
+                    isOpen: true,
+                    title: 'Error',
+                    message: 'Something went wrong. Please try again.',
+                    type: 'error'
+                  })
                 }
               }}
             >
@@ -880,6 +903,14 @@ export function HomeLanding() {
       ) : null}
 
       <Script src="/moj-news-widget.js" strategy="afterInteractive" />
+
+      <CustomAlert
+        isOpen={alertState.isOpen}
+        title={alertState.title}
+        message={alertState.message}
+        type={alertState.type}
+        onClose={() => setAlertState((prev) => ({ ...prev, isOpen: false }))}
+      />
     </div>
   )
 }

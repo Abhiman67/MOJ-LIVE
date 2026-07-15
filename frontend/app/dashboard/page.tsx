@@ -23,13 +23,19 @@ export default async function DashboardPage() {
 
   const initialSubs = submissions.map(s => {
     const doc = s as unknown as Record<string, unknown>
+    const userIdObj = doc.userId as Record<string, unknown> | undefined
     return {
       _id: String(doc._id),
       formType: doc.formType as string,
       data: doc.data as Record<string, unknown>,
       status: doc.status as string,
       createdAt: (doc.createdAt as Date)?.toISOString?.() || String(doc.createdAt),
-      userId: doc.userId as { name: string; email: string } | undefined,
+      userId: userIdObj
+        ? {
+            name: String(userIdObj.name || ''),
+            email: String(userIdObj.email || ''),
+          }
+        : undefined,
     }
   })
 
