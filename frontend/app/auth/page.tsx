@@ -26,6 +26,25 @@ function AuthForm() {
     }
   }, [status, callbackUrl, router])
 
+  useEffect(() => {
+    const err = searchParams.get('error')
+    if (err) {
+      if (err === 'OAuthSignin' || err === 'OAuthCallback') {
+        setError('An error occurred during Google sign-in. Please try again.')
+      } else if (err === 'OAuthCreateAccount') {
+        setError('Could not create user account using Google.')
+      } else if (err === 'EmailCreateAccount') {
+        setError('Could not create user account using this email.')
+      } else if (err === 'Callback') {
+        setError('Authentication callback failed. Check database connection/credentials.')
+      } else if (err === 'Configuration') {
+        setError('Authentication configuration error. Please check your AUTH_SECRET or OAuth settings.')
+      } else {
+        setError(`Authentication error: ${err}`)
+      }
+    }
+  }, [searchParams])
+
   async function handleSocialLogin(provider: string) {
     await signIn(provider, { callbackUrl })
   }
@@ -97,6 +116,11 @@ function AuthForm() {
         </div>
 
         <div className="glass-card p-8">
+          {error && (
+            <div className="rounded-xl bg-[rgba(197,0,0,0.1)] p-3 text-sm text-[#C50000] text-center mb-6">
+              {error}
+            </div>
+          )}
           {/* Social Buttons */}
           <div className="space-y-3 mb-6">
             <button
@@ -165,12 +189,6 @@ function AuthForm() {
                     placeholder="Min. 6 characters"
                   />
                 </div>
-
-                {error && (
-                  <div className="rounded-xl bg-[rgba(197,0,0,0.1)] p-3 text-sm text-[#C50000] text-center">
-                    {error}
-                  </div>
-                )}
 
                 <button
                   type="submit"
