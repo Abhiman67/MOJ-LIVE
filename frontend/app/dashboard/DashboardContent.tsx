@@ -35,6 +35,12 @@ const labels: Record<string, string> = {
   contact: 'Contact', career: 'Job Application', investor: 'Investor',
   partner: 'Partnership', faq: 'Inquiry', advisory: 'Advisory',
 }
+const fieldIcons: Record<string, string> = {
+  fullName: 'fa-user', name: 'fa-user', email: 'fa-envelope', phone: 'fa-phone',
+  organization: 'fa-building', company: 'fa-building', role: 'fa-briefcase',
+  designation: 'fa-briefcase', advisoryType: 'fa-users', formType: 'fa-file',
+  subject: 'fa-heading', consent: 'fa-shield-halved',
+}
 const icons: Record<string, string> = {
   contact: 'fa-envelope', career: 'fa-briefcase', investor: 'fa-chart-line',
   partner: 'fa-handshake', faq: 'fa-question-circle', advisory: 'fa-users',
@@ -77,6 +83,13 @@ export default function DashboardContent({
   const [detail, setDetail] = useState<Submission | null>(null)
   const [updatingStatus, setUpdatingStatus] = useState(false)
   const [noteText, setNoteText] = useState('')
+  const [copiedField, setCopiedField] = useState<string | null>(null)
+
+  const handleCopy = (key: string, value: string) => {
+    navigator.clipboard.writeText(value)
+    setCopiedField(key)
+    setTimeout(() => setCopiedField(null), 2000)
+  }
 
   const handleUpdateStatus = async (newStatus: string) => {
     if (!detail) return
@@ -425,15 +438,31 @@ export default function DashboardContent({
           </div>
 
           <div className="mb-8 grid grid-cols-2 gap-3 lg:grid-cols-4">
-            {stats.map(s => (
-              <div key={s.label} className="rounded-xl border border-border-subtle bg-surface-card px-5 py-4">
-                <div className="flex items-center justify-between mb-2">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-text-muted">{s.label}</p>
-                  <i className={`fas ${s.icon} text-sm text-[#C50000]/40`} />
+            {stats.map(s => {
+              const borderColors: Record<string, string> = {
+                Total: 'border-l-zinc-500',
+                Pending: 'border-l-amber-500 shadow-[inset_4px_0_0_-2px_rgba(245,158,11,0.15)]',
+                Reviewed: 'border-l-blue-500 shadow-[inset_4px_0_0_-2px_rgba(59,130,246,0.15)]',
+                Closed: 'border-l-emerald-500 shadow-[inset_4px_0_0_-2px_rgba(16,185,129,0.15)]',
+              }
+              const hoverGlows: Record<string, string> = {
+                Total: 'hover:border-zinc-500/30 hover:shadow-[0_0_15px_rgba(255,255,255,0.015)]',
+                Pending: 'hover:border-amber-500/30 hover:shadow-[0_0_15px_rgba(245,158,11,0.04)]',
+                Reviewed: 'hover:border-blue-500/30 hover:shadow-[0_0_15px_rgba(59,130,246,0.04)]',
+                Closed: 'hover:border-emerald-500/30 hover:shadow-[0_0_15px_rgba(16,185,129,0.04)]',
+              }
+              const borderColor = borderColors[s.label] || 'border-l-border-subtle'
+              const hoverGlow = hoverGlows[s.label] || ''
+              return (
+                <div key={s.label} className={`rounded-xl border border-border-subtle border-l-4 ${borderColor} bg-surface-card px-5 py-4 transition-all duration-300 hover:-translate-y-0.5 ${hoverGlow}`}>
+                  <div className="flex items-center justify-between mb-2">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-text-muted">{s.label}</p>
+                    <i className={`fas ${s.icon} text-sm text-[#C50000]/40`} />
+                  </div>
+                  <p className="text-2xl font-bold text-text-primary">{s.value}</p>
                 </div>
-                <p className="text-2xl font-bold text-text-primary">{s.value}</p>
-              </div>
-            ))}
+              )
+            })}
           </div>
 
           <div className="mb-4 flex items-center gap-1.5 overflow-x-auto pb-2">
@@ -493,8 +522,10 @@ export default function DashboardContent({
                     {filtered.map((s, i) => {
                       const b = badge[s.status] || badge.pending
                       return (
-                        <tr key={s._id} className="border-b border-border-subtle/50 transition-colors hover:bg-surface-hover last:border-0">
-                          <td className="px-5 py-3.5">
+                        <tr key={s._id} className="group border-b border-border-subtle/50 transition-colors hover:bg-surface-hover last:border-0">
+                          <td className="relative px-5 py-3.5">
+                            {/* Eye-catching left indicator accent line */}
+                            <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#C50000] opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
                             <div className="flex items-center gap-3">
                               <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border-subtle bg-surface-hover">
                                 <i className={`fas ${icons[s.formType] || 'fa-file'} text-xs text-[#C50000]`} />
@@ -539,72 +570,155 @@ export default function DashboardContent({
       </div>
 
       {detail && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={() => setDetail(null)}>
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
-          <div className="relative w-full max-w-lg rounded-xl border border-border-subtle bg-[#0b1020] p-6 shadow-2xl" onClick={e => e.stopPropagation()}>
-            <div className="flex items-start justify-between mb-5">
-              <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-border-subtle bg-surface-hover">
-                  <i className={`fas ${icons[detail.formType] || 'fa-file'} text-xs text-[#C50000]`} />
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-in fade-in duration-200" onClick={() => setDetail(null)}>
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-md" />
+          
+          <div 
+            className="relative w-full max-w-2xl overflow-hidden rounded-2xl border border-border-subtle bg-gradient-to-b from-[#0b1020] to-[#04060b] shadow-2xl animate-in zoom-in-95 duration-200"
+            onClick={e => e.stopPropagation()}
+          >
+            {/* Glowing top line */}
+            <div className="h-1 w-full bg-gradient-to-r from-transparent via-[#C50000] to-transparent" />
+
+            {/* Modal Header */}
+            <div className="flex items-start justify-between border-b border-border-subtle/50 px-6 py-5">
+              <div className="flex items-center gap-4">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-[#C50000]/30 bg-[#C50000]/10 shadow-[0_0_15px_rgba(197,0,0,0.1)]">
+                  <i className={`fas ${icons[detail.formType] || 'fa-file'} text-base text-[#C50000]`} />
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-text-primary">{labels[detail.formType]}</p>
-                  <p className="text-xs text-text-muted">{new Date(detail.createdAt).toLocaleString()}</p>
+                  <h3 className="font-display text-base font-bold text-white tracking-wide">
+                    {labels[detail.formType]} Submission
+                  </h3>
+                  <p className="text-[11px] text-text-muted mt-0.5 flex items-center gap-1.5">
+                    <i className="far fa-clock text-[10px]" />
+                    {new Date(detail.createdAt).toLocaleString('en-IN', {
+                      day: 'numeric',
+                      month: 'short',
+                      year: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      hour12: true
+                    })}
+                  </p>
                 </div>
               </div>
-              <button onClick={() => setDetail(null)} className="flex h-7 w-7 items-center justify-center rounded-lg border border-border-subtle text-text-muted hover:text-text-primary transition-colors">
-                <i className="fas fa-xmark text-xs" />
-              </button>
-            </div>
-            <div className="mb-5">
-              <span className={`inline-flex items-center gap-1.5 rounded-md ${(badge[detail.status] || badge.pending).bg} px-2.5 py-1 text-xs font-medium`}>
-                <span className={`h-1.5 w-1.5 rounded-full ${(badge[detail.status] || badge.pending).dot}`} />
-                {(badge[detail.status] || badge.pending).label}
-              </span>
-            </div>
-            <div className="max-h-60 space-y-2.5 overflow-y-auto mb-4">
-              {detail.adminNotes && (
-                <div className="rounded-lg border border-purple-500/20 bg-purple-500/5 px-4 py-3">
-                  <p className="text-[11px] font-semibold uppercase tracking-wider text-purple-400 mb-0.5">
-                    Latest Admin Note / Message
-                  </p>
-                  <p className="text-sm text-text-primary break-words">{detail.adminNotes}</p>
-                </div>
-              )}
-              {Object.entries(detail.data).map(([k, v]) => (
-                <div key={k} className="rounded-lg border border-border-subtle bg-surface-hover px-4 py-3">
-                  <p className="text-[11px] font-semibold uppercase tracking-wider text-text-muted mb-0.5">
-                    {k.replace(/([A-Z])/g, ' $1').trim()}
-                  </p>
-                  <p className="text-sm text-text-primary break-words">{String(v)}</p>
-                </div>
-              ))}
+              <div className="flex items-center gap-3">
+                <span className={`inline-flex items-center gap-1.5 rounded-full ${(badge[detail.status] || badge.pending).bg} px-3 py-1 text-xs font-semibold uppercase tracking-wider`}>
+                  <span className={`h-1.5 w-1.5 rounded-full ${(badge[detail.status] || badge.pending).dot}`} />
+                  {(badge[detail.status] || badge.pending).label}
+                </span>
+                <button 
+                  onClick={() => setDetail(null)} 
+                  className="flex h-8 w-8 items-center justify-center rounded-xl border border-border-subtle bg-surface-card text-text-muted hover:text-white hover:border-[#C50000]/30 transition-all duration-200"
+                >
+                  <i className="fas fa-xmark text-sm" />
+                </button>
+              </div>
             </div>
 
+            {/* Modal Scrollable Content */}
+            <div className="max-h-[50vh] overflow-y-auto px-6 py-5 space-y-5 custom-scrollbar">
+              
+              {/* Admin Note Box */}
+              {detail.adminNotes && (
+                <div className="relative overflow-hidden rounded-xl border border-purple-500/20 bg-purple-500/5 px-4.5 py-4 shadow-[0_0_15px_rgba(168,85,247,0.05)]">
+                  <div className="absolute top-2.5 right-3 text-purple-500/20 text-3xl font-serif select-none pointer-events-none">
+                    ”
+                  </div>
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-purple-400 flex items-center gap-1.5 mb-1.5 font-display">
+                    <i className="fas fa-comment-dots" />
+                    Latest Message / Admin Note
+                  </p>
+                  <p className="text-sm text-text-primary leading-relaxed break-words whitespace-pre-wrap">{detail.adminNotes}</p>
+                </div>
+              )}
+
+              {/* Grid for Metadata */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                {Object.entries(detail.data)
+                  .filter(([k, v]) => String(v).length <= 80 && !['message', 'subject', 'thesis', 'notes'].includes(k))
+                  .map(([k, v]) => {
+                    const iconName = fieldIcons[k] || fieldIcons[k.toLowerCase()] || 'fa-circle-dot'
+                    const displayLabel = k.replace(/([A-Z])/g, ' $1').trim()
+                    const isCopied = copiedField === k
+                    return (
+                      <div 
+                        key={k} 
+                        onClick={() => handleCopy(k, String(v))}
+                        title="Click to copy value"
+                        className="group/card relative rounded-xl border border-border-subtle bg-[#0c101d] px-4 py-3 flex items-start gap-3 transition-all duration-200 hover:border-text-muted/30 hover:bg-[#12182b] cursor-pointer"
+                      >
+                        <div className="mt-0.5 flex h-7 w-7 items-center justify-center rounded-lg bg-surface-card border border-border-subtle/50 text-[#C50000] transition-colors group-hover/card:bg-[#C50000]/10">
+                          <i className={`fas ${iconName} text-xs`} />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center justify-between gap-1">
+                            <p className="text-[10px] font-bold uppercase tracking-wider text-text-muted font-display">{displayLabel}</p>
+                            <span className="opacity-0 group-hover/card:opacity-100 transition-opacity duration-200">
+                              <i className={`fas ${isCopied ? 'fa-check text-emerald-400' : 'fa-copy text-text-muted hover:text-white'} text-[10px]`} />
+                            </span>
+                          </div>
+                          <p className="text-sm font-semibold text-[#fafafa] mt-0.5 truncate select-all">{String(v)}</p>
+                        </div>
+                        
+                        {isCopied && (
+                          <div className="absolute inset-0 bg-emerald-500/5 rounded-xl border border-emerald-500/20 pointer-events-none transition-all animate-pulse" />
+                        )}
+                      </div>
+                    )
+                  })}
+              </div>
+
+              {/* Full Width Paragraph Fields */}
+              <div className="space-y-4 pt-1">
+                {Object.entries(detail.data)
+                  .filter(([k, v]) => String(v).length > 80 || ['message', 'subject', 'thesis', 'notes'].includes(k))
+                  .map(([k, v]) => {
+                    const iconName = fieldIcons[k] || fieldIcons[k.toLowerCase()] || 'fa-align-left'
+                    const displayLabel = k.replace(/([A-Z])/g, ' $1').trim()
+                    return (
+                      <div key={k} className="rounded-xl border border-border-subtle bg-[#0c101d]/60 p-4 space-y-2">
+                        <div className="flex items-center gap-2 border-b border-border-subtle/40 pb-2 mb-1">
+                          <i className={`fas ${iconName} text-xs text-[#C50000]`} />
+                          <h4 className="text-[10px] font-bold uppercase tracking-wider text-text-muted font-display">{displayLabel}</h4>
+                        </div>
+                        <p className="text-sm leading-relaxed text-text-secondary whitespace-pre-wrap break-words">{String(v)}</p>
+                      </div>
+                    )
+                  })}
+              </div>
+            </div>
+
+            {/* Admin Controls Footer */}
             {isAdmin && (
-              <div className="mt-4 border-t border-border-subtle/60 pt-4">
-                <h4 className="text-xs font-semibold uppercase tracking-wider text-text-muted mb-2 font-display">Admin Controls</h4>
+              <div className="border-t border-border-subtle/50 bg-[#060a12]/50 px-6 py-5 space-y-4">
+                <div className="flex items-center gap-2 mb-1">
+                  <i className="fas fa-sliders-h text-xs text-[#C50000]" />
+                  <h4 className="text-[11px] font-bold uppercase tracking-wider text-text-primary font-display">Administrator Controls</h4>
+                </div>
                 
                 {/* Status Selection Buttons */}
-                <div className="mb-4">
-                  <p className="text-[11px] text-text-secondary mb-1.5">Update Submission Status:</p>
+                <div className="space-y-2">
+                  <p className="text-[11px] text-text-muted">Set Request Stage / Status:</p>
                   <div className="flex flex-wrap gap-2">
                     {[
-                      { status: 'pending', label: 'Pending', color: 'hover:bg-amber-500/20 hover:text-amber-400 hover:border-amber-500/30' },
-                      { status: 'reviewed', label: 'Under Review', color: 'hover:bg-blue-500/20 hover:text-blue-400 hover:border-blue-500/30' },
-                      { status: 'approved', label: 'Approve & Close', color: 'hover:bg-emerald-500/20 hover:text-emerald-400 hover:border-emerald-500/30' },
-                      { status: 'rejected', label: 'Reject & Close', color: 'hover:bg-red-500/20 hover:text-red-400 hover:border-red-500/30' },
+                      { status: 'pending', label: 'Pending', icon: 'fa-hourglass-start', color: 'hover:bg-amber-500/20 hover:text-amber-400 hover:border-amber-500/30' },
+                      { status: 'reviewed', label: 'Under Review', icon: 'fa-magnifying-glass', color: 'hover:bg-blue-500/20 hover:text-blue-400 hover:border-blue-500/30' },
+                      { status: 'approved', label: 'Approve & Close', icon: 'fa-check', color: 'hover:bg-emerald-500/20 hover:text-emerald-400 hover:border-emerald-500/30' },
+                      { status: 'rejected', label: 'Reject & Close', icon: 'fa-xmark', color: 'hover:bg-red-500/20 hover:text-red-400 hover:border-red-500/30' },
                     ].map(btn => (
                       <button
                         key={btn.status}
                         disabled={updatingStatus}
                         onClick={() => handleUpdateStatus(btn.status)}
-                        className={`rounded-lg border border-border-subtle px-2.5 py-1 text-[11px] font-medium transition-all ${btn.color} ${
+                        className={`flex items-center gap-1.5 rounded-lg border border-border-subtle bg-surface-card px-3 py-2 text-xs font-semibold transition-all ${btn.color} ${
                           detail.status === btn.status
-                            ? 'bg-[#C50000]/10 text-[#C50000] border-[#C50000]/30'
-                            : 'text-text-muted bg-surface-card'
+                            ? 'bg-[#C50000]/15 text-[#C50000] border-[#C50000]/30 shadow-[0_0_15px_rgba(197,0,0,0.08)]'
+                            : 'text-text-secondary'
                         }`}
                       >
+                        <i className={`fas ${btn.icon} text-[10px]`} />
                         {btn.label}
                       </button>
                     ))}
@@ -612,23 +726,24 @@ export default function DashboardContent({
                 </div>
 
                 {/* Send Notification Message */}
-                <div>
-                  <label className="block text-[11px] text-text-secondary mb-1.5">Send Message / Add Admin Note (triggers user notification):</label>
+                <div className="space-y-2">
+                  <label className="block text-[11px] text-text-muted">Write Message / Status Explanation Note:</label>
                   <div className="flex gap-2">
                     <input
                       type="text"
-                      placeholder="Type a message or internal note..."
+                      placeholder="Type custom note (e.g. 'Your application is approved, we will call you.')"
                       value={noteText}
                       onChange={e => setNoteText(e.target.value)}
                       disabled={updatingStatus}
-                      className="flex-1 rounded-lg border border-border-subtle bg-[#0b1020] px-3 py-1.5 text-xs text-white placeholder-text-muted focus:border-[#C50000] focus:outline-none"
+                      className="flex-1 rounded-xl border border-border-subtle bg-[#0b1020] px-4 py-2.5 text-xs text-white placeholder-text-muted focus:border-[#C50000] focus:outline-none transition-colors"
                     />
                     <button
                       disabled={updatingStatus || !noteText.trim()}
                       onClick={handleSendNote}
-                      className="rounded-lg bg-[#C50000] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#C50000]/90 transition-colors disabled:opacity-50"
+                      className="flex items-center gap-1.5 rounded-xl bg-[#C50000] px-4 py-2.5 text-xs font-semibold text-white hover:bg-[#C50000]/90 transition-colors disabled:opacity-50"
                     >
-                      Send Message
+                      <i className="fas fa-paper-plane text-[10px]" />
+                      Send Note
                     </button>
                   </div>
                 </div>
@@ -637,6 +752,23 @@ export default function DashboardContent({
           </div>
         </div>
       )}
+
+      <style>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 5px;
+          height: 5px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: #2a2a2a;
+          border-radius: 9999px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: #C50000/60;
+        }
+      `}</style>
     </div>
   )
 }
