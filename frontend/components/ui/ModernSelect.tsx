@@ -43,6 +43,7 @@ export function ModernSelect({ name, options, placeholder = 'Select', required, 
     if (hiddenRef.current) {
       hiddenRef.current.value = option.value
       hiddenRef.current.dispatchEvent(new Event('change', { bubbles: true }))
+      hiddenRef.current.dispatchEvent(new Event('input', { bubbles: true }))
     }
   }
 

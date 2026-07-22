@@ -19,6 +19,8 @@ export function CareersEnhancements() {
     const page = document.querySelector('.careers-page')
     if (!page) return
 
+    const cleanups: (() => void)[] = []
+
     const revealElements = Array.from(page.querySelectorAll<HTMLElement>('.reveal'))
     const supportsObserver = typeof IntersectionObserver !== 'undefined'
 
@@ -35,15 +37,10 @@ export function CareersEnhancements() {
         { threshold: 0.12, rootMargin: '0px 0px -48px 0px' }
       )
       revealElements.forEach((element) => observer.observe(element))
-      return () => observer.disconnect()
+      cleanups.push(() => observer.disconnect())
+    } else {
+      revealElements.forEach((element) => element.classList.add('visible'))
     }
-    revealElements.forEach((element) => element.classList.add('visible'))
-    return undefined
-  }, [])
-
-  useEffect(() => {
-    const page = document.querySelector('.careers-page')
-    if (!page) return
 
     const anchors = Array.from(page.querySelectorAll<HTMLAnchorElement>('a[href^="#"]'))
     const handleClick = (event: MouseEvent) => {
@@ -57,12 +54,7 @@ export function CareersEnhancements() {
       history.replaceState(null, '', targetSelector)
     }
     anchors.forEach((anchor) => anchor.addEventListener('click', handleClick))
-    return () => anchors.forEach((anchor) => anchor.removeEventListener('click', handleClick))
-  }, [])
-
-  useEffect(() => {
-    const page = document.querySelector('.careers-page')
-    if (!page) return
+    cleanups.push(() => anchors.forEach((anchor) => anchor.removeEventListener('click', handleClick)))
 
     const form = page.querySelector<HTMLFormElement>('#apply-form form')
     if (form) {
@@ -101,9 +93,10 @@ export function CareersEnhancements() {
         }
       }
       form.addEventListener('submit', handleSubmit)
-      return () => form.removeEventListener('submit', handleSubmit)
+      cleanups.push(() => form.removeEventListener('submit', handleSubmit))
     }
-    return undefined
+
+    return () => cleanups.forEach((fn) => fn())
   }, [])
 
   return (

@@ -166,11 +166,11 @@ export default function ContactPage() {
                     <div className="grid md:grid-cols-2 gap-5">
                       <div>
                         <label className="block text-sm font-semibold mb-1 text-text-secondary">Full Name <span className="text-[#C50000]">*</span></label>
-                        <input type="text" name="fullName" required className="form-input" />
+                        <input type="text" name="fullName" required aria-required="true" className="form-input" />
                       </div>
                       <div>
                         <label className="block text-sm font-semibold mb-1 text-text-secondary">Email Address <span className="text-[#C50000]">*</span></label>
-                        <input type="email" name="email" required className="form-input" />
+                        <input type="email" name="email" required aria-required="true" className="form-input" />
                       </div>
                       <div>
                         <label className="block text-sm font-semibold mb-1 text-text-secondary">Phone Number (Optional but recommended)</label>
@@ -209,12 +209,12 @@ export default function ContactPage() {
                       </div>
                       <div>
                         <label className="block text-sm font-semibold mb-1 text-text-secondary">Subject <span className="text-[#C50000]">*</span></label>
-                        <input type="text" name="subject" required className="form-input" />
+                        <input type="text" name="subject" required aria-required="true" className="form-input" />
                       </div>
                     </div>
                     <div className="mt-5">
                       <label className="block text-sm font-semibold mb-1 text-text-secondary">Message <span className="text-[#C50000]">*</span></label>
-                      <textarea name="message" rows={5} required className="form-textarea" placeholder="Please describe your intent clearly. Relevant details help us respond faster." />
+                      <textarea name="message" rows={5} required aria-required="true" className="form-textarea" placeholder="Please describe your intent clearly. Relevant details help us respond faster." />
                     </div>
                   </div>
 
@@ -264,7 +264,7 @@ export default function ContactPage() {
                   {/* Consent & Privacy */}
                   <div className="space-y-3 mb-8">
                     <label className="flex items-center gap-2 cursor-pointer">
-                      <input type="checkbox" name="consent" required className="w-4 h-4 accent-[#C50000] rounded" />
+                      <input type="checkbox" name="consent" required aria-required="true" className="w-4 h-4 accent-[#C50000] rounded" />
                       <span className="text-sm text-text-secondary">
                         I agree to the{' '}
                         <Link href="/privacy-policy" className="text-[#C50000] underline hover:text-[#C50000]">Privacy Policy</Link>
@@ -280,7 +280,6 @@ export default function ContactPage() {
                     * Submission does not constitute contractual obligation. MyOnlineJet reserves selective response rights.
                   </p>
                 </form>
-                <div id="formSuccessMsg" className="hidden mt-4 p-4 bg-[#22C55E]/10 text-[#22C55E] rounded-xl text-center border border-[#22C55E]/20" />
                 </LockedFormOverlay>
               </div>
 

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import { PartnerEnhancements } from './PartnerEnhancements'
 import { LockedFormOverlay } from '@/components/ui/LockedFormOverlay'
 
@@ -112,11 +113,13 @@ export default function PartnerWithUsPage() {
             <div className="grid md:grid-cols-1 lg:grid-cols-1 gap-8 justify-items-center">
               <div className="partner-logo-card-page w-full max-w-3xl bg-surface-card rounded-2xl border border-border-subtle p-8 flex flex-col md:flex-row items-center gap-8 shadow-sm">
                 <div className="w-40 h-40 flex items-center justify-center bg-gradient-to-br from-[#1A1A1A] to-[#111111] rounded-2xl p-4 border border-border-subtle">
-                  <img
+                  <Image
                     src="https://myonlinejet.com/images/ialpha-logo-placeholder.png"
                     alt="iAlpha Technologies - Strategic Technology Partner"
+                    width={160}
+                    height={80}
                     className="max-w-full max-h-full object-contain"
-                    data-fallback="https://placehold.co/400x200?text=iAlpha+Tech"
+                    style={{ width: 'auto', height: 'auto' }}
                   />
                 </div>
                 <div className="flex-1 text-center md:text-left">

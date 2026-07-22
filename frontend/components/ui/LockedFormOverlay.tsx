@@ -22,32 +22,22 @@ export function LockedFormOverlay({ formType, children }: LockedFormOverlayProps
   }
 
   return (
-    <div className="relative">
-      <div className="pointer-events-none select-none">
-        <div className="blur-sm">
-          {children}
+    <div className="relative flex items-center justify-center min-h-[300px]">
+      <div className="glass-card p-8 md:p-10 text-center max-w-md mx-4 animate-fade-in">
+        <div className="icon-box mx-auto mb-5">
+          <i className="fas fa-lock text-2xl" />
         </div>
-      </div>
-
-      <div className="absolute inset-0 flex items-center justify-center z-10">
-        <div className="w-full h-full absolute inset-0 bg-[#030712]/60 backdrop-blur-[2px] transition-all duration-500" />
-
-        <div className="relative glass-card p-8 md:p-10 text-center max-w-md mx-4 animate-fade-in">
-          <div className="icon-box mx-auto mb-5">
-            <i className="fas fa-lock text-2xl" />
-          </div>
-          <h3 className="text-xl font-bold text-white font-display mb-2">Sign in to Continue</h3>
-          <p className="text-text-muted text-sm mb-6">
-            Sign in to submit this {formType} form and track your submissions from the dashboard.
-          </p>
-          <button
-            type="button"
-            onClick={() => router.push(`/auth?callbackUrl=${encodeURIComponent(window.location.pathname)}`)}
-            className="primary-btn px-6 py-3"
-          >
-            Sign In
-          </button>
-        </div>
+        <h3 className="text-xl font-bold text-white font-display mb-2">Sign in to Continue</h3>
+        <p className="text-text-muted text-sm mb-6">
+          Sign in to submit this {formType} form and track your submissions from the dashboard.
+        </p>
+        <button
+          type="button"
+          onClick={() => router.push(`/auth?callbackUrl=${encodeURIComponent(window.location.pathname)}`)}
+          className="primary-btn px-6 py-3"
+        >
+          Sign In
+        </button>
       </div>
 
       <style>{`

@@ -1,8 +1,11 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 export function ContactEnhancements() {
+  const [successMsg, setSuccessMsg] = useState('')
+  const [errorMsg, setErrorMsg] = useState('')
+
   useEffect(() => {
     const page = document.querySelector('.contact-page')
     if (!page) return
@@ -28,99 +31,100 @@ export function ContactEnhancements() {
   }, [])
 
   useEffect(() => {
-    const page = document.querySelector('.contact-page')
-    if (!page) return
-    const heroReveal = page.querySelector<HTMLElement>('.reveal')
+    const heroReveal = document.querySelector<HTMLElement>('.contact-page .reveal')
     if (heroReveal) {
       setTimeout(() => heroReveal.classList.add('active'), 100)
     }
   }, [])
 
   useEffect(() => {
-    const page = document.querySelector('.contact-page')
-    if (!page) return
+    const form = document.querySelector<HTMLFormElement>('#enterpriseContactForm')
+    if (!form) return
 
-    const inquirySelect = page.querySelector<HTMLSelectElement>('#inquiryType')
-    const advancedDiv = page.querySelector<HTMLElement>('#advancedBusinessFields')
-    if (inquirySelect && advancedDiv) {
-      const toggleAdvanced = () => {
-        const val = inquirySelect.value
-        if (val === 'partnerships' || val === 'investors' || val === 'infrastructure' || val === 'technology') {
-          advancedDiv.classList.remove('hidden')
+    const handleSubmit = async (e: Event) => {
+      e.preventDefault()
+      setErrorMsg('')
+      setSuccessMsg('')
+      const raw = new FormData(form)
+      const data: Record<string, unknown> = {}
+      for (const [key, val] of raw.entries()) {
+        if (key === 'attachment') continue
+        if (data[key]) {
+          const existing = data[key]
+          data[key] = Array.isArray(existing) ? [...existing, val] : [existing, val]
         } else {
-          advancedDiv.classList.add('hidden')
+          data[key] = val
         }
       }
-      inquirySelect.addEventListener('change', toggleAdvanced)
-      toggleAdvanced()
-      return () => inquirySelect.removeEventListener('change', toggleAdvanced)
+
+      try {
+        const res = await fetch('/api/forms/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        })
+        if (!res.ok) {
+          const errData = await res.json()
+          throw new Error(errData.error || 'Submission failed')
+        }
+        setSuccessMsg('Your inquiry has been submitted. Our team will respond within 24–72 business hours.')
+        form.reset()
+        const advancedDiv = document.querySelector<HTMLElement>('#advancedBusinessFields')
+        if (advancedDiv) advancedDiv.classList.add('hidden')
+        const fileNameSpan = document.querySelector<HTMLElement>('.file-upload-btn .file-name')
+        if (fileNameSpan) fileNameSpan.textContent = ''
+      } catch (err) {
+        setErrorMsg(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+      }
     }
-    return undefined
+
+    form.addEventListener('submit', handleSubmit)
+    return () => form.removeEventListener('submit', handleSubmit)
   }, [])
 
   useEffect(() => {
-    const page = document.querySelector('.contact-page')
-    if (!page) return
+    const inquirySelect = document.querySelector<HTMLSelectElement>('#inquiryType')
+    const advancedDiv = document.querySelector<HTMLElement>('#advancedBusinessFields')
+    if (!inquirySelect || !advancedDiv) return
 
-    const form = page.querySelector<HTMLFormElement>('#enterpriseContactForm')
-    const msgDiv = page.querySelector<HTMLElement>('#formSuccessMsg')
-    if (form && msgDiv) {
-      const handleSubmit = async (e: Event) => {
-        e.preventDefault()
-        const raw = new FormData(form)
-        const data: Record<string, unknown> = {}
-        for (const [key, val] of raw.entries()) {
-          if (key === 'attachment') continue
-          if (data[key]) {
-            data[key] = [data[key], val].flat()
-          } else {
-            data[key] = val
-          }
-        }
-
-        try {
-          const res = await fetch('/api/forms/contact', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data),
-          })
-          if (!res.ok) throw new Error('Submission failed')
-          msgDiv.classList.remove('hidden')
-          msgDiv.innerHTML = '<i class="fas fa-check-circle mr-2"></i> Your inquiry has been submitted. Our team will respond within 24–72 business hours.'
-          form.reset()
-          const advancedDiv = page.querySelector<HTMLElement>('#advancedBusinessFields')
-          if (advancedDiv) advancedDiv.classList.add('hidden')
-          const fileNameSpan = page.querySelector<HTMLElement>('.file-upload-btn .file-name')
-          if (fileNameSpan) fileNameSpan.textContent = ''
-        } catch {
-          msgDiv.classList.remove('hidden')
-          msgDiv.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i> Something went wrong. Please try again.'
-        }
-
-        setTimeout(() => { msgDiv.classList.add('hidden') }, 8000)
+    const toggleAdvanced = () => {
+      const val = inquirySelect.value
+      if (['partnerships', 'investors', 'infrastructure', 'technology'].includes(val)) {
+        advancedDiv.classList.remove('hidden')
+      } else {
+        advancedDiv.classList.add('hidden')
       }
-      form.addEventListener('submit', handleSubmit)
-      return () => form.removeEventListener('submit', handleSubmit)
     }
-    return undefined
+    inquirySelect.addEventListener('change', toggleAdvanced)
+    toggleAdvanced()
+    return () => inquirySelect.removeEventListener('change', toggleAdvanced)
   }, [])
 
   useEffect(() => {
-    const page = document.querySelector('.contact-page')
-    if (!page) return
+    const fileInput = document.querySelector<HTMLInputElement>('#fileAttachment')
+    const fileNameSpan = document.querySelector<HTMLElement>('.file-upload-btn .file-name')
+    if (!fileInput || !fileNameSpan) return
 
-    const fileInput = page.querySelector<HTMLInputElement>('#fileAttachment')
-    const fileNameSpan = page.querySelector<HTMLElement>('.file-upload-btn .file-name')
-    if (fileInput && fileNameSpan) {
-      const handleFileChange = () => {
-        const file = fileInput.files?.[0]
-        fileNameSpan.textContent = file ? file.name : ''
-      }
-      fileInput.addEventListener('change', handleFileChange)
-      return () => fileInput.removeEventListener('change', handleFileChange)
+    const handleFileChange = () => {
+      const file = fileInput.files?.[0]
+      fileNameSpan.textContent = file ? file.name : ''
     }
-    return undefined
+    fileInput.addEventListener('change', handleFileChange)
+    return () => fileInput.removeEventListener('change', handleFileChange)
   }, [])
 
-  return null
+  return (
+    <>
+      {successMsg && (
+        <div className="mt-4 p-4 bg-[#22C55E]/10 text-[#22C55E] rounded-xl text-center border border-[#22C55E]/20">
+          <i className="fas fa-check-circle mr-2" /> {successMsg}
+        </div>
+      )}
+      {errorMsg && (
+        <div className="mt-4 p-4 bg-red-500/10 text-red-400 rounded-xl text-center border border-red-500/20">
+          <i className="fas fa-exclamation-circle mr-2" /> {errorMsg}
+        </div>
+      )}
+    </>
+  )
 }

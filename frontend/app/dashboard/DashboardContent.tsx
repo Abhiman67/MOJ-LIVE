@@ -153,8 +153,12 @@ export default function DashboardContent({
   const [showNotifPanel, setShowNotifPanel] = useState(false)
   const notifRef = useRef<HTMLDivElement>(null)
 
-  // Poll or refresh notifications periodically (every 15s)
+  // Poll notifications with exponential backoff
   useEffect(() => {
+    let attempts = 0
+    let timer: ReturnType<typeof setTimeout>
+    const baseInterval = 15000
+
     const fetchNotifs = async () => {
       try {
         const res = await fetch('/api/user/notifications')
@@ -162,14 +166,19 @@ export default function DashboardContent({
           const data = await res.json()
           setNotifications(data.notifications || [])
           setUnreadCount(data.unreadCount || 0)
+          attempts = 0
+        } else {
+          attempts++
         }
-      } catch (e) {
-        console.error('Failed to update notifications:', e)
+      } catch {
+        attempts++
       }
+      const delay = Math.min(baseInterval * Math.pow(1.5, attempts), 60000)
+      timer = setTimeout(fetchNotifs, delay)
     }
 
-    const timer = setInterval(fetchNotifs, 15000)
-    return () => clearInterval(timer)
+    timer = setTimeout(fetchNotifs, baseInterval)
+    return () => clearTimeout(timer)
   }, [])
 
   // Close notification panel when clicking outside
@@ -179,8 +188,8 @@ export default function DashboardContent({
         setShowNotifPanel(false)
       }
     }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
+    document.addEventListener('click', handleClickOutside)
+    return () => document.removeEventListener('click', handleClickOutside)
   }, [])
 
   const handleMarkAsRead = async (notificationId?: string, markAllRead = false) => {

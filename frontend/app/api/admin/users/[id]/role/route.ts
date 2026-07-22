@@ -3,8 +3,6 @@ import { auth } from '@/auth'
 import { connectDB } from '@/lib/db'
 import { User } from '@/models/User'
 
-import mongoose from 'mongoose'
-
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const session = await auth()
   if (!session?.user?.id || session.user.role !== 'admin') {
@@ -12,7 +10,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
   }
 
   const { id } = await params
-  if (!id || typeof id !== 'string' || !mongoose.Types.ObjectId.isValid(id)) {
+  if (!id || typeof id !== 'string' || !/^[a-f\d]{24}$/i.test(id)) {
     return NextResponse.json({ error: 'Invalid user ID' }, { status: 400 })
   }
 
@@ -30,5 +28,8 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     return NextResponse.json({ error: 'User not found' }, { status: 404 })
   }
 
-  return NextResponse.json({ success: true, user: { id: (user as unknown as Record<string, unknown>)._id, role } })
+  console.info(`[AUDIT] Admin ${session.user.id} changed user ${id} role to ${role}`)
+
+  const userObj = JSON.parse(JSON.stringify(user))
+  return NextResponse.json({ success: true, user: { id: String(userObj._id), role } })
 }

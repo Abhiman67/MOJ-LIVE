@@ -12,12 +12,12 @@ export async function GET() {
 
   try {
     await connectDB()
-    let profile = await Profile.findOne({ userId: session.user.id }).lean()
+    const profile = await Profile.findOne({ userId: session.user.id }).lean()
 
     if (!profile) {
       const user = await User.findById(session.user.id).lean()
-      profile = {
-        userId: session.user.id as unknown as never,
+      return NextResponse.json({
+        userId: session.user.id,
         phone: '',
         organization: '',
         role: user?.role ?? 'general',
@@ -25,7 +25,7 @@ export async function GET() {
         portfolio: '',
         location: '',
         bio: '',
-      } as never
+      })
     }
 
     return NextResponse.json(profile)

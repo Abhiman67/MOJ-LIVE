@@ -45,15 +45,15 @@ export function CareerForm() {
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-text-secondary mb-1">Full Name *</label>
-            <input name="fullName" required className="form-input w-full" />
+            <input name="fullName" required aria-required="true" className="form-input w-full" />
           </div>
           <div>
             <label className="block text-sm font-medium text-text-secondary mb-1">Email *</label>
-            <input name="email" type="email" required className="form-input w-full" />
+            <input name="email" type="email" required aria-required="true" className="form-input w-full" />
           </div>
           <div>
             <label className="block text-sm font-medium text-text-secondary mb-1">Phone *</label>
-            <input name="phone" type="tel" required className="form-input w-full" />
+            <input name="phone" type="tel" required aria-required="true" className="form-input w-full" />
           </div>
           <div>
             <label className="block text-sm font-medium text-text-secondary mb-1">LinkedIn</label>
@@ -66,11 +66,11 @@ export function CareerForm() {
         </div>
         <div>
           <label className="block text-sm font-medium text-text-secondary mb-1">Why do you want to work with us? *</label>
-          <textarea name="whyWork" rows={3} required className="form-textarea w-full" />
+          <textarea name="whyWork" rows={3} required aria-required="true" className="form-textarea w-full" />
         </div>
         <div>
           <label className="block text-sm font-medium text-text-secondary mb-1">What problem excites you most? *</label>
-          <textarea name="whatProblem" rows={3} required className="form-textarea w-full" />
+          <textarea name="whatProblem" rows={3} required aria-required="true" className="form-textarea w-full" />
         </div>
         {error && <p className="text-sm text-red-400">{error}</p>}
         <button type="submit" className="primary-btn px-6 py-2.5 text-sm">Apply</button>

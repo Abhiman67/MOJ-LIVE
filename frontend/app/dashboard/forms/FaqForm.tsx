@@ -45,11 +45,11 @@ export function FaqForm() {
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-text-secondary mb-1">Full Name *</label>
-            <input name="fullName" required className="form-input w-full" />
+            <input name="fullName" required aria-required="true" className="form-input w-full" />
           </div>
           <div>
             <label className="block text-sm font-medium text-text-secondary mb-1">Email *</label>
-            <input name="email" type="email" required className="form-input w-full" />
+            <input name="email" type="email" required aria-required="true" className="form-input w-full" />
           </div>
         </div>
         <div>
@@ -58,10 +58,10 @@ export function FaqForm() {
         </div>
         <div>
           <label className="block text-sm font-medium text-text-secondary mb-1">Message *</label>
-          <textarea name="message" rows={4} required className="form-textarea w-full" />
+          <textarea name="message" rows={4} required aria-required="true" className="form-textarea w-full" />
         </div>
         <label className="flex items-center gap-2 text-sm text-text-secondary">
-          <input type="checkbox" name="consent" required className="accent-[#C50000]" />
+          <input type="checkbox" name="consent" required aria-required="true" className="accent-[#C50000]" />
           I agree to the Terms & Privacy Policy *
         </label>
         {error && <p className="text-sm text-red-400">{error}</p>}

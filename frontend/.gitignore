@@ -3,7 +3,8 @@ node_modules
 dist
 out
 .env
-
+changes.md
 .DS_Store
 *.log
+
 

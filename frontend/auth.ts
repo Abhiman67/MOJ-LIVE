@@ -17,17 +17,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Google({
       clientId: process.env.AUTH_GOOGLE_ID,
       clientSecret: process.env.AUTH_GOOGLE_SECRET,
-      allowDangerousEmailAccountLinking: true,
     }),
     Apple({
       clientId: process.env.AUTH_APPLE_ID,
       clientSecret: process.env.AUTH_APPLE_SECRET,
-      allowDangerousEmailAccountLinking: true,
     }),
     LinkedIn({
       clientId: process.env.AUTH_LINKEDIN_ID,
       clientSecret: process.env.AUTH_LINKEDIN_SECRET,
-      allowDangerousEmailAccountLinking: true,
     }),
     ...((process.env.AUTH_CREDENTIALS_ENABLED ?? process.env.NEXT_PUBLIC_AUTH_CREDENTIALS_ENABLED ?? 'true') === 'true'
       ? [

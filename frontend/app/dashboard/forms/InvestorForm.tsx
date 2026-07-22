@@ -46,15 +46,15 @@ export function InvestorForm() {
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-text-secondary mb-1">Full Name *</label>
-            <input name="fullName" required className="form-input w-full" />
+            <input name="fullName" required aria-required="true" className="form-input w-full" />
           </div>
           <div>
             <label className="block text-sm font-medium text-text-secondary mb-1">Organization / Fund *</label>
-            <input name="organization" required className="form-input w-full" />
+            <input name="organization" required aria-required="true" className="form-input w-full" />
           </div>
           <div>
             <label className="block text-sm font-medium text-text-secondary mb-1">Email *</label>
-            <input name="email" type="email" required className="form-input w-full" />
+            <input name="email" type="email" required aria-required="true" className="form-input w-full" />
           </div>
           <div>
             <label className="block text-sm font-medium text-text-secondary mb-1">Phone</label>
@@ -74,7 +74,7 @@ export function InvestorForm() {
           <textarea name="message" rows={3} className="form-textarea w-full" />
         </div>
         <label className="flex items-center gap-2 text-sm text-text-secondary">
-          <input type="checkbox" name="consent" required className="accent-[#C50000]" />
+          <input type="checkbox" name="consent" required aria-required="true" className="accent-[#C50000]" />
           I agree to be contacted regarding investment opportunities *
         </label>
         {error && <p className="text-sm text-red-400">{error}</p>}

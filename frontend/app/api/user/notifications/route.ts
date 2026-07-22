@@ -3,8 +3,6 @@ import { auth } from '@/auth'
 import { connectDB } from '@/lib/db'
 import { Notification } from '@/models/Notification'
 
-import mongoose from 'mongoose'
-
 export async function GET() {
   const session = await auth()
   if (!session?.user?.id) {
@@ -47,7 +45,7 @@ export async function PATCH(req: NextRequest) {
         { $set: { isRead: true } }
       )
     } else if (notificationId) {
-      if (typeof notificationId !== 'string' || !mongoose.Types.ObjectId.isValid(notificationId)) {
+      if (typeof notificationId !== 'string' || !/^[a-f\d]{24}$/i.test(notificationId)) {
         return NextResponse.json({ error: 'Invalid notification ID' }, { status: 400 })
       }
       await Notification.updateOne(

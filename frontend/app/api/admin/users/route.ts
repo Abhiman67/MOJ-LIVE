@@ -23,11 +23,11 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'User not found' }, { status: 404 })
   }
 
-  const doc = user as unknown as Record<string, unknown>
+  const userObj = JSON.parse(JSON.stringify(user))
   return NextResponse.json({
-    id: String(doc._id),
-    name: doc.name,
-    email: doc.email,
-    role: doc.role,
+    id: String(userObj._id),
+    name: userObj.name,
+    email: userObj.email,
+    role: userObj.role,
   })
 }

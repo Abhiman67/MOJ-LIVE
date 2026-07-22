@@ -19,14 +19,7 @@ export function PartnerEnhancements() {
     const page = document.querySelector('.partner-page')
     if (!page) return
 
-    page.querySelectorAll<HTMLImageElement>('img[data-fallback]').forEach((img) => {
-      img.addEventListener('error', function handler(ev) {
-        const target = ev.currentTarget as HTMLImageElement
-        target.onerror = null
-        target.src = target.getAttribute('data-fallback') || ''
-        target.classList.add('opacity-80')
-      })
-    })
+    const cleanups: (() => void)[] = []
 
     const form = page.querySelector<HTMLFormElement>('#partnershipForm')
     if (form) {
@@ -67,7 +60,7 @@ export function PartnerEnhancements() {
         }
       }
       form.addEventListener('submit', handleSubmit)
-      return () => form.removeEventListener('submit', handleSubmit)
+      cleanups.push(() => form.removeEventListener('submit', handleSubmit))
     }
 
     const revealElements = Array.from(page.querySelectorAll<HTMLElement>('.reveal'))
@@ -84,10 +77,12 @@ export function PartnerEnhancements() {
         { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
       )
       revealElements.forEach((el) => observer.observe(el))
-      return () => observer.disconnect()
+      cleanups.push(() => observer.disconnect())
+    } else {
+      revealElements.forEach((el) => el.classList.add('active'))
     }
-    revealElements.forEach((el) => el.classList.add('active'))
-    return undefined
+
+    return () => cleanups.forEach((fn) => fn())
   }, [])
 
   return (
