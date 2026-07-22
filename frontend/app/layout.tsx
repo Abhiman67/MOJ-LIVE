@@ -77,7 +77,7 @@ export default function RootLayout({
         <link rel="preload" href="https://myonlinejet.com/images/MOJ_Vertiport.webp" as="image" />
         <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
         <link rel="dns-prefetch" href="https://news.myonlinejet.com" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-p1goF2Y5A8R1F6FIk0C4eGxRVP3G6E2RMEh0f/R7j+GJcZXXoJ9U2N0HQCK9b0BGu5YLB68HbR6O5qLZFh8Ig==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossOrigin="anonymous" referrerPolicy="no-referrer" />
       </head>
       <body>
         <SessionProvider>
