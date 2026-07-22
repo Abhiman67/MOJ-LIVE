@@ -452,7 +452,7 @@ export default function DashboardContent({
 
           <div className="rounded-xl border border-border-subtle bg-surface-card overflow-hidden">
             {filtered.length === 0 ? (
-              filter !== 'all' && forms[filter] ? (
+              !isAdmin && filter !== 'all' && forms[filter] ? (
                 <div className="p-6">
                   <div className="mb-4">
                     <h3 className="text-base font-semibold text-text-primary">New {labels[filter] || filter} Submission</h3>
@@ -470,9 +470,11 @@ export default function DashboardContent({
                   </div>
                   <p className="text-sm font-medium text-text-primary">No submissions</p>
                   <p className="mt-1 text-xs text-text-secondary">Submit a form to track it here.</p>
-                  <Link href="/contact" className="mt-5 rounded-lg bg-[#C50000] px-4 py-2 text-xs font-medium text-white hover:bg-[#C50000]/90 transition-colors">
-                    New submission
-                  </Link>
+                  {!isAdmin && (
+                    <Link href="/contact" className="mt-5 rounded-lg bg-[#C50000] px-4 py-2 text-xs font-medium text-white hover:bg-[#C50000]/90 transition-colors">
+                      New submission
+                    </Link>
+                  )}
                 </div>
               )
             ) : (
