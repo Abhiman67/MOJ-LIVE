@@ -44,10 +44,22 @@ export async function PUT(req: NextRequest) {
   try {
     await connectDB()
     const body = await req.json()
+    const { phone, organization, role, linkedIn, portfolio, location, bio } = body ?? {}
+
+    const updateData: Record<string, unknown> = {
+      userId: session.user.id,
+      phone: typeof phone === 'string' ? phone : '',
+      organization: typeof organization === 'string' ? organization : '',
+      role: typeof role === 'string' ? role : '',
+      linkedIn: typeof linkedIn === 'string' ? linkedIn : '',
+      portfolio: typeof portfolio === 'string' ? portfolio : '',
+      location: typeof location === 'string' ? location : '',
+      bio: typeof bio === 'string' ? bio : '',
+    }
 
     const profile = await Profile.findOneAndUpdate(
       { userId: session.user.id },
-      { $set: body },
+      { $set: updateData },
       { new: true, upsert: true }
     ).lean()
 

@@ -32,7 +32,8 @@ export function PartnerEnhancements() {
     if (form) {
       const handleSubmit = async (e: Event) => {
         e.preventDefault()
-        const raw = new FormData(form)
+        const targetForm = (e.currentTarget as HTMLFormElement) || form
+        const raw = new FormData(targetForm)
         const data: Record<string, unknown> = {}
         for (const [key, val] of raw.entries()) {
           if (data[key]) {
@@ -55,7 +56,7 @@ export function PartnerEnhancements() {
             message: 'Thank you for your interest. Our partnerships team will reach out within 48 hours.',
             type: 'success'
           })
-          ;(e.currentTarget as HTMLFormElement).reset()
+          targetForm.reset()
         } catch {
           setAlertState({
             isOpen: true,

@@ -18,7 +18,7 @@ function AuthForm() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const credentialsEnabled = process.env.NEXT_PUBLIC_AUTH_CREDENTIALS_ENABLED === 'true'
+  const credentialsEnabled = (process.env.NEXT_PUBLIC_AUTH_CREDENTIALS_ENABLED ?? 'true') === 'true'
 
   useEffect(() => {
     if (status === 'authenticated') {

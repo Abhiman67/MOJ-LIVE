@@ -1,7 +1,7 @@
 'use client'
 
 import { signOut } from 'next-auth/react'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { ContactForm } from './forms/ContactForm'
 import { CareerForm } from './forms/CareerForm'
@@ -17,6 +17,17 @@ interface Submission {
   status: string
   createdAt: string
   userId?: { name: string; email: string }
+}
+
+interface NotificationItem {
+  _id: string
+  title: string
+  message: string
+  type: string
+  formType?: string
+  submissionId?: string
+  isRead: boolean
+  createdAt: string
 }
 
 const labels: Record<string, string> = {
@@ -38,12 +49,24 @@ const badge: Record<string, { label: string; dot: string; bg: string }> = {
   rejected: { label: 'Rejected', dot: 'bg-red-400', bg: 'bg-red-400/10 text-red-400 border border-red-400/20' },
 }
 
+const notifIcon: Record<string, { icon: string; color: string; bg: string }> = {
+  approved: { icon: 'fa-circle-check', color: 'text-emerald-400', bg: 'bg-emerald-500/10 border-emerald-500/20' },
+  rejected: { icon: 'fa-circle-xmark', color: 'text-red-400', bg: 'bg-red-500/10 border-red-500/20' },
+  reviewed: { icon: 'fa-eye', color: 'text-blue-400', bg: 'bg-blue-500/10 border-blue-500/20' },
+  message: { icon: 'fa-comment-dots', color: 'text-purple-400', bg: 'bg-purple-500/10 border-purple-500/20' },
+  system: { icon: 'fa-bell', color: 'text-[#C50000]', bg: 'bg-[#C50000]/10 border-[#C50000]/20' },
+}
+
 export default function DashboardContent({
   initialSubs,
+  initialNotifications = [],
+  initialUnreadCount = 0,
   user,
   isAdmin,
 }: {
   initialSubs: Submission[]
+  initialNotifications?: NotificationItem[]
+  initialUnreadCount?: number
   user: { name?: string | null; email?: string | null }
   isAdmin: boolean
 }) {
@@ -51,6 +74,76 @@ export default function DashboardContent({
   const [filter, setFilter] = useState('all')
   const [sidebar, setSidebar] = useState(false)
   const [detail, setDetail] = useState<Submission | null>(null)
+
+  // Notification state
+  const [notifications, setNotifications] = useState<NotificationItem[]>(initialNotifications)
+  const [unreadCount, setUnreadCount] = useState<number>(initialUnreadCount)
+  const [showNotifPanel, setShowNotifPanel] = useState(false)
+  const notifRef = useRef<HTMLDivElement>(null)
+
+  // Poll or refresh notifications periodically (every 15s)
+  useEffect(() => {
+    const fetchNotifs = async () => {
+      try {
+        const res = await fetch('/api/user/notifications')
+        if (res.ok) {
+          const data = await res.json()
+          setNotifications(data.notifications || [])
+          setUnreadCount(data.unreadCount || 0)
+        }
+      } catch (e) {
+        console.error('Failed to update notifications:', e)
+      }
+    }
+
+    const timer = setInterval(fetchNotifs, 15000)
+    return () => clearInterval(timer)
+  }, [])
+
+  // Close notification panel when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (notifRef.current && !notifRef.current.contains(event.target as Node)) {
+        setShowNotifPanel(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
+  const handleMarkAsRead = async (notificationId?: string, markAllRead = false) => {
+    try {
+      const res = await fetch('/api/user/notifications', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ notificationId, markAllRead }),
+      })
+      if (res.ok) {
+        const data = await res.json()
+        setUnreadCount(data.unreadCount ?? 0)
+        if (markAllRead) {
+          setNotifications(prev => prev.map(n => ({ ...n, isRead: true })))
+        } else if (notificationId) {
+          setNotifications(prev => prev.map(n => (n._id === notificationId ? { ...n, isRead: true } : n)))
+        }
+      }
+    } catch (err) {
+      console.error('Failed to update notification read status:', err)
+    }
+  }
+
+  const handleNotifClick = (n: NotificationItem) => {
+    if (!n.isRead) {
+      handleMarkAsRead(n._id)
+    }
+    if (n.submissionId) {
+      const foundSub = subs.find(s => s._id === n.submissionId)
+      if (foundSub) {
+        setDetail(foundSub)
+        setShowNotifPanel(false)
+      }
+    }
+  }
 
   const init = user.name?.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || 'U'
 
@@ -62,6 +155,17 @@ export default function DashboardContent({
   ]
 
   const filtered = filter === 'all' ? subs : subs.filter(s => s.formType === filter)
+
+  const formatTimeAgo = (dateString: string) => {
+    const date = new Date(dateString)
+    const now = new Date()
+    const diffSeconds = Math.floor((now.getTime() - date.getTime()) / 1000)
+
+    if (diffSeconds < 60) return 'Just now'
+    if (diffSeconds < 3600) return `${Math.floor(diffSeconds / 60)}m ago`
+    if (diffSeconds < 86400) return `${Math.floor(diffSeconds / 3600)}h ago`
+    return date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })
+  }
 
   return (
     <div className="flex min-h-screen bg-[#030712]">
@@ -98,6 +202,22 @@ export default function DashboardContent({
                 {item.label}
               </Link>
             ))}
+
+            {/* Notification Sidebar Shortcut */}
+            <button
+              onClick={() => setShowNotifPanel(!showNotifPanel)}
+              className="flex w-full items-center justify-between rounded-xl px-3.5 py-2.5 text-sm font-medium text-text-muted hover:text-text-primary hover:bg-surface-card transition-all"
+            >
+              <div className="flex items-center gap-3">
+                <i className="fas fa-bell w-4 text-center text-xs" />
+                <span>Notifications</span>
+              </div>
+              {unreadCount > 0 && (
+                <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#C50000] px-1.5 text-[10px] font-bold text-white">
+                  {unreadCount}
+                </span>
+              )}
+            </button>
           </nav>
         </div>
         <div className="border-t border-border-subtle p-3">
@@ -122,6 +242,94 @@ export default function DashboardContent({
             )}
           </div>
           <div className="flex items-center gap-4">
+            {/* Notification Bell Dropdown Button */}
+            <div className="relative" ref={notifRef}>
+              <button
+                onClick={() => setShowNotifPanel(!showNotifPanel)}
+                className="relative flex h-9 w-9 items-center justify-center rounded-xl border border-border-subtle bg-surface-card text-text-muted hover:text-text-primary hover:border-[#C50000]/30 transition-all"
+                aria-label="View notifications"
+              >
+                <i className="fas fa-bell text-sm" />
+                {unreadCount > 0 && (
+                  <span className="absolute -top-1 -right-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#C50000] px-1 text-[10px] font-bold text-white shadow-md">
+                    {unreadCount > 99 ? '99+' : unreadCount}
+                  </span>
+                )}
+              </button>
+
+              {/* Dropdown Panel */}
+              {showNotifPanel && (
+                <div className="absolute right-0 mt-2 w-80 sm:w-96 rounded-xl border border-border-subtle bg-[#0b1020] p-4 shadow-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                  <div className="flex items-center justify-between border-b border-border-subtle/60 pb-3 mb-3">
+                    <div className="flex items-center gap-2">
+                      <i className="fas fa-bell text-xs text-[#C50000]" />
+                      <h3 className="text-sm font-semibold text-text-primary font-display">Notifications</h3>
+                      {unreadCount > 0 && (
+                        <span className="rounded-full bg-[#C50000]/20 px-2 py-0.5 text-[10px] font-medium text-[#ff5252]">
+                          {unreadCount} new
+                        </span>
+                      )}
+                    </div>
+                    {unreadCount > 0 && (
+                      <button
+                        onClick={() => handleMarkAsRead(undefined, true)}
+                        className="text-[11px] font-medium text-text-muted hover:text-[#C50000] transition-colors"
+                      >
+                        Mark all read
+                      </button>
+                    )}
+                  </div>
+
+                  <div className="max-h-80 space-y-2 overflow-y-auto pr-1">
+                    {notifications.length === 0 ? (
+                      <div className="flex flex-col items-center justify-center py-8 text-center">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full border border-border-subtle bg-surface-hover mb-2">
+                          <i className="fas fa-bell-slash text-xs text-text-muted" />
+                        </div>
+                        <p className="text-xs font-medium text-text-primary">No notifications yet</p>
+                        <p className="text-[11px] text-text-muted mt-0.5">Admin updates will appear here</p>
+                      </div>
+                    ) : (
+                      notifications.map(n => {
+                        const style = notifIcon[n.type] || notifIcon.system
+                        return (
+                          <div
+                            key={n._id}
+                            onClick={() => handleNotifClick(n)}
+                            className={`group flex items-start gap-3 rounded-lg border p-3 cursor-pointer transition-all ${
+                              n.isRead
+                                ? 'border-border-subtle/40 bg-surface-hover/30 text-text-muted hover:bg-surface-hover'
+                                : 'border-border-subtle bg-surface-card text-text-primary hover:border-[#C50000]/30'
+                            }`}
+                          >
+                            <div className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border ${style.bg}`}>
+                              <i className={`fas ${style.icon} text-xs ${style.color}`} />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center justify-between gap-1">
+                                <p className={`text-xs font-semibold truncate ${n.isRead ? 'text-text-secondary' : 'text-text-primary'}`}>
+                                  {n.title}
+                                </p>
+                                <span className="text-[10px] text-text-muted shrink-0">
+                                  {formatTimeAgo(n.createdAt)}
+                                </span>
+                              </div>
+                              <p className="text-xs text-text-muted mt-1 leading-snug break-words">
+                                {n.message}
+                              </p>
+                            </div>
+                            {!n.isRead && (
+                              <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-[#C50000]" />
+                            )}
+                          </div>
+                        )
+                      })
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+
             <Link href="/profile" className="text-sm text-text-muted hover:text-text-primary transition-colors">Profile</Link>
             <button onClick={() => signOut({ callbackUrl: '/' })} className="text-sm text-text-muted hover:text-[#C50000] transition-colors">Sign out</button>
           </div>
@@ -237,8 +445,8 @@ export default function DashboardContent({
                             </button>
                           </td>
                         </tr>
-                      )}
-                    )}
+                      )
+                    })}
                   </tbody>
                 </table>
               </div>

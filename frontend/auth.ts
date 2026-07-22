@@ -23,7 +23,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       clientSecret: process.env.AUTH_APPLE_SECRET,
       allowDangerousEmailAccountLinking: true,
     }),
-    ...(process.env.AUTH_CREDENTIALS_ENABLED === 'true'
+    ...((process.env.AUTH_CREDENTIALS_ENABLED ?? process.env.NEXT_PUBLIC_AUTH_CREDENTIALS_ENABLED ?? 'true') === 'true'
       ? [
           Credentials({
             name: 'credentials',

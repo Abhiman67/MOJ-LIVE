@@ -3,6 +3,8 @@ import { auth } from '@/auth'
 import { connectDB } from '@/lib/db'
 import { User } from '@/models/User'
 
+import mongoose from 'mongoose'
+
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const session = await auth()
   if (!session?.user?.id || session.user.role !== 'admin') {
@@ -10,6 +12,10 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
   }
 
   const { id } = await params
+  if (!id || typeof id !== 'string' || !mongoose.Types.ObjectId.isValid(id)) {
+    return NextResponse.json({ error: 'Invalid user ID' }, { status: 400 })
+  }
+
   const { role } = await req.json()
 
   const validRoles = ['admin', 'general', 'partner', 'investor', 'career']

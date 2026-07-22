@@ -588,7 +588,8 @@ export default function FAQPage() {
               className="max-w-2xl mx-auto space-y-5"
               onSubmit={async (e) => {
                 e.preventDefault()
-                const data = Object.fromEntries(new FormData(e.currentTarget))
+                const form = e.currentTarget
+                const data = Object.fromEntries(new FormData(form))
                 try {
                   const res = await fetch('/api/forms/faq', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
                   if (!res.ok) throw new Error()
@@ -598,7 +599,7 @@ export default function FAQPage() {
                     message: 'Thank you for reaching out. Our team will get back to you shortly.',
                     type: 'success'
                   })
-                  ;(e.target as HTMLFormElement).reset()
+                  form.reset()
                   setCategory('')
                 } catch {
                   setAlertState({
