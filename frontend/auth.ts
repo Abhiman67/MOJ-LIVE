@@ -1,6 +1,7 @@
 import NextAuth from 'next-auth'
 import Google from 'next-auth/providers/google'
 import Apple from 'next-auth/providers/apple'
+import LinkedIn from 'next-auth/providers/linkedin'
 import Credentials from 'next-auth/providers/credentials'
 import bcrypt from 'bcryptjs'
 import { connectDB } from '@/lib/db'
@@ -21,6 +22,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Apple({
       clientId: process.env.AUTH_APPLE_ID,
       clientSecret: process.env.AUTH_APPLE_SECRET,
+      allowDangerousEmailAccountLinking: true,
+    }),
+    LinkedIn({
+      clientId: process.env.AUTH_LINKEDIN_ID,
+      clientSecret: process.env.AUTH_LINKEDIN_SECRET,
       allowDangerousEmailAccountLinking: true,
     }),
     ...((process.env.AUTH_CREDENTIALS_ENABLED ?? process.env.NEXT_PUBLIC_AUTH_CREDENTIALS_ENABLED ?? 'true') === 'true'

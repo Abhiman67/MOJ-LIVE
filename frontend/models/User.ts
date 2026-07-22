@@ -1,7 +1,7 @@
 import mongoose, { Schema, type Model, type Document } from 'mongoose'
 
 export type UserRole = 'admin' | 'general' | 'partner' | 'investor' | 'career'
-export type AuthProvider = 'google' | 'apple' | 'credentials'
+export type AuthProvider = 'google' | 'apple' | 'linkedin' | 'credentials'
 
 export interface IUser extends Document {
   name: string
@@ -22,7 +22,7 @@ const UserSchema = new Schema<IUser>(
     email: { type: String, required: true, unique: true, lowercase: true },
     image: { type: String },
     role: { type: String, enum: ['admin', 'general', 'partner', 'investor', 'career'], default: 'general' },
-    authProvider: { type: String, enum: ['google', 'apple', 'credentials'], required: true },
+    authProvider: { type: String, enum: ['google', 'apple', 'linkedin', 'credentials'], required: true },
     hashedPassword: { type: String },
     profileCompleted: { type: Boolean, default: false },
     emailVerified: { type: Date },

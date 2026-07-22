@@ -30,6 +30,7 @@ export default async function DashboardPage() {
       formType: doc.formType as string,
       data: doc.data as Record<string, unknown>,
       status: doc.status as string,
+      adminNotes: doc.adminNotes as string | undefined,
       createdAt: (doc.createdAt as Date)?.toISOString?.() || String(doc.createdAt),
       userId: userIdObj
         ? {

@@ -15,6 +15,7 @@ interface Submission {
   formType: string
   data: Record<string, unknown>
   status: string
+  adminNotes?: string
   createdAt: string
   userId?: { name: string; email: string }
 }
@@ -70,10 +71,81 @@ export default function DashboardContent({
   user: { name?: string | null; email?: string | null }
   isAdmin: boolean
 }) {
-  const [subs] = useState(initialSubs)
+  const [subs, setSubs] = useState(initialSubs)
   const [filter, setFilter] = useState('all')
   const [sidebar, setSidebar] = useState(false)
   const [detail, setDetail] = useState<Submission | null>(null)
+  const [updatingStatus, setUpdatingStatus] = useState(false)
+  const [noteText, setNoteText] = useState('')
+
+  const handleUpdateStatus = async (newStatus: string) => {
+    if (!detail) return
+    setUpdatingStatus(true)
+    try {
+      const res = await fetch('/api/admin/submissions', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: detail._id, status: newStatus }),
+      })
+      if (res.ok) {
+        const updated = await res.json()
+        setSubs(prev => prev.map(s => {
+          if (s._id === updated._id) {
+            return {
+              ...s,
+              status: updated.status,
+              adminNotes: updated.adminNotes
+            }
+          }
+          return s
+        }))
+        setDetail(prev => prev ? { ...prev, status: updated.status, adminNotes: updated.adminNotes } : null)
+      } else {
+        const errData = await res.json()
+        alert(errData.error || 'Failed to update status')
+      }
+    } catch (err) {
+      console.error('Error updating status:', err)
+      alert('An error occurred. Please try again.')
+    } finally {
+      setUpdatingStatus(false)
+    }
+  }
+
+  const handleSendNote = async () => {
+    if (!detail || !noteText.trim()) return
+    setUpdatingStatus(true)
+    try {
+      const res = await fetch('/api/admin/submissions', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: detail._id, adminNotes: noteText.trim() }),
+      })
+      if (res.ok) {
+        const updated = await res.json()
+        setSubs(prev => prev.map(s => {
+          if (s._id === updated._id) {
+            return {
+              ...s,
+              status: updated.status,
+              adminNotes: updated.adminNotes
+            }
+          }
+          return s
+        }))
+        setDetail(prev => prev ? { ...prev, status: updated.status, adminNotes: updated.adminNotes } : null)
+        setNoteText('')
+      } else {
+        const errData = await res.json()
+        alert(errData.error || 'Failed to send message')
+      }
+    } catch (err) {
+      console.error('Error sending message:', err)
+      alert('An error occurred. Please try again.')
+    } finally {
+      setUpdatingStatus(false)
+    }
+  }
 
   // Notification state
   const [notifications, setNotifications] = useState<NotificationItem[]>(initialNotifications)
@@ -479,7 +551,15 @@ export default function DashboardContent({
                 {(badge[detail.status] || badge.pending).label}
               </span>
             </div>
-            <div className="max-h-72 space-y-2.5 overflow-y-auto">
+            <div className="max-h-60 space-y-2.5 overflow-y-auto mb-4">
+              {detail.adminNotes && (
+                <div className="rounded-lg border border-purple-500/20 bg-purple-500/5 px-4 py-3">
+                  <p className="text-[11px] font-semibold uppercase tracking-wider text-purple-400 mb-0.5">
+                    Latest Admin Note / Message
+                  </p>
+                  <p className="text-sm text-text-primary break-words">{detail.adminNotes}</p>
+                </div>
+              )}
               {Object.entries(detail.data).map(([k, v]) => (
                 <div key={k} className="rounded-lg border border-border-subtle bg-surface-hover px-4 py-3">
                   <p className="text-[11px] font-semibold uppercase tracking-wider text-text-muted mb-0.5">
@@ -489,6 +569,60 @@ export default function DashboardContent({
                 </div>
               ))}
             </div>
+
+            {isAdmin && (
+              <div className="mt-4 border-t border-border-subtle/60 pt-4">
+                <h4 className="text-xs font-semibold uppercase tracking-wider text-text-muted mb-2 font-display">Admin Controls</h4>
+                
+                {/* Status Selection Buttons */}
+                <div className="mb-4">
+                  <p className="text-[11px] text-text-secondary mb-1.5">Update Submission Status:</p>
+                  <div className="flex flex-wrap gap-2">
+                    {[
+                      { status: 'pending', label: 'Pending', color: 'hover:bg-amber-500/20 hover:text-amber-400 hover:border-amber-500/30' },
+                      { status: 'reviewed', label: 'Under Review', color: 'hover:bg-blue-500/20 hover:text-blue-400 hover:border-blue-500/30' },
+                      { status: 'approved', label: 'Approve & Close', color: 'hover:bg-emerald-500/20 hover:text-emerald-400 hover:border-emerald-500/30' },
+                      { status: 'rejected', label: 'Reject & Close', color: 'hover:bg-red-500/20 hover:text-red-400 hover:border-red-500/30' },
+                    ].map(btn => (
+                      <button
+                        key={btn.status}
+                        disabled={updatingStatus}
+                        onClick={() => handleUpdateStatus(btn.status)}
+                        className={`rounded-lg border border-border-subtle px-2.5 py-1 text-[11px] font-medium transition-all ${btn.color} ${
+                          detail.status === btn.status
+                            ? 'bg-[#C50000]/10 text-[#C50000] border-[#C50000]/30'
+                            : 'text-text-muted bg-surface-card'
+                        }`}
+                      >
+                        {btn.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Send Notification Message */}
+                <div>
+                  <label className="block text-[11px] text-text-secondary mb-1.5">Send Message / Add Admin Note (triggers user notification):</label>
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      placeholder="Type a message or internal note..."
+                      value={noteText}
+                      onChange={e => setNoteText(e.target.value)}
+                      disabled={updatingStatus}
+                      className="flex-1 rounded-lg border border-border-subtle bg-[#0b1020] px-3 py-1.5 text-xs text-white placeholder-text-muted focus:border-[#C50000] focus:outline-none"
+                    />
+                    <button
+                      disabled={updatingStatus || !noteText.trim()}
+                      onClick={handleSendNote}
+                      className="rounded-lg bg-[#C50000] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#C50000]/90 transition-colors disabled:opacity-50"
+                    >
+                      Send Message
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
