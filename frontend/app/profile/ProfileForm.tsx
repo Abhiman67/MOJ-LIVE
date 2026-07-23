@@ -78,14 +78,14 @@ export default function ProfileForm({ initialData, user }: { initialData: Profil
           </div>
         </div>
 
-        <div className="mb-8 border-b border-border-subtle">
-          <div className="flex gap-6">
+        <div className="mb-6 border-b border-border-subtle">
+          <div className="flex gap-4 sm:gap-6 overflow-x-auto pb-1 scrollbar-none">
             {sections.map(s => (
               <button key={s.id} onClick={() => setTab(s.id)}
-                className={`relative pb-3 text-sm font-medium transition-colors ${
+                className={`relative pb-3 text-xs sm:text-sm font-medium shrink-0 transition-colors ${
                   tab === s.id ? 'text-text-primary' : 'text-text-muted hover:text-text-secondary'
                 }`}>
-                <i className={`fas ${s.icon} mr-2 text-xs`} />
+                <i className={`fas ${s.icon} mr-1.5 sm:mr-2 text-xs`} />
                 {s.label}
                 {tab === s.id && <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#C50000] rounded-full" />}
               </button>
@@ -95,7 +95,7 @@ export default function ProfileForm({ initialData, user }: { initialData: Profil
 
         <form onSubmit={handleSubmit}>
           <div className="rounded-xl border border-border-subtle bg-surface-card overflow-hidden">
-            <div className="flex items-center justify-between border-b border-border-subtle px-6 py-4">
+            <div className="flex items-center justify-between border-b border-border-subtle px-4 py-3.5 sm:px-6 sm:py-4">
               <div>
                 <p className="text-sm font-medium text-text-primary">{sections.find(s => s.id === tab)?.label}</p>
                 <p className="text-xs text-text-muted mt-0.5">
@@ -113,7 +113,7 @@ export default function ProfileForm({ initialData, user }: { initialData: Profil
               )}
             </div>
 
-            <div className="px-6 py-6">
+            <div className="px-4 py-5 sm:px-6 sm:py-6">
               {tab === 'basic' && (
                 <div className="space-y-5">
                   <div className="grid sm:grid-cols-2 gap-4">

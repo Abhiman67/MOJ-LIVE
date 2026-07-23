@@ -10,24 +10,35 @@ export async function GET(req: NextRequest) {
   }
 
   const { searchParams } = new URL(req.url)
-  const email = searchParams.get('email')?.toLowerCase()
-
-  if (!email) {
-    return NextResponse.json({ error: 'email query param required' }, { status: 400 })
-  }
+  const search = (searchParams.get('search') || searchParams.get('email') || '').trim().toLowerCase()
 
   await connectDB()
-  const user = await User.findOne({ email }).select('name email role').lean()
 
-  if (!user) {
-    return NextResponse.json({ error: 'User not found' }, { status: 404 })
+  const filter: Record<string, unknown> = {}
+  if (search) {
+    const escapedSearch = search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    filter.$or = [
+      { email: { $regex: escapedSearch, $options: 'i' } },
+      { name: { $regex: escapedSearch, $options: 'i' } },
+    ]
   }
 
-  const userObj = JSON.parse(JSON.stringify(user))
-  return NextResponse.json({
-    id: String(userObj._id),
-    name: userObj.name,
-    email: userObj.email,
-    role: userObj.role,
+  const users = await User.find(filter)
+    .select('name email role authProvider createdAt')
+    .sort({ createdAt: -1 })
+    .lean()
+
+  const userList = users.map(u => {
+    const userObj = JSON.parse(JSON.stringify(u))
+    return {
+      id: String(userObj._id),
+      name: userObj.name || '',
+      email: userObj.email || '',
+      role: userObj.role || 'general',
+      authProvider: userObj.authProvider || 'credentials',
+      createdAt: userObj.createdAt ? new Date(userObj.createdAt).toISOString() : new Date().toISOString(),
+    }
   })
+
+  return NextResponse.json(userList)
 }
