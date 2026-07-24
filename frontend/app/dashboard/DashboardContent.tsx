@@ -57,11 +57,11 @@ const badge: Record<string, { label: string; dot: string; bg: string }> = {
 }
 
 const notifIcon: Record<string, { icon: string; color: string; bg: string }> = {
-  approved: { icon: 'fa-circle-check', color: 'text-emerald-400', bg: 'bg-emerald-500/10 border-emerald-500/20' },
-  rejected: { icon: 'fa-circle-xmark', color: 'text-red-400', bg: 'bg-red-500/10 border-red-500/20' },
-  reviewed: { icon: 'fa-eye', color: 'text-blue-400', bg: 'bg-blue-500/10 border-blue-500/20' },
-  message: { icon: 'fa-comment-dots', color: 'text-purple-400', bg: 'bg-purple-500/10 border-purple-500/20' },
-  system: { icon: 'fa-bell', color: 'text-[#C50000]', bg: 'bg-[#C50000]/10 border-[#C50000]/20' },
+  approved: { icon: 'fa-circle-check', color: 'text-emerald-400', bg: 'bg-surface-hover' },
+  rejected: { icon: 'fa-circle-xmark', color: 'text-red-400', bg: 'bg-surface-hover' },
+  reviewed: { icon: 'fa-eye', color: 'text-blue-400', bg: 'bg-surface-hover' },
+  message: { icon: 'fa-comment-dots', color: 'text-purple-400', bg: 'bg-surface-hover' },
+  system: { icon: 'fa-bell', color: 'text-[#C50000]', bg: 'bg-surface-hover' },
 }
 
 export default function DashboardContent({
@@ -386,33 +386,33 @@ export default function DashboardContent({
   }, [sidebar, detail])
 
   return (
-    <div className="flex min-h-screen bg-[#030712]">
+    <div className="flex min-h-screen bg-surface">
       {/* Mobile Backdrop */}
       {sidebar && (
         <div 
-          className="fixed inset-0 z-40 bg-black/70 backdrop-blur-sm lg:hidden transition-opacity duration-300 animate-in fade-in" 
+          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden transition-opacity duration-300 animate-in fade-in" 
           onClick={() => setSidebar(false)} 
         />
       )}
 
       {/* Sidebar Drawer */}
-      <aside className={`fixed inset-y-0 left-0 z-50 flex w-64 sm:w-60 lg:w-56 flex-col border-r border-border-subtle bg-[#030712] transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 ${sidebar ? 'translate-x-0' : '-translate-x-full'}`}>
-        <div className="flex h-14 items-center justify-between border-b border-border-subtle px-4 sm:px-5">
+      <aside className={`fixed inset-y-0 left-0 z-50 flex w-64 sm:w-60 lg:w-60 flex-col border-r border-border-subtle bg-surface-elevated transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 ${sidebar ? 'translate-x-0' : '-translate-x-full'}`}>
+        <div className="flex h-14 items-center justify-between px-4 sm:px-5 border-b border-border-subtle/60">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#C50000] text-[10px] font-bold text-white shadow-[0_0_10px_rgba(197,0,0,0.4)]">M</div>
-            <span className="text-sm font-semibold text-text-primary font-display">MyOnlineJet</span>
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#C50000] text-[10px] font-bold text-white">M</div>
+            <span className="text-sm font-semibold text-text-primary">MyOnlineJet</span>
           </div>
           <button 
             onClick={() => setSidebar(false)}
-            className="flex h-7 w-7 items-center justify-center rounded-lg text-text-muted hover:text-white hover:bg-surface-card lg:hidden transition-colors"
+            className="flex h-7 w-7 items-center justify-center rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-hover lg:hidden transition-colors"
             aria-label="Close menu"
           >
             <i className="fas fa-xmark text-sm" />
           </button>
         </div>
-        <div className="flex-1 overflow-y-auto px-3 py-4">
-          <div className="mb-6 flex items-center gap-3 rounded-xl bg-surface-card border border-border-subtle px-3.5 py-3">
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#C50000] to-[#ff5252] text-xs font-semibold text-white shadow-md">
+        <div className="flex-1 overflow-y-auto px-3 py-5">
+          <div className="mb-5 flex items-center gap-3 px-3 py-2.5">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#C50000] to-[#ff5252] text-xs font-semibold text-white shadow-sm">
               {init}
             </div>
             <div className="min-w-0">
@@ -420,7 +420,7 @@ export default function DashboardContent({
               <p className="truncate text-xs text-text-muted">{user.email}</p>
             </div>
           </div>
-          <nav className="space-y-1">
+          <nav className="space-y-0.5">
             {[
               { label: 'Dashboard', href: '/dashboard', icon: 'fa-layer-group', active: true },
               { label: 'Profile', href: '/profile', icon: 'fa-user' },
@@ -430,12 +430,12 @@ export default function DashboardContent({
                 key={item.href} 
                 href={item.href}
                 onClick={() => setSidebar(false)}
-                className={`flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-all ${
+                className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all ${
                   item.active
-                    ? 'bg-[#C50000]/10 text-[#C50000] border border-[#C50000]/20'
-                    : 'text-text-muted hover:text-text-primary hover:bg-surface-card'
+                    ? 'bg-surface-hover text-text-primary'
+                    : 'text-text-muted hover:text-text-primary hover:bg-surface-hover/60'
                 }`}>
-                <i className={`fas ${item.icon} w-4 text-center text-xs`} />
+                <i className={`fas ${item.icon} w-4 text-center text-xs opacity-70`} />
                 {item.label}
               </Link>
             ))}
@@ -446,60 +446,60 @@ export default function DashboardContent({
                 setShowNotifPanel(!showNotifPanel)
                 setSidebar(false)
               }}
-              className="flex w-full items-center justify-between rounded-xl px-3.5 py-2.5 text-sm font-medium text-text-muted hover:text-text-primary hover:bg-surface-card transition-all"
+              className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm font-medium text-text-muted hover:text-text-primary hover:bg-surface-hover/60 transition-all"
             >
               <div className="flex items-center gap-3">
-                <i className="fas fa-bell w-4 text-center text-xs" />
+                <i className="fas fa-bell w-4 text-center text-xs opacity-70" />
                 <span>Notifications</span>
               </div>
               {unreadCount > 0 && (
-                <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#C50000] px-1.5 text-[10px] font-bold text-white">
+                <span className="flex h-5 min-w-[20px] items-center justify-center rounded-md bg-[#C50000] px-1.5 text-[10px] font-semibold text-white">
                   {unreadCount}
                 </span>
               )}
             </button>
           </nav>
         </div>
-        <div className="border-t border-border-subtle p-3">
+        <div className="border-t border-border-subtle/60 p-3">
           <button 
             onClick={() => {
               setSidebar(false)
               signOut({ callbackUrl: '/' })
             }}
-            className="flex w-full items-center justify-center gap-2 rounded-xl border border-border-subtle px-3 py-2.5 text-sm font-medium text-text-muted hover:text-[#C50000] hover:border-[#C50000]/30 transition-all">
-            <i className="fas fa-right-from-bracket text-xs" />
+            className="flex w-full items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-text-muted hover:text-text-primary hover:bg-surface-hover/60 transition-all">
+            <i className="fas fa-right-from-bracket text-xs opacity-70" />
             Sign out
           </button>
         </div>
       </aside>
 
       <div className="flex flex-1 flex-col min-w-0">
-        <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-border-subtle px-4 lg:px-6 bg-[#030712]/80 backdrop-blur-xl">
+        <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-border-subtle/60 px-4 lg:px-6 bg-surface-elevated/90 backdrop-blur-xl">
           <div className="flex items-center gap-3">
-            <button className="flex h-9 w-9 items-center justify-center rounded-xl border border-border-subtle bg-surface-card text-text-muted hover:text-text-primary lg:hidden transition-all" onClick={() => setSidebar(true)}>
+            <button className="flex h-8 w-8 items-center justify-center rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-hover lg:hidden transition-all" onClick={() => setSidebar(true)}>
               <i className="fas fa-bars text-sm" />
             </button>
             <div className="flex items-center gap-2">
-              <span className="text-sm font-bold text-white font-display lg:hidden">Dashboard</span>
+              <span className="text-sm font-semibold text-text-primary lg:hidden">Dashboard</span>
               {isAdmin && (
-                <span className="rounded-md bg-[#C50000]/10 border border-[#C50000]/20 px-2 py-0.5 text-[10px] sm:text-xs font-semibold text-[#C50000]">
+                <span className="rounded-md bg-[#C50000]/10 px-2 py-0.5 text-[10px] sm:text-xs font-medium text-[#C50000]">
                   Admin
                 </span>
               )}
             </div>
           </div>
 
-          <div className="flex items-center gap-2.5 sm:gap-4">
+          <div className="flex items-center gap-1.5 sm:gap-3">
             {/* Notification Bell Dropdown Button */}
             <div className="relative" ref={notifRef}>
               <button
                 onClick={() => setShowNotifPanel(!showNotifPanel)}
-                className="relative flex h-9 w-9 items-center justify-center rounded-xl border border-border-subtle bg-surface-card text-text-muted hover:text-text-primary hover:border-[#C50000]/30 transition-all"
+                className="relative flex h-8 w-8 items-center justify-center rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-hover transition-all"
                 aria-label="View notifications"
               >
                 <i className="fas fa-bell text-sm" />
                 {unreadCount > 0 && (
-                  <span className="absolute -top-1 -right-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#C50000] px-1 text-[10px] font-bold text-white shadow-md">
+                  <span className="absolute -top-0.5 -right-0.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#C50000] px-1 text-[9px] font-bold text-white">
                     {unreadCount > 99 ? '99+' : unreadCount}
                   </span>
                 )}
@@ -507,13 +507,13 @@ export default function DashboardContent({
 
               {/* Dropdown Panel - Responsive Positioning */}
               {showNotifPanel && (
-                <div className="fixed inset-x-3 top-16 sm:absolute sm:inset-auto sm:right-0 sm:top-full sm:mt-2 w-auto sm:w-96 rounded-xl border border-border-subtle bg-[#0b1020] p-4 shadow-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                <div className="fixed inset-x-3 top-16 sm:absolute sm:inset-auto sm:right-0 sm:top-full sm:mt-2 w-auto sm:w-96 rounded-xl border border-border-subtle bg-surface-elevated p-4 shadow-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                   <div className="flex items-center justify-between border-b border-border-subtle/60 pb-3 mb-3">
                     <div className="flex items-center gap-2">
-                      <i className="fas fa-bell text-xs text-[#C50000]" />
-                      <h3 className="text-sm font-semibold text-text-primary font-display">Notifications</h3>
+                      <i className="fas fa-bell text-xs text-text-muted" />
+                      <h3 className="text-sm font-semibold text-text-primary">Notifications</h3>
                       {unreadCount > 0 && (
-                        <span className="rounded-full bg-[#C50000]/20 px-2 py-0.5 text-[10px] font-medium text-[#ff5252]">
+                        <span className="rounded-md bg-surface-hover px-2 py-0.5 text-[10px] font-medium text-text-secondary">
                           {unreadCount} new
                         </span>
                       )}
@@ -521,17 +521,17 @@ export default function DashboardContent({
                     {unreadCount > 0 && (
                       <button
                         onClick={() => handleMarkAsRead(undefined, true)}
-                        className="text-[11px] font-medium text-text-muted hover:text-[#C50000] transition-colors"
+                        className="text-[11px] font-medium text-text-muted hover:text-text-primary transition-colors"
                       >
                         Mark all read
                       </button>
                     )}
                   </div>
 
-                  <div className="max-h-72 sm:max-h-80 space-y-2 overflow-y-auto pr-1 custom-scrollbar">
+                  <div className="max-h-72 sm:max-h-80 space-y-1.5 overflow-y-auto pr-1 custom-scrollbar">
                     {notifications.length === 0 ? (
                       <div className="flex flex-col items-center justify-center py-8 text-center">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full border border-border-subtle bg-surface-hover mb-2">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-surface-hover mb-2">
                           <i className="fas fa-bell-slash text-xs text-text-muted" />
                         </div>
                         <p className="text-xs font-medium text-text-primary">No notifications yet</p>
@@ -544,30 +544,30 @@ export default function DashboardContent({
                           <div
                             key={n._id}
                             onClick={() => handleNotifClick(n)}
-                            className={`group flex items-start gap-3 rounded-lg border p-3 cursor-pointer transition-all ${
+                            className={`group flex items-start gap-3 rounded-lg p-3 cursor-pointer transition-all ${
                               n.isRead
-                                ? 'border-border-subtle/40 bg-surface-hover/30 text-text-muted hover:bg-surface-hover'
-                                : 'border-border-subtle bg-surface-card text-text-primary hover:border-[#C50000]/30'
+                                ? 'text-text-secondary hover:bg-surface-hover/50'
+                                : 'bg-surface-hover/40 text-text-primary hover:bg-surface-hover'
                             }`}
                           >
-                            <div className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border ${style.bg}`}>
+                            <div className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg ${style.bg}`}>
                               <i className={`fas ${style.icon} text-xs ${style.color}`} />
                             </div>
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center justify-between gap-1">
-                                <p className={`text-xs font-semibold truncate ${n.isRead ? 'text-text-secondary' : 'text-text-primary'}`}>
+                                <p className={`text-xs font-medium truncate ${n.isRead ? 'text-text-secondary' : 'text-text-primary'}`}>
                                   {n.title}
                                 </p>
-                                <span className="text-[10px] text-text-muted shrink-0">
+                                <span className="text-[10px] text-text-muted shrink-0 whitespace-nowrap">
                                   {formatTimeAgo(n.createdAt)}
                                 </span>
                               </div>
-                              <p className="text-xs text-text-muted mt-1 leading-snug break-words">
+                              <p className="text-xs text-text-muted mt-0.5 leading-snug break-words line-clamp-2">
                                 {n.message}
                               </p>
                             </div>
                             {!n.isRead && (
-                              <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-[#C50000]" />
+                              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#C50000]" />
                             )}
                           </div>
                         )
@@ -579,45 +579,45 @@ export default function DashboardContent({
             </div>
 
             <Link href="/profile" className="hidden sm:inline-block text-sm text-text-muted hover:text-text-primary transition-colors">Profile</Link>
-            <button onClick={() => signOut({ callbackUrl: '/' })} className="hidden sm:inline-block text-sm text-text-muted hover:text-[#C50000] transition-colors">Sign out</button>
+            <button onClick={() => signOut({ callbackUrl: '/' })} className="hidden sm:inline-block text-sm text-text-muted hover:text-text-primary transition-colors">Sign out</button>
           </div>
         </header>
 
-        <main className="flex-1 overflow-y-auto px-3.5 py-5 sm:px-6 sm:py-8 lg:px-8">
+        <main className="flex-1 overflow-y-auto px-4 py-6 sm:px-6 sm:py-8 lg:px-10">
           {/* Admin Tab Switcher (Submissions vs User Management) */}
           {isAdmin && (
-            <div className="mb-6 flex items-center gap-2 border-b border-border-subtle pb-3">
+            <div className="mb-8 flex items-center gap-1 border-b border-border-subtle/60 pb-0">
               <button
                 onClick={() => setActiveTab('submissions')}
-                className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs sm:text-sm font-semibold transition-all ${
+                className={`relative px-4 py-2.5 text-xs sm:text-sm font-medium transition-all ${
                   activeTab === 'submissions'
-                    ? 'bg-[#C50000] text-white shadow-md'
-                    : 'bg-surface-card border border-border-subtle text-text-muted hover:text-text-primary'
+                    ? 'text-text-primary after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[#C50000]'
+                    : 'text-text-muted hover:text-text-primary'
                 }`}
               >
-                <i className="fas fa-inbox text-xs" />
-                Submissions Dashboard
+                <i className="fas fa-inbox text-xs mr-1.5" />
+                Submissions
               </button>
               <button
                 onClick={() => setActiveTab('users')}
-                className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs sm:text-sm font-semibold transition-all ${
+                className={`relative px-4 py-2.5 text-xs sm:text-sm font-medium transition-all ${
                   activeTab === 'users'
-                    ? 'bg-[#C50000] text-white shadow-md'
-                    : 'bg-surface-card border border-border-subtle text-text-muted hover:text-text-primary'
+                    ? 'text-text-primary after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[#C50000]'
+                    : 'text-text-muted hover:text-text-primary'
                 }`}
               >
-                <i className="fas fa-users-gear text-xs" />
-                User Management
+                <i className="fas fa-users-gear text-xs mr-1.5" />
+                Users
               </button>
             </div>
           )}
 
           {activeTab === 'submissions' ? (
             <>
-              <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-start justify-between gap-4">
                 <div>
-                  <h1 className="text-lg sm:text-xl font-semibold text-text-primary font-display">Submissions Overview</h1>
-                  <p className="mt-1 text-xs sm:text-sm text-text-secondary">
+                  <h1 className="text-lg sm:text-xl font-semibold text-text-primary">Submissions</h1>
+                  <p className="mt-0.5 text-xs sm:text-sm text-text-secondary">
                     Welcome back, <span className="text-text-primary font-medium">{user.name}</span>
                   </p>
                 </div>
@@ -625,46 +625,54 @@ export default function DashboardContent({
                 {isAdmin && filtered.length > 0 && (
                   <button
                     onClick={handleExportCSV}
-                    className="inline-flex items-center justify-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-2 text-xs font-semibold text-emerald-400 hover:bg-emerald-500/20 transition-all shadow-sm self-start sm:self-auto"
+                    className="inline-flex items-center justify-center gap-2 rounded-lg border border-border-subtle bg-surface-hover px-3 py-1.5 text-xs font-medium text-text-secondary hover:text-text-primary hover:bg-surface-card transition-all self-start sm:self-auto"
                   >
-                    <i className="fas fa-file-csv text-sm" />
+                    <i className="fas fa-download text-xs" />
                     Export CSV ({filtered.length})
                   </button>
                 )}
               </div>
 
               {/* Stats Grid */}
-              <div className="mb-6 sm:mb-8 grid grid-cols-2 gap-2.5 sm:gap-3.5 lg:grid-cols-4">
+              <div className="mb-8 grid grid-cols-2 gap-3 lg:grid-cols-4">
                 {stats.map(s => {
-                  const borderColors: Record<string, string> = {
-                    Total: 'border-l-zinc-500',
-                    Pending: 'border-l-amber-500 shadow-[inset_3px_0_0_0_rgba(245,158,11,0.2)]',
-                    Reviewed: 'border-l-blue-500 shadow-[inset_3px_0_0_0_rgba(59,130,246,0.2)]',
-                    Closed: 'border-l-emerald-500 shadow-[inset_3px_0_0_0_rgba(16,185,129,0.2)]',
+                  const accents: Record<string, string> = {
+                    Total: 'bg-surface-card',
+                    Pending: 'bg-amber-500/5',
+                    Reviewed: 'bg-blue-500/5',
+                    Closed: 'bg-emerald-500/5',
                   }
-                  const borderColor = borderColors[s.label] || 'border-l-border-subtle'
+                  const dotAccents: Record<string, string> = {
+                    Total: 'bg-text-secondary',
+                    Pending: 'bg-amber-500',
+                    Reviewed: 'bg-blue-500',
+                    Closed: 'bg-emerald-500',
+                  }
                   return (
-                    <div key={s.label} className={`rounded-xl border border-border-subtle border-l-4 ${borderColor} bg-surface-card px-3.5 py-3 sm:px-5 sm:py-4 transition-all duration-300 hover:-translate-y-0.5`}>
-                      <div className="flex items-center justify-between mb-1 sm:mb-2">
-                        <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-text-muted">{s.label}</p>
-                        <i className={`fas ${s.icon} text-xs sm:text-sm text-[#C50000]/50`} />
+                    <div key={s.label} className={`rounded-xl border border-border-subtle ${accents[s.label] || 'bg-surface-card'} px-4 py-3.5 sm:px-5 sm:py-4`}>
+                      <div className="flex items-center justify-between mb-1.5">
+                        <div className="flex items-center gap-2">
+                          <span className={`h-2 w-2 rounded-full ${dotAccents[s.label] || 'bg-text-secondary'}`} />
+                          <p className="text-[11px] sm:text-xs font-medium text-text-muted">{s.label}</p>
+                        </div>
+                        <i className={`fas ${s.icon} text-xs sm:text-sm text-text-muted/40`} />
                       </div>
-                      <p className="text-xl sm:text-2xl font-bold text-text-primary">{s.value}</p>
+                      <p className="text-xl sm:text-2xl font-semibold text-text-primary tracking-tight">{s.value}</p>
                     </div>
                   )
                 })}
               </div>
 
               {/* Filter Pills */}
-              <div className="mb-4 flex items-center justify-between gap-2">
-                <div className="flex items-center gap-1.5 overflow-x-auto pb-2 scrollbar-none">
-                  <span className="shrink-0 text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-text-muted mr-1">Filter</span>
+              <div className="mb-5 flex items-center justify-between gap-2">
+                <div className="flex items-center gap-1 overflow-x-auto pb-1 scrollbar-none">
+                  <span className="shrink-0 text-[11px] font-medium text-text-muted mr-1">Filter:</span>
                   {['all', 'contact', 'career', 'investor', 'partner', 'faq', 'advisory'].map(t => (
                     <button key={t} onClick={() => setFilter(t)}
-                      className={`shrink-0 rounded-lg px-2.5 py-1.5 sm:px-3 text-xs font-medium transition-all ${
+                      className={`shrink-0 rounded-md px-2.5 py-1.5 text-xs font-medium transition-all ${
                         filter === t
-                          ? 'bg-[#C50000] text-white shadow-sm'
-                          : 'text-text-muted hover:text-text-primary hover:bg-surface-card border border-border-subtle'
+                          ? 'bg-surface-hover text-text-primary'
+                          : 'text-text-muted hover:text-text-secondary hover:bg-surface-hover/50'
                       }`}>
                       {t === 'all' ? 'All' : labels[t] || t}
                     </button>
@@ -675,7 +683,7 @@ export default function DashboardContent({
               <div className="rounded-xl border border-border-subtle bg-surface-card overflow-hidden">
                 {filtered.length === 0 ? (
                   !isAdmin && filter !== 'all' && forms[filter] ? (
-                    <div className="p-4 sm:p-6">
+                    <div className="p-5 sm:p-6">
                       <div className="mb-4">
                         <h3 className="text-base font-semibold text-text-primary">New {labels[filter] || filter} Submission</h3>
                         <p className="text-xs text-text-secondary mt-0.5">Fill in the form below to submit.</p>
@@ -686,14 +694,14 @@ export default function DashboardContent({
                       })()}
                     </div>
                   ) : (
-                    <div className="flex flex-col items-center py-12 sm:py-20 px-4 text-center">
-                      <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl border border-border-subtle bg-surface-hover">
+                    <div className="flex flex-col items-center py-16 sm:py-24 px-4 text-center">
+                      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-surface-hover">
                         <i className="fas fa-inbox text-lg text-text-muted" />
                       </div>
                       <p className="text-sm font-medium text-text-primary">No submissions</p>
                       <p className="mt-1 text-xs text-text-secondary">Submit a form to track it here.</p>
                       {!isAdmin && (
-                        <Link href="/contact" className="mt-4 sm:mt-5 rounded-lg bg-[#C50000] px-4 py-2 text-xs font-medium text-white hover:bg-[#C50000]/90 transition-colors">
+                        <Link href="/contact" className="mt-5 rounded-lg bg-[#C50000] px-4 py-2 text-xs font-medium text-white hover:bg-[#C50000]/90 transition-colors">
                           New submission
                         </Link>
                       )}
@@ -702,10 +710,10 @@ export default function DashboardContent({
                 ) : (
                   <>
                     {/* Desktop View Table */}
-                    <div className="hidden md:block overflow-x-auto">
+                    <div className="hidden md:block">
                       <table className="w-full">
                         <thead>
-                          <tr className="border-b border-border-subtle">
+                          <tr className="border-b border-border-subtle/60">
                             <Th>Type</Th>
                             {isAdmin && <Th>User</Th>}
                             <Th>Date</Th>
@@ -718,12 +726,11 @@ export default function DashboardContent({
                             const b = badge[s.status] || badge.pending
                             const indexOffset = (activeSubPage - 1) * itemsPerPage + i + 1
                             return (
-                              <tr key={s._id} className="group border-b border-border-subtle/50 transition-colors hover:bg-surface-hover last:border-0">
-                                <td className="relative px-5 py-3.5">
-                                  <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#C50000] opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
+                              <tr key={s._id} className="group border-b border-border-subtle/30 transition-colors hover:bg-surface-hover/60 last:border-0">
+                                <td className="px-4 py-3.5">
                                   <div className="flex items-center gap-3">
-                                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border-subtle bg-surface-hover">
-                                      <i className={`fas ${icons[s.formType] || 'fa-file'} text-xs text-[#C50000]`} />
+                                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-surface-hover">
+                                      <i className={`fas ${icons[s.formType] || 'fa-file'} text-xs text-text-muted group-hover:text-[#C50000] transition-colors`} />
                                     </div>
                                     <div>
                                       <p className="text-sm font-medium text-text-primary">{labels[s.formType] || s.formType}</p>
@@ -732,24 +739,24 @@ export default function DashboardContent({
                                   </div>
                                 </td>
                                 {isAdmin && (
-                                  <td className="px-5 py-3.5">
+                                  <td className="px-4 py-3.5">
                                     <p className="text-sm text-text-primary">{s.userId?.name || '—'}</p>
                                     <p className="text-xs text-text-muted">{s.userId?.email}</p>
                                   </td>
                                 )}
-                                <td className="px-5 py-3.5">
+                                <td className="px-4 py-3.5">
                                   <p className="text-sm text-text-secondary">{new Date(s.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}</p>
                                   <p className="text-xs text-text-muted">{new Date(s.createdAt).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}</p>
                                 </td>
-                                <td className="px-5 py-3.5">
-                                  <span className={`inline-flex items-center gap-1.5 rounded-md ${b.bg} px-2.5 py-1 text-xs font-medium`}>
+                                <td className="px-4 py-3.5">
+                                  <span className={`inline-flex items-center gap-1.5 rounded-md ${b.bg} px-2 py-1 text-xs font-medium`}>
                                     <span className={`h-1.5 w-1.5 rounded-full ${b.dot}`} />
                                     {b.label}
                                   </span>
                                 </td>
-                                <td className="px-5 py-3.5 text-right">
+                                <td className="px-4 py-3.5 text-right">
                                   <button onClick={() => setDetail(s)}
-                                    className="rounded-lg border border-border-subtle px-3 py-1.5 text-xs font-medium text-text-muted hover:text-[#C50000] hover:border-[#C50000]/30 transition-all">
+                                    className="rounded-md px-3 py-1.5 text-xs font-medium text-text-muted hover:text-text-primary hover:bg-surface-hover transition-all">
                                     View
                                   </button>
                                 </td>
@@ -761,7 +768,7 @@ export default function DashboardContent({
                     </div>
 
                     {/* Mobile View Card List */}
-                    <div className="md:hidden divide-y divide-border-subtle/60">
+                    <div className="md:hidden">
                       {paginatedSubs.map((s, i) => {
                         const b = badge[s.status] || badge.pending
                         const indexOffset = (activeSubPage - 1) * itemsPerPage + i + 1
@@ -769,44 +776,32 @@ export default function DashboardContent({
                           <div 
                             key={s._id} 
                             onClick={() => setDetail(s)}
-                            className="p-4 space-y-3 hover:bg-surface-hover/50 transition-colors cursor-pointer active:bg-surface-hover"
+                            className="flex items-center gap-3 px-4 py-3.5 hover:bg-surface-hover/50 transition-colors cursor-pointer border-b border-border-subtle/30 last:border-0"
                           >
-                            <div className="flex items-center justify-between gap-2">
-                              <div className="flex items-center gap-2.5 min-w-0">
-                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border-subtle bg-surface-card">
-                                  <i className={`fas ${icons[s.formType] || 'fa-file'} text-xs text-[#C50000]`} />
-                                </div>
-                                <div className="min-w-0">
-                                  <p className="text-sm font-semibold text-text-primary truncate">{labels[s.formType] || s.formType}</p>
-                                  <p className="text-[10px] text-text-muted">Submission #{indexOffset}</p>
-                                </div>
-                              </div>
-                              
-                              <span className={`inline-flex items-center gap-1.5 rounded-full ${b.bg} px-2.5 py-0.5 text-[11px] font-medium shrink-0`}>
-                                <span className={`h-1.5 w-1.5 rounded-full ${b.dot}`} />
-                                {b.label}
-                              </span>
+                            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-surface-hover">
+                              <i className={`fas ${icons[s.formType] || 'fa-file'} text-xs text-text-muted`} />
                             </div>
-
-                            {isAdmin && s.userId && (
-                              <div className="rounded-lg border border-border-subtle/40 bg-[#090d19] p-2.5 flex items-center justify-between gap-2 text-xs">
-                                <span className="text-text-muted truncate"><i className="fas fa-user text-[10px] mr-1 text-text-muted" />{s.userId.name}</span>
-                                <span className="text-text-secondary truncate text-[11px]">{s.userId.email}</span>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center justify-between gap-2">
+                                <p className="text-sm font-medium text-text-primary truncate">{labels[s.formType] || s.formType}</p>
+                                <span className={`inline-flex items-center gap-1 rounded-md ${b.bg} px-2 py-0.5 text-[10px] font-medium shrink-0`}>
+                                  <span className={`h-1.5 w-1.5 rounded-full ${b.dot}`} />
+                                  {b.label}
+                                </span>
                               </div>
-                            )}
-
-                            <div className="flex items-center justify-between pt-1 text-xs">
-                              <span className="text-text-muted text-[11px] flex items-center gap-1">
-                                <i className="far fa-clock text-[10px]" />
-                                {new Date(s.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
-                              </span>
-                              <button 
-                                type="button" 
-                                className="inline-flex items-center gap-1 text-xs font-semibold text-[#C50000] hover:underline"
-                              >
-                                View Details <i className="fas fa-chevron-right text-[9px]" />
-                              </button>
+                              <div className="flex items-center gap-2 mt-0.5">
+                                <span className="text-xs text-text-muted">#{indexOffset}</span>
+                                <span className="text-xs text-text-muted">·</span>
+                                <span className="text-xs text-text-muted">{new Date(s.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}</span>
+                                {isAdmin && s.userId?.name && (
+                                  <>
+                                    <span className="text-xs text-text-muted">·</span>
+                                    <span className="text-xs text-text-muted truncate">{s.userId.name}</span>
+                                  </>
+                                )}
+                              </div>
                             </div>
+                            <i className="fas fa-chevron-right text-xs text-text-muted/40" />
                           </div>
                         )
                       })}
@@ -814,24 +809,24 @@ export default function DashboardContent({
 
                     {/* Submissions Pagination Footer */}
                     {totalSubPages > 1 && (
-                      <div className="flex items-center justify-between border-t border-border-subtle px-4 py-3 bg-[#070b14]/50 text-xs">
+                      <div className="flex items-center justify-between border-t border-border-subtle/60 px-4 py-3 text-xs">
                         <span className="text-text-muted">
-                          Page <strong className="text-text-primary">{activeSubPage}</strong> of {totalSubPages}
+                          Page <span className="text-text-primary font-medium">{activeSubPage}</span> of {totalSubPages}
                         </span>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1.5">
                           <button
                             disabled={subPage <= 1}
                             onClick={() => setSubPage(p => Math.max(1, p - 1))}
-                            className="rounded-lg border border-border-subtle bg-surface-card px-3 py-1.5 text-text-muted hover:text-white disabled:opacity-40 disabled:hover:text-text-muted transition-colors"
+                            className="rounded-md px-2.5 py-1.5 text-text-muted hover:text-text-primary hover:bg-surface-hover disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-text-muted transition-all"
                           >
-                            <i className="fas fa-chevron-left mr-1 text-[10px]" /> Prev
+                            <i className="fas fa-chevron-left text-[10px]" />
                           </button>
                           <button
                             disabled={subPage >= totalSubPages}
                             onClick={() => setSubPage(p => Math.min(totalSubPages, p + 1))}
-                            className="rounded-lg border border-border-subtle bg-surface-card px-3 py-1.5 text-text-muted hover:text-white disabled:opacity-40 disabled:hover:text-text-muted transition-colors"
+                            className="rounded-md px-2.5 py-1.5 text-text-muted hover:text-text-primary hover:bg-surface-hover disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-text-muted transition-all"
                           >
-                            Next <i className="fas fa-chevron-right ml-1 text-[10px]" />
+                            <i className="fas fa-chevron-right text-[10px]" />
                           </button>
                         </div>
                       </div>
@@ -845,24 +840,25 @@ export default function DashboardContent({
             <div className="space-y-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                  <h1 className="text-lg sm:text-xl font-semibold text-text-primary font-display">User Directory & Roles</h1>
-                  <p className="mt-1 text-xs sm:text-sm text-text-secondary">
-                    Manage system permissions, view user accounts, and update access roles.
+                  <h1 className="text-lg sm:text-xl font-semibold text-text-primary">Users</h1>
+                  <p className="mt-0.5 text-xs sm:text-sm text-text-secondary">
+                    Manage system permissions and user accounts.
                   </p>
                 </div>
 
                 {/* User Search Input */}
-                <div className="relative min-w-[260px]">
-                  <i className="fas fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-xs text-text-muted" />
+                <div className="relative min-w-[240px]">
+                  <i className="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-xs text-text-muted" />
                   <input
                     type="text"
+                    aria-label="Search users"
                     placeholder="Search by name or email..."
                     value={userSearch}
                     onChange={e => setUserSearch(e.target.value)}
-                    className="w-full rounded-xl border border-border-subtle bg-surface-card pl-9 pr-4 py-2 text-xs text-white placeholder-text-muted focus:border-[#C50000] focus:outline-none transition-colors"
+                    className="w-full rounded-lg border border-border-subtle bg-surface-card pl-8 pr-8 py-1.5 text-xs text-text-primary placeholder-text-muted focus:border-text-muted focus:outline-none transition-colors"
                   />
                   {userSearch && (
-                    <button onClick={() => setUserSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-white text-xs">
+                    <button onClick={() => setUserSearch('')} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-primary text-xs">
                       <i className="fas fa-xmark" />
                     </button>
                   )}
@@ -871,33 +867,33 @@ export default function DashboardContent({
 
               {/* User Stats Grid */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <div className="rounded-xl border border-border-subtle bg-surface-card p-4 border-l-4 border-l-purple-500">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-text-muted mb-1">Total Users</p>
-                  <p className="text-xl font-bold text-white">{usersList.length}</p>
+                <div className="rounded-xl border border-border-subtle bg-surface-card p-4">
+                  <p className="text-[11px] font-medium text-text-muted mb-1">Total Users</p>
+                  <p className="text-xl font-semibold text-text-primary tracking-tight">{usersList.length}</p>
                 </div>
-                <div className="rounded-xl border border-border-subtle bg-surface-card p-4 border-l-4 border-l-red-500">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-text-muted mb-1">Admins</p>
-                  <p className="text-xl font-bold text-red-400">{usersList.filter(u => u.role === 'admin').length}</p>
+                <div className="rounded-xl border border-border-subtle bg-surface-card p-4">
+                  <p className="text-[11px] font-medium text-text-muted mb-1">Admins</p>
+                  <p className="text-xl font-semibold text-text-primary tracking-tight">{usersList.filter(u => u.role === 'admin').length}</p>
                 </div>
-                <div className="rounded-xl border border-border-subtle bg-surface-card p-4 border-l-4 border-l-emerald-500">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-text-muted mb-1">General Users</p>
-                  <p className="text-xl font-bold text-emerald-400">{usersList.filter(u => u.role === 'general').length}</p>
+                <div className="rounded-xl border border-border-subtle bg-surface-card p-4">
+                  <p className="text-[11px] font-medium text-text-muted mb-1">General</p>
+                  <p className="text-xl font-semibold text-text-primary tracking-tight">{usersList.filter(u => u.role === 'general').length}</p>
                 </div>
-                <div className="rounded-xl border border-border-subtle bg-surface-card p-4 border-l-4 border-l-blue-500">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-text-muted mb-1">Partners / Investors</p>
-                  <p className="text-xl font-bold text-blue-400">{usersList.filter(u => ['partner', 'investor'].includes(u.role)).length}</p>
+                <div className="rounded-xl border border-border-subtle bg-surface-card p-4">
+                  <p className="text-[11px] font-medium text-text-muted mb-1">Partners / Investors</p>
+                  <p className="text-xl font-semibold text-text-primary tracking-tight">{usersList.filter(u => ['partner', 'investor'].includes(u.role)).length}</p>
                 </div>
               </div>
 
               <div className="rounded-xl border border-border-subtle bg-surface-card overflow-hidden">
                 {usersLoading ? (
                   <div className="flex flex-col items-center justify-center py-16 text-center">
-                    <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#C50000] border-t-transparent mb-3" />
+                    <div className="h-7 w-7 animate-spin rounded-full border-2 border-text-muted border-t-text-primary mb-3" />
                     <p className="text-xs text-text-muted">Loading user accounts...</p>
                   </div>
                 ) : usersList.length === 0 ? (
                   <div className="flex flex-col items-center justify-center py-16 text-center px-4">
-                    <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl border border-border-subtle bg-surface-hover">
+                    <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-surface-hover">
                       <i className="fas fa-user-slash text-lg text-text-muted" />
                     </div>
                     <p className="text-sm font-medium text-text-primary">No users found</p>
@@ -906,14 +902,14 @@ export default function DashboardContent({
                 ) : (
                   <>
                     {/* Desktop Users Table */}
-                    <div className="hidden md:block overflow-x-auto">
+                    <div className="hidden md:block">
                       <table className="w-full">
                         <thead>
-                          <tr className="border-b border-border-subtle">
-                            <Th>User Profile</Th>
-                            <Th>Auth Provider</Th>
-                            <Th>Registered Date</Th>
-                            <Th>Assigned Role</Th>
+                          <tr className="border-b border-border-subtle/60">
+                            <Th>User</Th>
+                            <Th>Auth</Th>
+                            <Th>Registered</Th>
+                            <Th>Role</Th>
                           </tr>
                         </thead>
                         <tbody>
@@ -921,8 +917,8 @@ export default function DashboardContent({
                             const isUpdating = updatingUserRole === u.id
                             const userInitials = u.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || 'U'
                             return (
-                              <tr key={u.id} className="border-b border-border-subtle/50 transition-colors hover:bg-surface-hover last:border-0">
-                                <td className="px-5 py-3.5">
+                              <tr key={u.id} className="border-b border-border-subtle/30 transition-colors hover:bg-surface-hover/60 last:border-0">
+                                <td className="px-4 py-3.5">
                                   <div className="flex items-center gap-3">
                                     <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#C50000] to-[#ff5252] text-xs font-semibold text-white">
                                       {userInitials}
@@ -933,29 +929,29 @@ export default function DashboardContent({
                                     </div>
                                   </div>
                                 </td>
-                                <td className="px-5 py-3.5">
-                                  <span className="inline-flex items-center gap-1.5 rounded-md border border-border-subtle bg-surface-hover px-2.5 py-1 text-xs font-medium text-text-secondary capitalize">
-                                    <i className={`fab ${u.authProvider === 'google' ? 'fa-google text-blue-400' : u.authProvider === 'apple' ? 'fa-apple text-white' : 'fa-key text-amber-400'} text-xs`} />
+                                <td className="px-4 py-3.5">
+                                  <span className="inline-flex items-center gap-1.5 rounded-md bg-surface-hover px-2 py-1 text-xs font-medium text-text-secondary capitalize">
+                                    <i className={`fab ${u.authProvider === 'google' ? 'fa-google' : u.authProvider === 'apple' ? 'fa-apple' : 'fa-key'} text-xs opacity-70`} />
                                     {u.authProvider}
                                   </span>
                                 </td>
-                                <td className="px-5 py-3.5">
+                                <td className="px-4 py-3.5">
                                   <p className="text-sm text-text-secondary">{new Date(u.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
                                 </td>
-                                <td className="px-5 py-3.5">
+                                <td className="px-4 py-3.5">
                                   <select
                                     disabled={isUpdating}
                                     value={u.role}
                                     onChange={e => handleUserRoleChange(u.id, e.target.value)}
-                                    className={`rounded-lg border border-border-subtle bg-[#0b1020] px-3 py-1.5 text-xs font-semibold text-white focus:border-[#C50000] focus:outline-none transition-colors ${
-                                      u.role === 'admin' ? 'border-red-500/50 text-red-400' : ''
+                                    className={`rounded-md border border-border-subtle bg-surface-card px-2.5 py-1.5 text-xs font-medium text-text-primary focus:border-text-muted focus:outline-none transition-colors ${
+                                      u.role === 'admin' ? 'text-[#C50000]' : ''
                                     }`}
                                   >
                                     <option value="general">General</option>
                                     <option value="admin">Admin</option>
                                     <option value="partner">Partner</option>
                                     <option value="investor">Investor</option>
-                                    <option value="career">Career Candidate</option>
+                                    <option value="career">Career</option>
                                   </select>
                                 </td>
                               </tr>
@@ -966,44 +962,36 @@ export default function DashboardContent({
                     </div>
 
                     {/* Mobile Users Cards */}
-                    <div className="md:hidden divide-y divide-border-subtle/60">
+                    <div className="md:hidden">
                       {paginatedUsers.map(u => {
                         const isUpdating = updatingUserRole === u.id
                         const userInitials = u.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || 'U'
                         return (
-                          <div key={u.id} className="p-4 space-y-3">
-                            <div className="flex items-center justify-between gap-3">
-                              <div className="flex items-center gap-3 min-w-0">
-                                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#C50000] to-[#ff5252] text-xs font-semibold text-white">
-                                  {userInitials}
-                                </div>
-                                <div className="min-w-0">
-                                  <p className="text-sm font-semibold text-text-primary truncate">{u.name || 'Unnamed User'}</p>
-                                  <p className="text-xs text-text-muted truncate">{u.email}</p>
-                                </div>
+                          <div key={u.id} className="flex items-center justify-between gap-3 px-4 py-3.5 border-b border-border-subtle/30 last:border-0">
+                            <div className="flex items-center gap-3 min-w-0 flex-1">
+                              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#C50000] to-[#ff5252] text-xs font-semibold text-white">
+                                {userInitials}
+                              </div>
+                              <div className="min-w-0 flex-1">
+                                <p className="text-sm font-medium text-text-primary truncate">{u.name || 'Unnamed User'}</p>
+                                <p className="text-xs text-text-muted truncate">{u.email}</p>
                               </div>
                             </div>
 
-                            <div className="flex items-center justify-between pt-1 text-xs">
-                              <span className="inline-flex items-center gap-1.5 rounded-md border border-border-subtle bg-surface-hover px-2 py-0.5 text-[11px] text-text-secondary capitalize">
-                                {u.authProvider}
-                              </span>
-
-                              <div className="flex items-center gap-2">
-                                <span className="text-[11px] text-text-muted">Role:</span>
-                                <select
-                                  disabled={isUpdating}
-                                  value={u.role}
-                                  onChange={e => handleUserRoleChange(u.id, e.target.value)}
-                                  className="rounded-lg border border-border-subtle bg-[#0b1020] px-2.5 py-1 text-xs font-semibold text-white focus:border-[#C50000] focus:outline-none"
-                                >
-                                  <option value="general">General</option>
-                                  <option value="admin">Admin</option>
-                                  <option value="partner">Partner</option>
-                                  <option value="investor">Investor</option>
-                                  <option value="career">Career</option>
-                                </select>
-                              </div>
+                            <div className="flex items-center gap-2 shrink-0">
+                              <span className="text-[10px] text-text-muted capitalize bg-surface-hover rounded px-1.5 py-0.5">{u.authProvider}</span>
+                              <select
+                                disabled={isUpdating}
+                                value={u.role}
+                                onChange={e => handleUserRoleChange(u.id, e.target.value)}
+                                className="rounded-md border border-border-subtle bg-surface-card px-2 py-1 text-[11px] font-medium text-text-primary focus:border-text-muted focus:outline-none"
+                              >
+                                <option value="general">General</option>
+                                <option value="admin">Admin</option>
+                                <option value="partner">Partner</option>
+                                <option value="investor">Investor</option>
+                                <option value="career">Career</option>
+                              </select>
                             </div>
                           </div>
                         )
@@ -1012,24 +1000,24 @@ export default function DashboardContent({
 
                     {/* Users Pagination Footer */}
                     {totalUserPages > 1 && (
-                      <div className="flex items-center justify-between border-t border-border-subtle px-4 py-3 bg-[#070b14]/50 text-xs">
+                      <div className="flex items-center justify-between border-t border-border-subtle/60 px-4 py-3 text-xs">
                         <span className="text-text-muted">
-                          Page <strong className="text-text-primary">{activeUserPage}</strong> of {totalUserPages}
+                          Page <span className="text-text-primary font-medium">{activeUserPage}</span> of {totalUserPages}
                         </span>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1.5">
                           <button
                             disabled={userPage <= 1}
                             onClick={() => setUserPage(p => Math.max(1, p - 1))}
-                            className="rounded-lg border border-border-subtle bg-surface-card px-3 py-1.5 text-text-muted hover:text-white disabled:opacity-40 disabled:hover:text-text-muted transition-colors"
+                            className="rounded-md px-2.5 py-1.5 text-text-muted hover:text-text-primary hover:bg-surface-hover disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-text-muted transition-all"
                           >
-                            <i className="fas fa-chevron-left mr-1 text-[10px]" /> Prev
+                            <i className="fas fa-chevron-left text-[10px]" />
                           </button>
                           <button
                             disabled={userPage >= totalUserPages}
                             onClick={() => setUserPage(p => Math.min(totalUserPages, p + 1))}
-                            className="rounded-lg border border-border-subtle bg-surface-card px-3 py-1.5 text-text-muted hover:text-white disabled:opacity-40 disabled:hover:text-text-muted transition-colors"
+                            className="rounded-md px-2.5 py-1.5 text-text-muted hover:text-text-primary hover:bg-surface-hover disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-text-muted transition-all"
                           >
-                            Next <i className="fas fa-chevron-right ml-1 text-[10px]" />
+                            <i className="fas fa-chevron-right text-[10px]" />
                           </button>
                         </div>
                       </div>
@@ -1045,26 +1033,23 @@ export default function DashboardContent({
       {/* Responsive Detail Modal */}
       {detail && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 animate-in fade-in duration-200" onClick={() => setDetail(null)}>
-          <div className="absolute inset-0 bg-black/75 backdrop-blur-md" />
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
           
           <div 
-            className="relative w-full max-w-2xl max-h-[92vh] sm:max-h-[85vh] flex flex-col overflow-hidden rounded-2xl border border-border-subtle bg-gradient-to-b from-[#0b1020] to-[#04060b] shadow-2xl animate-in zoom-in-95 duration-200"
+            className="relative w-full max-w-2xl max-h-[85vh] flex flex-col overflow-hidden rounded-xl border border-border-subtle bg-surface-elevated shadow-2xl animate-in zoom-in-95 duration-200"
             onClick={e => e.stopPropagation()}
           >
-            {/* Glowing top line */}
-            <div className="h-1 w-full shrink-0 bg-gradient-to-r from-transparent via-[#C50000] to-transparent" />
-
             {/* Modal Header */}
-            <div className="flex items-start justify-between border-b border-border-subtle/50 px-4 py-4 sm:px-6 sm:py-5 shrink-0">
-              <div className="flex items-center gap-3 sm:gap-4 min-w-0">
-                <div className="flex h-9 w-9 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-xl border border-[#C50000]/30 bg-[#C50000]/10 shadow-[0_0_15px_rgba(197,0,0,0.1)]">
-                  <i className={`fas ${icons[detail.formType] || 'fa-file'} text-sm sm:text-base text-[#C50000]`} />
+            <div className="flex items-start justify-between border-b border-border-subtle/60 px-5 py-4 shrink-0">
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-lg bg-surface-hover">
+                  <i className={`fas ${icons[detail.formType] || 'fa-file'} text-sm text-[#C50000]`} />
                 </div>
                 <div className="min-w-0">
-                  <h3 className="font-display text-sm sm:text-base font-bold text-white tracking-wide truncate">
+                  <h3 className="text-sm sm:text-base font-semibold text-text-primary truncate">
                     {labels[detail.formType]} Submission
                   </h3>
-                  <p className="text-[10px] sm:text-[11px] text-text-muted mt-0.5 flex items-center gap-1.5">
+                  <p className="text-[11px] text-text-muted mt-0.5 flex items-center gap-1.5">
                     <i className="far fa-clock text-[9px]" />
                     {new Date(detail.createdAt).toLocaleString('en-IN', {
                       day: 'numeric',
@@ -1078,36 +1063,36 @@ export default function DashboardContent({
                 </div>
               </div>
               
-              <div className="flex items-center gap-2 sm:gap-3 shrink-0 ml-2">
-                <span className={`inline-flex items-center gap-1.5 rounded-full ${(badge[detail.status] || badge.pending).bg} px-2.5 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-xs font-semibold uppercase tracking-wider`}>
+              <div className="flex items-center gap-2 shrink-0 ml-2">
+                <span className={`inline-flex items-center gap-1.5 rounded-md ${(badge[detail.status] || badge.pending).bg} px-2 py-1 text-[10px] sm:text-xs font-medium`}>
                   <span className={`h-1.5 w-1.5 rounded-full ${(badge[detail.status] || badge.pending).dot}`} />
                   {(badge[detail.status] || badge.pending).label}
                 </span>
                 <button 
                   onClick={() => setDetail(null)} 
-                  className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-xl border border-border-subtle bg-surface-card text-text-muted hover:text-white hover:border-[#C50000]/30 transition-all duration-200"
+                  className="flex h-7 w-7 items-center justify-center rounded-md text-text-muted hover:text-text-primary hover:bg-surface-hover transition-all"
                 >
-                  <i className="fas fa-xmark text-xs sm:text-sm" />
+                  <i className="fas fa-xmark text-sm" />
                 </button>
               </div>
             </div>
 
             {/* Modal Scrollable Content */}
-            <div className="flex-1 overflow-y-auto px-4 py-4 sm:px-6 sm:py-5 space-y-4 sm:space-y-5 custom-scrollbar">
+            <div className="flex-1 overflow-y-auto px-5 py-4 space-y-4 sm:space-y-5 custom-scrollbar">
               
               {/* Admin Note Box */}
               {detail.adminNotes && (
-                <div className="relative overflow-hidden rounded-xl border border-purple-500/20 bg-purple-500/5 px-4 py-3.5 shadow-[0_0_15px_rgba(168,85,247,0.05)]">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-purple-400 flex items-center gap-1.5 mb-1 font-display">
-                    <i className="fas fa-comment-dots" />
-                    Latest Message / Admin Note
+                <div className="rounded-lg border border-[#C50000]/10 bg-[#C50000]/5 px-4 py-3">
+                  <p className="text-[10px] font-semibold text-[#C50000] flex items-center gap-1.5 mb-1 uppercase tracking-wider">
+                    <i className="fas fa-comment-dots text-[10px]" />
+                    Admin Note
                   </p>
                   <p className="text-xs sm:text-sm text-text-primary leading-relaxed break-words whitespace-pre-wrap">{detail.adminNotes}</p>
                 </div>
               )}
 
               {/* Grid for Short Metadata */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3.5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 {Object.entries(detail.data)
                   .filter(([k, v]) => String(v).length <= 80 && !['message', 'subject', 'thesis', 'notes'].includes(k))
                   .map(([k, v]) => {
@@ -1119,23 +1104,23 @@ export default function DashboardContent({
                         key={k} 
                         onClick={() => handleCopy(k, String(v))}
                         title="Tap to copy value"
-                        className="group/card relative rounded-xl border border-border-subtle bg-[#0c101d] px-3.5 py-2.5 sm:px-4 sm:py-3 flex items-start gap-2.5 sm:gap-3 transition-all duration-200 hover:border-text-muted/30 hover:bg-[#12182b] cursor-pointer"
+                        className="group relative rounded-lg border border-border-subtle bg-surface-card px-3.5 py-2.5 flex items-start gap-2.5 transition-all duration-200 hover:border-text-muted/30 hover:bg-surface-hover cursor-pointer"
                       >
-                        <div className="mt-0.5 flex h-6 w-6 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-lg bg-surface-card border border-border-subtle/50 text-[#C50000] transition-colors group-hover/card:bg-[#C50000]/10">
-                          <i className={`fas ${iconName} text-[10px] sm:text-xs`} />
+                        <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-surface-hover text-text-muted group-hover:text-[#C50000] transition-colors">
+                          <i className={`fas ${iconName} text-[10px]`} />
                         </div>
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center justify-between gap-1">
-                            <p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-text-muted font-display">{displayLabel}</p>
-                            <span className="opacity-70 sm:opacity-0 group-hover/card:opacity-100 transition-opacity duration-200">
-                              <i className={`fas ${isCopied ? 'fa-check text-emerald-400' : 'fa-copy text-text-muted hover:text-white'} text-[10px]`} />
+                            <p className="text-[9px] font-medium uppercase tracking-wider text-text-muted">{displayLabel}</p>
+                            <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                              <i className={`fas ${isCopied ? 'fa-check text-emerald-400' : 'fa-copy text-text-muted'} text-[9px]`} />
                             </span>
                           </div>
-                          <p className="text-xs sm:text-sm font-semibold text-[#fafafa] mt-0.5 truncate select-all">{String(v)}</p>
+                          <p className="text-xs sm:text-sm font-medium text-text-primary mt-0.5 truncate select-all">{String(v)}</p>
                         </div>
                         
                         {isCopied && (
-                          <div className="absolute inset-0 bg-emerald-500/5 rounded-xl border border-emerald-500/20 pointer-events-none transition-all animate-pulse" />
+                          <span className="absolute inset-0 rounded-lg border border-emerald-500/30 pointer-events-none" />
                         )}
                       </div>
                     )
@@ -1143,17 +1128,17 @@ export default function DashboardContent({
               </div>
 
               {/* Full Width Long Paragraph Fields */}
-              <div className="space-y-3.5 pt-1">
+              <div className="space-y-3">
                 {Object.entries(detail.data)
                   .filter(([k, v]) => String(v).length > 80 || ['message', 'subject', 'thesis', 'notes'].includes(k))
                   .map(([k, v]) => {
                     const iconName = fieldIcons[k] || fieldIcons[k.toLowerCase()] || 'fa-align-left'
                     const displayLabel = k.replace(/([A-Z])/g, ' $1').trim()
                     return (
-                      <div key={k} className="rounded-xl border border-border-subtle bg-[#0c101d]/60 p-3.5 sm:p-4 space-y-1.5">
-                        <div className="flex items-center gap-2 border-b border-border-subtle/40 pb-1.5 mb-1">
-                          <i className={`fas ${iconName} text-xs text-[#C50000]`} />
-                          <h4 className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-text-muted font-display">{displayLabel}</h4>
+                      <div key={k} className="rounded-lg border border-border-subtle bg-surface-card p-3.5 space-y-1.5">
+                        <div className="flex items-center gap-2 pb-1.5 border-b border-border-subtle/40">
+                          <i className={`fas ${iconName} text-xs text-text-muted`} />
+                          <p className="text-[9px] font-medium uppercase tracking-wider text-text-muted">{displayLabel}</p>
                         </div>
                         <p className="text-xs sm:text-sm leading-relaxed text-text-secondary whitespace-pre-wrap break-words">{String(v)}</p>
                       </div>
@@ -1164,30 +1149,30 @@ export default function DashboardContent({
 
             {/* Admin Controls Footer */}
             {isAdmin && (
-              <div className="border-t border-border-subtle/50 bg-[#060a12]/80 px-4 py-4 sm:px-6 sm:py-5 space-y-3.5 shrink-0">
+              <div className="border-t border-border-subtle/60 px-5 py-4 space-y-3.5 shrink-0">
                 <div className="flex items-center gap-2">
-                  <i className="fas fa-sliders-h text-xs text-[#C50000]" />
-                  <h4 className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-text-primary font-display">Administrator Controls</h4>
+                  <i className="fas fa-sliders-h text-xs text-text-muted" />
+                  <h4 className="text-[11px] font-semibold text-text-primary">Administrator Controls</h4>
                 </div>
                 
                 {/* Status Selection Buttons */}
-                <div className="space-y-1.5">
-                  <p className="text-[10px] sm:text-[11px] text-text-muted">Set Request Stage / Status:</p>
-                  <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2">
+                <div className="space-y-2">
+                  <p className="text-[11px] text-text-muted">Set request status:</p>
+                  <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-1.5">
                     {[
-                      { status: 'pending', label: 'Pending', icon: 'fa-hourglass-start', color: 'hover:bg-amber-500/20 hover:text-amber-400 hover:border-amber-500/30' },
-                      { status: 'reviewed', label: 'Under Review', icon: 'fa-magnifying-glass', color: 'hover:bg-blue-500/20 hover:text-blue-400 hover:border-blue-500/30' },
-                      { status: 'approved', label: 'Approve & Close', icon: 'fa-check', color: 'hover:bg-emerald-500/20 hover:text-emerald-400 hover:border-emerald-500/30' },
-                      { status: 'rejected', label: 'Reject & Close', icon: 'fa-xmark', color: 'hover:bg-red-500/20 hover:text-red-400 hover:border-red-500/30' },
+                      { status: 'pending', label: 'Pending', icon: 'fa-hourglass-start' },
+                      { status: 'reviewed', label: 'Under Review', icon: 'fa-magnifying-glass' },
+                      { status: 'approved', label: 'Approve', icon: 'fa-check' },
+                      { status: 'rejected', label: 'Reject', icon: 'fa-xmark' },
                     ].map(btn => (
                       <button
                         key={btn.status}
                         disabled={updatingStatus}
                         onClick={() => handleUpdateStatus(btn.status)}
-                        className={`flex items-center justify-center gap-1.5 rounded-lg border border-border-subtle bg-surface-card px-2.5 py-2 text-[11px] sm:text-xs font-semibold transition-all ${btn.color} ${
+                        className={`flex items-center justify-center gap-1.5 rounded-md border px-2.5 py-1.5 text-[11px] font-medium transition-all ${
                           detail.status === btn.status
-                            ? 'bg-[#C50000]/15 text-[#C50000] border-[#C50000]/30 shadow-[0_0_15px_rgba(197,0,0,0.08)]'
-                            : 'text-text-secondary'
+                            ? 'border-[#C50000]/30 bg-[#C50000]/10 text-[#C50000]'
+                            : 'border-border-subtle bg-surface-card text-text-secondary hover:bg-surface-hover hover:text-text-primary'
                         }`}
                       >
                         <i className={`fas ${btn.icon} text-[10px]`} />
@@ -1198,24 +1183,25 @@ export default function DashboardContent({
                 </div>
 
                 {/* Send Notification Message */}
-                <div className="space-y-1.5">
-                  <label className="block text-[10px] sm:text-[11px] text-text-muted">Write Message / Status Note:</label>
+                <div className="space-y-2">
+                  <label htmlFor="admin-note-input" className="block text-[11px] text-text-muted">Send note to user:</label>
                   <div className="flex flex-col sm:flex-row gap-2">
                     <input
+                      id="admin-note-input"
                       type="text"
-                      placeholder="Type custom note (e.g. 'Application approved')"
+                      placeholder="Type a status note..."
                       value={noteText}
                       onChange={e => setNoteText(e.target.value)}
                       disabled={updatingStatus}
-                      className="flex-1 rounded-xl border border-border-subtle bg-[#0b1020] px-3.5 py-2 text-xs text-white placeholder-text-muted focus:border-[#C50000] focus:outline-none transition-colors"
+                      className="flex-1 rounded-lg border border-border-subtle bg-surface-card px-3 py-1.5 text-xs text-text-primary placeholder-text-muted focus:border-text-muted focus:outline-none transition-colors"
                     />
                     <button
                       disabled={updatingStatus || !noteText.trim()}
                       onClick={handleSendNote}
-                      className="flex items-center justify-center gap-1.5 rounded-xl bg-[#C50000] px-4 py-2 text-xs font-semibold text-white hover:bg-[#C50000]/90 transition-colors disabled:opacity-50 shrink-0"
+                      className="flex items-center justify-center gap-1.5 rounded-lg bg-[#C50000] px-4 py-1.5 text-xs font-medium text-white hover:bg-[#C50000]/90 transition-colors disabled:opacity-50 shrink-0"
                     >
                       <i className="fas fa-paper-plane text-[10px]" />
-                      Send Note
+                      Send
                     </button>
                   </div>
                 </div>
@@ -1227,8 +1213,8 @@ export default function DashboardContent({
 
       <style>{`
         .custom-scrollbar::-webkit-scrollbar {
-          width: 5px;
-          height: 5px;
+          width: 4px;
+          height: 4px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
           background: transparent;
@@ -1238,7 +1224,7 @@ export default function DashboardContent({
           border-radius: 9999px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: #C50000/60;
+          background: #3a3a3a;
         }
         .scrollbar-none::-webkit-scrollbar {
           display: none;
@@ -1254,7 +1240,7 @@ export default function DashboardContent({
 
 function Th({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
-    <th className={`px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wider text-text-muted ${className ?? ''}`}>
+    <th scope="col" className={`px-4 py-3 text-left text-[11px] font-medium uppercase tracking-wider text-text-muted ${className ?? ''}`}>
       {children}
     </th>
   )

@@ -22,7 +22,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
   }
 
   await connectDB()
-  const user = await User.findByIdAndUpdate(id, { $set: { role } }, { new: true }).lean()
+  const user = await User.findByIdAndUpdate(id, { $set: { role } }, { returnDocument: 'after' }).lean()
 
   if (!user) {
     return NextResponse.json({ error: 'User not found' }, { status: 404 })

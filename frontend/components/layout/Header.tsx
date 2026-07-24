@@ -21,7 +21,7 @@ export function Header() {
       <div className="mx-auto flex max-w-8xl items-center justify-between px-4 py-4 sm:px-6 sm:py-5 lg:px-10">
         <Link href="/" className="flex items-center gap-3">
           <Image
-            src="https://myonlinejet.com/images/MyOnlineJet_White_Logo.png"
+            src="/images/MyOnlineJet_White_Logo.png"
             alt="MyOnlineJet"
             width={168}
             height={48}

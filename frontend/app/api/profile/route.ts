@@ -12,23 +12,29 @@ export async function GET() {
 
   try {
     await connectDB()
-    const profile = await Profile.findOne({ userId: session.user.id }).lean()
+    const [profile, user] = await Promise.all([
+      Profile.findOne({ userId: session.user.id }).lean(),
+      User.findById(session.user.id).select('name email role').lean(),
+    ])
 
-    if (!profile) {
-      const user = await User.findById(session.user.id).lean()
-      return NextResponse.json({
-        userId: session.user.id,
-        phone: '',
-        organization: '',
-        role: user?.role ?? 'general',
-        linkedIn: '',
-        portfolio: '',
-        location: '',
-        bio: '',
-      })
+    const baseData = {
+      userId: session.user.id,
+      name: user?.name ?? '',
+      email: user?.email ?? '',
+      phone: '',
+      organization: '',
+      role: user?.role ?? 'general',
+      linkedIn: '',
+      portfolio: '',
+      location: '',
+      bio: '',
     }
 
-    return NextResponse.json(profile)
+    if (!profile) {
+      return NextResponse.json(baseData)
+    }
+
+    return NextResponse.json({ ...baseData, ...profile, name: user?.name ?? '', email: user?.email ?? '' })
   } catch (error) {
     console.error('Profile fetch error:', error)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
@@ -44,7 +50,7 @@ export async function PUT(req: NextRequest) {
   try {
     await connectDB()
     const body = await req.json()
-    const { phone, organization, role, linkedIn, portfolio, location, bio } = body ?? {}
+    const { name, phone, organization, role, linkedIn, portfolio, location, bio } = body ?? {}
 
     const updateData: Record<string, unknown> = {
       userId: session.user.id,
@@ -60,12 +66,17 @@ export async function PUT(req: NextRequest) {
     const profile = await Profile.findOneAndUpdate(
       { userId: session.user.id },
       { $set: updateData },
-      { new: true, upsert: true }
+      { returnDocument: 'after', upsert: true }
     ).lean()
 
-    await User.findByIdAndUpdate(session.user.id, { profileCompleted: true })
+    const userUpdate: Record<string, unknown> = { profileCompleted: true }
+    if (typeof name === 'string' && name.trim().length > 0) {
+      userUpdate.name = name.trim()
+    }
 
-    return NextResponse.json(profile)
+    const updatedUser = await User.findByIdAndUpdate(session.user.id, { $set: userUpdate }, { returnDocument: 'after' }).lean()
+
+    return NextResponse.json({ ...profile, name: updatedUser?.name })
   } catch (error) {
     console.error('Profile update error:', error)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })

@@ -235,54 +235,54 @@ export default function PartnerWithUsPage() {
             <h2 className="text-3xl font-bold text-center mb-2 font-display">Partner With Us — Application Form</h2>
             <p className="text-center text-text-secondary mb-8">Simple, clean, high-conversion. Serious inquiries only.</p>
             <LockedFormOverlay formType="partner">
-            <form id="partnershipForm" action="#" method="POST">
-              <div className="grid md:grid-cols-2 gap-6 mb-6">
-                <div><label className="block font-semibold mb-2 text-text-primary">Full Name *</label><input type="text" name="fullName" className="form-input" required placeholder="Amit Sharma" /></div>
-                <div><label className="block font-semibold mb-2 text-text-primary">Organization Name *</label><input type="text" name="organization" className="form-input" required placeholder="Your Company" /></div>
-                <div><label className="block font-semibold mb-2 text-text-primary">Website / LinkedIn Profile</label><input type="url" name="website" className="form-input" placeholder="https://" /></div>
-                <div><label className="block font-semibold mb-2 text-text-primary">Email Address *</label><input type="email" name="email" className="form-input" required placeholder="contact@company.com" /></div>
-                <div><label className="block font-semibold mb-2 text-text-primary">Phone Number *</label><input type="tel" name="phone" className="form-input" required placeholder="+91" /></div>
-                <div><label className="block font-semibold mb-2 text-text-primary">Partnership Category *</label>
-                  <select name="partnershipCategory" className="form-select" required defaultValue="">
-                    <option value="" disabled>Select</option>
-                    <option>Infrastructure / Real Estate</option>
-                    <option>Aviation / eVTOL / Drone</option>
-                    <option>Technology Provider</option>
-                    <option>Government / Institutional</option>
-                    <option>Mobility / Service Provider</option>
-                    <option>Other</option>
-                  </select>
+              <form id="partnershipForm" action="#" method="POST">
+                <div className="grid md:grid-cols-2 gap-6 mb-6">
+                  <div><label className="block font-semibold mb-2 text-text-primary">Full Name *</label><input type="text" name="fullName" className="form-input" required placeholder="Amit Sharma" /></div>
+                  <div><label className="block font-semibold mb-2 text-text-primary">Organization Name *</label><input type="text" name="organization" className="form-input" required placeholder="Your Company" /></div>
+                  <div><label className="block font-semibold mb-2 text-text-primary">Website / LinkedIn Profile</label><input type="url" name="website" className="form-input" placeholder="https://" /></div>
+                  <div><label className="block font-semibold mb-2 text-text-primary">Email Address *</label><input type="email" name="email" className="form-input" required placeholder="contact@company.com" /></div>
+                  <div><label className="block font-semibold mb-2 text-text-primary">Phone Number *</label><input type="tel" name="phone" className="form-input" required placeholder="+91" /></div>
+                  <div><label className="block font-semibold mb-2 text-text-primary">Partnership Category *</label>
+                    <select name="partnershipCategory" className="form-select" required defaultValue="">
+                      <option value="" disabled>Select</option>
+                      <option>Infrastructure / Real Estate</option>
+                      <option>Aviation / eVTOL / Drone</option>
+                      <option>Technology Provider</option>
+                      <option>Government / Institutional</option>
+                      <option>Mobility / Service Provider</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div className="grid md:grid-cols-2 gap-6 mb-6">
-                <div><label className="block font-semibold mb-2 text-text-primary">City</label><input type="text" name="city" className="form-input" placeholder="Mumbai" /></div>
-                <div><label className="block font-semibold mb-2 text-text-primary">State</label><input type="text" name="state" className="form-input" placeholder="Maharashtra" /></div>
-                <div><label className="block font-semibold mb-2 text-text-primary">Country</label><input type="text" name="country" className="form-input" placeholder="India" defaultValue="India" /></div>
-                <div><label className="block font-semibold mb-2 text-text-primary">Specific Asset Location (if applicable)</label><input type="text" name="assetLocation" className="form-input" placeholder="Address / Coordinates" /></div>
-              </div>
-              <div className="mb-6"><label className="block font-semibold mb-2 text-text-primary">About Your Organization</label><textarea name="aboutOrganization" rows={3} className="form-textarea" placeholder="Describe your organization, capabilities, and current operations..." /></div>
-              <div className="mb-6">
-                <label className="block font-semibold mb-2 text-text-primary">Partnership Interest (Multi-select)</label>
-                <div className="flex flex-wrap gap-4 mt-2">
-                  {['Vertiport Hosting', 'Technology Integration', 'Ecosystem Services', 'Strategic Partnership', 'Other'].map((opt) => (
-                    <label key={opt} className="flex items-center gap-2 text-text-secondary">
-                      <input type="checkbox" name="partnershipInterest" value={opt} className="accent-[#C50000]" /> {opt}
-                    </label>
-                  ))}
+                <div className="grid md:grid-cols-2 gap-6 mb-6">
+                  <div><label className="block font-semibold mb-2 text-text-primary">City</label><input type="text" name="city" className="form-input" placeholder="Mumbai" /></div>
+                  <div><label className="block font-semibold mb-2 text-text-primary">State</label><input type="text" name="state" className="form-input" placeholder="Maharashtra" /></div>
+                  <div><label className="block font-semibold mb-2 text-text-primary">Country</label><input type="text" name="country" className="form-input" placeholder="India" defaultValue="India" /></div>
+                  <div><label className="block font-semibold mb-2 text-text-primary">Specific Asset Location (if applicable)</label><input type="text" name="assetLocation" className="form-input" placeholder="Address / Coordinates" /></div>
                 </div>
-              </div>
-              <div className="mb-6"><label className="block font-semibold mb-2 text-text-primary">Asset / Capability Details</label><input type="text" name="assetDetails" className="form-input" placeholder="Land / Rooftop / Helipad details OR technology description / service offerings" /></div>
-              <div className="mb-6"><label className="block font-semibold mb-2 text-text-primary">Why Do You Want to Partner With MyOnlineJet?</label><textarea name="whyPartner" rows={2} className="form-textarea" placeholder="This helps us filter serious partners. (Important)" /></div>
-              <div className="mb-6"><label className="block font-semibold mb-2 text-text-primary">Additional Information (Optional)</label><textarea name="additionalInfo" rows={2} className="form-textarea" placeholder="Anything else you'd like us to know" /></div>
-              <div className="mb-8">
-                <label className="flex items-start gap-3">
-                  <input type="checkbox" name="consent" required className="mt-1 accent-[#C50000]" />
-                  <span className="text-sm text-text-secondary">I agree to be contacted by MyOnlineJet regarding partnership opportunities and understand that submission does not guarantee acceptance.</span>
-                </label>
-              </div>
-              <div className="text-center"><button type="submit" className="btn-primary text-lg px-10 py-3">Apply for Partnership &rarr;</button></div>
-              <p className="text-xs text-center text-text-muted mt-6">All information is handled with strict confidentiality. Submission does not constitute binding agreement.</p>
-            </form>
+                <div className="mb-6"><label className="block font-semibold mb-2 text-text-primary">About Your Organization</label><textarea name="aboutOrganization" rows={3} className="form-textarea" placeholder="Describe your organization, capabilities, and current operations..." /></div>
+                <div className="mb-6">
+                  <label className="block font-semibold mb-2 text-text-primary">Partnership Interest (Multi-select)</label>
+                  <div className="flex flex-wrap gap-4 mt-2">
+                    {['Vertiport Hosting', 'Technology Integration', 'Ecosystem Services', 'Strategic Partnership', 'Other'].map((opt) => (
+                      <label key={opt} className="flex items-center gap-2 text-text-secondary">
+                        <input type="checkbox" name="partnershipInterest" value={opt} className="accent-[#C50000]" /> {opt}
+                      </label>
+                    ))}
+                  </div>
+                </div>
+                <div className="mb-6"><label className="block font-semibold mb-2 text-text-primary">Asset / Capability Details</label><input type="text" name="assetDetails" className="form-input" placeholder="Land / Rooftop / Helipad details OR technology description / service offerings" /></div>
+                <div className="mb-6"><label className="block font-semibold mb-2 text-text-primary">Why Do You Want to Partner With MyOnlineJet?</label><textarea name="whyPartner" rows={2} className="form-textarea" placeholder="This helps us filter serious partners. (Important)" /></div>
+                <div className="mb-6"><label className="block font-semibold mb-2 text-text-primary">Additional Information (Optional)</label><textarea name="additionalInfo" rows={2} className="form-textarea" placeholder="Anything else you'd like us to know" /></div>
+                <div className="mb-8">
+                  <label className="flex items-start gap-3">
+                    <input type="checkbox" name="consent" required className="mt-1 accent-[#C50000]" />
+                    <span className="text-sm text-text-secondary">I agree to be contacted by MyOnlineJet regarding partnership opportunities and understand that submission does not guarantee acceptance.</span>
+                  </label>
+                </div>
+                <div className="text-center"><button type="submit" className="btn-primary text-lg px-10 py-3">Apply for Partnership &rarr;</button></div>
+                <p className="text-xs text-center text-text-muted mt-6">All information is handled with strict confidentiality. Submission does not constitute binding agreement.</p>
+              </form>
             </LockedFormOverlay>
           </div>
 
@@ -309,7 +309,8 @@ export default function PartnerWithUsPage() {
         </div>
       </div>
 
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         .partner-page .glow-orb-1-custom { position:fixed; top:-20%; right:-10%; width:600px; height:600px; background:radial-gradient(circle,rgba(197,0,0,0.08) 0%,transparent 70%); pointer-events:none; z-index:0; }
         .partner-page .glow-orb-2-custom { position:fixed; bottom:-10%; left:-5%; width:500px; height:500px; background:radial-gradient(circle,rgba(197,0,0,0.05) 0%,transparent 70%); pointer-events:none; z-index:0; }
         .partner-page .grid-bg-custom { position:fixed; top:0; left:0; width:100%; height:100%; background-image:linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px); background-size:60px 60px; pointer-events:none; z-index:0; }

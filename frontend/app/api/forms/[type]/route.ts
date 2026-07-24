@@ -1,9 +1,11 @@
+
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/auth'
 import { connectDB } from '@/lib/db'
 import { FormSubmission } from '@/models/FormSubmission'
 import type { FormType } from '@/models/FormSubmission'
 import { rateLimit, getClientIp } from '@/lib/rate-limit'
+import { sendUserConfirmationEmail, sendAdminNotificationEmail } from '@/lib/email'
 
 const validFormTypes: FormType[] = ['contact', 'career', 'investor', 'partner', 'faq', 'advisory']
 
@@ -58,6 +60,29 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ typ
       data: body,
       status: 'pending',
     })
+
+    // Asynchronously dispatch user confirmation and admin notification emails
+    const targetEmail = (typeof body.email === 'string' && body.email.includes('@')) ? body.email : session.user.email
+    const targetName = (typeof body.fullName === 'string' && body.fullName.trim()) || (typeof body.name === 'string' && body.name.trim()) || session.user.name || ''
+    const submissionIdStr = String(submission._id)
+
+    if (targetEmail) {
+      sendUserConfirmationEmail({
+        toEmail: targetEmail,
+        userName: targetName,
+        formType: type,
+        submissionId: submissionIdStr,
+        data: body,
+      }).catch(err => console.error('[EMAIL FAIL] User confirmation:', err))
+    }
+
+    sendAdminNotificationEmail({
+      userName: targetName,
+      userEmail: targetEmail || session.user.email || 'unknown@domain.com',
+      formType: type,
+      submissionId: submissionIdStr,
+      data: body,
+    }).catch(err => console.error('[EMAIL FAIL] Admin notification:', err))
 
     return NextResponse.json({ success: true, id: submission._id }, { status: 201 })
   } catch (error) {

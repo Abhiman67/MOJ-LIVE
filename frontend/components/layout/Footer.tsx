@@ -10,7 +10,7 @@ export function Footer() {
           <div className="sm:col-span-2 lg:col-span-1">
             <div className="flex items-center space-x-3 mb-4 sm:mb-6">
               <Image
-                src="https://myonlinejet.com/images/MyOnlineJet_White_Logo.png"
+                src="/images/MyOnlineJet_White_Logo.png"
                 alt={siteConfig.name}
                 width={180}
                 height={56}

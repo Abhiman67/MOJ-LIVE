@@ -279,7 +279,7 @@ export function HomeLanding() {
           <div className="flex h-16 items-center justify-between sm:h-20">
             <div className="z-50 flex items-center space-x-3">
               <Image
-                src="https://myonlinejet.com/images/MyOnlineJet_White_Logo.png"
+                src="/images/MyOnlineJet_White_Logo.png"
                 alt="MyOnlineJet"
                 width={168}
                 height={48}
@@ -403,6 +403,7 @@ export function HomeLanding() {
                     fill
                     className="tilt-content object-cover"
                     priority
+                    unoptimized
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
@@ -614,15 +615,14 @@ export function HomeLanding() {
             {expertiseCards.map((card) => (
               <div key={card.title} className="spotlight-card group p-4 text-center sm:p-6 md:p-8">
                 <div
-                  className={`mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl border transition-transform group-hover:scale-110 sm:mb-6 sm:h-16 sm:w-16 sm:rounded-2xl ${
-                    card.tone === 'blue'
+                  className={`mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl border transition-transform group-hover:scale-110 sm:mb-6 sm:h-16 sm:w-16 sm:rounded-2xl ${card.tone === 'blue'
                       ? 'border-blue-500/20 bg-blue-500/10'
                       : card.tone === 'yellow'
                         ? 'border-yellow-500/20 bg-yellow-500/10'
                         : card.tone === 'purple'
                           ? 'border-purple-500/20 bg-purple-500/10'
                           : 'border-[#C50000]/20 bg-[#C50000]/10'
-                  }`}
+                    }`}
                 >
                   <i className={`${card.icon} text-xl sm:text-3xl ${card.tone === 'blue' ? 'text-blue-400' : card.tone === 'yellow' ? 'text-yellow-400' : card.tone === 'purple' ? 'text-purple-400' : 'text-[#C50000]'}`} />
                 </div>
@@ -712,22 +712,20 @@ export function HomeLanding() {
             ].map((item) => (
               <div key={item.title} className="spotlight-card group flex h-full flex-col p-5 text-left sm:p-6 md:p-8">
                 <div
-                  className={`mb-4 flex h-12 w-12 items-center justify-center rounded-xl border transition-transform group-hover:scale-110 sm:mb-6 sm:h-16 sm:w-16 sm:rounded-2xl ${
-                    item.tone === 'blue'
+                  className={`mb-4 flex h-12 w-12 items-center justify-center rounded-xl border transition-transform group-hover:scale-110 sm:mb-6 sm:h-16 sm:w-16 sm:rounded-2xl ${item.tone === 'blue'
                       ? 'border-blue-500/20 bg-blue-500/10'
                       : item.tone === 'purple'
                         ? 'border-purple-500/20 bg-purple-500/10'
                         : 'border-yellow-500/20 bg-yellow-500/10'
-                  }`}
+                    }`}
                 >
                   <i
-                    className={`${item.icon} text-lg sm:text-2xl ${
-                      item.tone === 'blue'
+                    className={`${item.icon} text-lg sm:text-2xl ${item.tone === 'blue'
                         ? 'text-blue-400'
                         : item.tone === 'purple'
                           ? 'text-purple-400'
                           : 'text-yellow-400'
-                    }`}
+                      }`}
                   />
                 </div>
                 <h4 className="mb-3 font-display text-base text-white sm:mb-4 sm:text-xl">{item.title}</h4>
@@ -777,126 +775,126 @@ export function HomeLanding() {
             </div>
 
             <LockedFormOverlay formType={activeModal === 'advisor-modal' ? 'advisory' : 'career'}>
-            <form
-              className="space-y-4 sm:space-y-5 md:space-y-6"
-              onSubmit={async (event) => {
-                event.preventDefault()
-                const form = event.currentTarget
-                const data = Object.fromEntries(new FormData(form))
-                const endpoint = activeModal === 'advisor-modal' ? '/api/forms/advisory' : '/api/forms/career'
-                try {
-                  const res = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
-                  if (!res.ok) throw new Error()
-                  
-                  const isAdvisor = activeModal === 'advisor-modal'
-                  closeModal()
-                  
-                  setAlertState({
-                    isOpen: true,
-                    title: isAdvisor ? 'Submission Received' : 'Registration Received',
-                    message: isAdvisor
-                      ? 'Thank you for expressing interest in our advisory network. We will review your submission and contact you if there is a potential match.'
-                      : 'Thank you for registering your interest. You will be notified when relevant career opportunities become available.',
-                    type: 'success'
-                  })
-                } catch {
-                  setAlertState({
-                    isOpen: true,
-                    title: 'Error',
-                    message: 'Something went wrong. Please try again.',
-                    type: 'error'
-                  })
-                }
-              }}
-            >
-              {activeModal === 'advisor-modal' ? (
-                <>
-                  <div className="grid gap-4 sm:gap-5 md:grid-cols-2 md:gap-6">
-                    <div>
-                      <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Full Name</label>
-                      <input name="fullName" type="text" className="modern-input" required />
-                    </div>
-                    <div>
-                      <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Current Position</label>
-                      <input name="position" type="text" className="modern-input" required />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Email Address</label>
-                    <input name="email" type="email" className="modern-input" required />
-                  </div>
-                  <div>
-                    <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Area of Expertise</label>
-                    <select name="expertise" className="modern-input">
-                      <option value="">Select your expertise area</option>
-                      <option value="aviation">Aviation & Aerospace</option>
-                      <option value="urban">Urban Planning & Infrastructure</option>
-                      <option value="sustainability">Sustainable Technology</option>
-                      <option value="regulation">Regulatory Affairs</option>
-                      <option value="technology">Technology Development</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Brief Background (Optional)</label>
-                    <textarea name="background" rows={3} className="modern-input" placeholder="Briefly describe your relevant experience" />
-                  </div>
-                  <p className="text-[10px] text-gray-500 sm:text-xs">
-                    By submitting this form, you express interest in being considered for our advisory network. Selected candidates will be contacted for further discussion.
-                  </p>
-                </>
-              ) : (
-                <>
-                  <div className="grid gap-4 sm:gap-5 md:grid-cols-2 md:gap-6">
-                    <div>
-                      <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Full Name</label>
-                      <input name="fullName" type="text" className="modern-input" required />
+              <form
+                className="space-y-4 sm:space-y-5 md:space-y-6"
+                onSubmit={async (event) => {
+                  event.preventDefault()
+                  const form = event.currentTarget
+                  const data = Object.fromEntries(new FormData(form))
+                  const endpoint = activeModal === 'advisor-modal' ? '/api/forms/advisory' : '/api/forms/career'
+                  try {
+                    const res = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+                    if (!res.ok) throw new Error()
+
+                    const isAdvisor = activeModal === 'advisor-modal'
+                    closeModal()
+
+                    setAlertState({
+                      isOpen: true,
+                      title: isAdvisor ? 'Submission Received' : 'Registration Received',
+                      message: isAdvisor
+                        ? 'Thank you for expressing interest in our advisory network. We will review your submission and contact you if there is a potential match.'
+                        : 'Thank you for registering your interest. You will be notified when relevant career opportunities become available.',
+                      type: 'success'
+                    })
+                  } catch {
+                    setAlertState({
+                      isOpen: true,
+                      title: 'Error',
+                      message: 'Something went wrong. Please try again.',
+                      type: 'error'
+                    })
+                  }
+                }}
+              >
+                {activeModal === 'advisor-modal' ? (
+                  <>
+                    <div className="grid gap-4 sm:gap-5 md:grid-cols-2 md:gap-6">
+                      <div>
+                        <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Full Name</label>
+                        <input name="fullName" type="text" className="modern-input" required />
+                      </div>
+                      <div>
+                        <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Current Position</label>
+                        <input name="position" type="text" className="modern-input" required />
+                      </div>
                     </div>
                     <div>
                       <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Email Address</label>
                       <input name="email" type="email" className="modern-input" required />
                     </div>
-                  </div>
-                  <div>
-                    <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Area of Interest</label>
-                    <select name="areaOfInterest" className="modern-input">
-                      <option value="">Select area of interest</option>
-                      <option value="engineering">Engineering & Infrastructure</option>
-                      <option value="technology">Technology & AI Systems</option>
-                      <option value="operations">Operations & Management</option>
-                      <option value="business">Business Development</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Qualifications (Optional)</label>
-                    <textarea name="qualifications" rows={3} className="modern-input" placeholder="Briefly mention your qualifications or background" />
-                  </div>
-                  <div className="rounded-xl border border-white/10 bg-white/5 p-3 text-xs text-gray-400 sm:p-4 sm:text-sm">
-                    <p className="mb-2 text-white font-medium">Recruitment Process:</p>
-                    <div className="space-y-1 sm:space-y-2">
-                      <div className="flex items-start gap-2">
-                        <i className="fas fa-info-circle mt-0.5 text-[10px] text-[#C50000] sm:mt-1 sm:text-xs" />
-                        <span>All positions will be formally advertised when available</span>
+                    <div>
+                      <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Area of Expertise</label>
+                      <select name="expertise" className="modern-input">
+                        <option value="">Select your expertise area</option>
+                        <option value="aviation">Aviation & Aerospace</option>
+                        <option value="urban">Urban Planning & Infrastructure</option>
+                        <option value="sustainability">Sustainable Technology</option>
+                        <option value="regulation">Regulatory Affairs</option>
+                        <option value="technology">Technology Development</option>
+                        <option value="other">Other</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Brief Background (Optional)</label>
+                      <textarea name="background" rows={3} className="modern-input" placeholder="Briefly describe your relevant experience" />
+                    </div>
+                    <p className="text-[10px] text-gray-500 sm:text-xs">
+                      By submitting this form, you express interest in being considered for our advisory network. Selected candidates will be contacted for further discussion.
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <div className="grid gap-4 sm:gap-5 md:grid-cols-2 md:gap-6">
+                      <div>
+                        <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Full Name</label>
+                        <input name="fullName" type="text" className="modern-input" required />
                       </div>
-                      <div className="flex items-start gap-2">
-                        <i className="fas fa-info-circle mt-0.5 text-[10px] text-[#C50000] sm:mt-1 sm:text-xs" />
-                        <span>Selection will follow transparent, merit-based procedures</span>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <i className="fas fa-info-circle mt-0.5 text-[10px] text-[#C50000] sm:mt-1 sm:text-xs" />
-                        <span>Registered candidates will receive notifications of relevant openings</span>
+                      <div>
+                        <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Email Address</label>
+                        <input name="email" type="email" className="modern-input" required />
                       </div>
                     </div>
-                  </div>
-                </>
-              )}
+                    <div>
+                      <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Area of Interest</label>
+                      <select name="areaOfInterest" className="modern-input">
+                        <option value="">Select area of interest</option>
+                        <option value="engineering">Engineering & Infrastructure</option>
+                        <option value="technology">Technology & AI Systems</option>
+                        <option value="operations">Operations & Management</option>
+                        <option value="business">Business Development</option>
+                        <option value="other">Other</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="mb-1 block text-xs text-gray-400 sm:mb-2 sm:text-sm">Qualifications (Optional)</label>
+                      <textarea name="qualifications" rows={3} className="modern-input" placeholder="Briefly mention your qualifications or background" />
+                    </div>
+                    <div className="rounded-xl border border-white/10 bg-white/5 p-3 text-xs text-gray-400 sm:p-4 sm:text-sm">
+                      <p className="mb-2 text-white font-medium">Recruitment Process:</p>
+                      <div className="space-y-1 sm:space-y-2">
+                        <div className="flex items-start gap-2">
+                          <i className="fas fa-info-circle mt-0.5 text-[10px] text-[#C50000] sm:mt-1 sm:text-xs" />
+                          <span>All positions will be formally advertised when available</span>
+                        </div>
+                        <div className="flex items-start gap-2">
+                          <i className="fas fa-info-circle mt-0.5 text-[10px] text-[#C50000] sm:mt-1 sm:text-xs" />
+                          <span>Selection will follow transparent, merit-based procedures</span>
+                        </div>
+                        <div className="flex items-start gap-2">
+                          <i className="fas fa-info-circle mt-0.5 text-[10px] text-[#C50000] sm:mt-1 sm:text-xs" />
+                          <span>Registered candidates will receive notifications of relevant openings</span>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
 
-              <button type="submit" className="magnetic-btn w-full">
-                <i className={`fas ${activeModal === 'advisor-modal' ? 'fa-paper-plane' : 'fa-envelope'} mr-3`} />
-                {activeModal === 'advisor-modal' ? 'Submit Expression of Interest' : 'Register Interest'}
-              </button>
-            </form>
+                <button type="submit" className="magnetic-btn w-full">
+                  <i className={`fas ${activeModal === 'advisor-modal' ? 'fa-paper-plane' : 'fa-envelope'} mr-3`} />
+                  {activeModal === 'advisor-modal' ? 'Submit Expression of Interest' : 'Register Interest'}
+                </button>
+              </form>
             </LockedFormOverlay>
           </div>
         </div>

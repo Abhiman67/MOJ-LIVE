@@ -6,6 +6,8 @@ import { Notification } from '@/models/Notification'
 
 
 
+import { sendAdminMessageEmail } from '@/lib/email'
+
 export async function GET(req: NextRequest) {
   const session = await auth()
   if (session?.user?.role !== 'admin') {
@@ -67,7 +69,7 @@ export async function PATCH(req: NextRequest) {
     if (status) update.status = status
     if (adminNotes !== undefined) update.adminNotes = adminNotes
 
-    const submission = await FormSubmission.findByIdAndUpdate(id, { $set: update }, { new: true })
+    const submission = await FormSubmission.findByIdAndUpdate(id, { $set: update }, { returnDocument: 'after' })
       .populate('userId', 'name email')
       .lean()
 
@@ -123,6 +125,24 @@ export async function PATCH(req: NextRequest) {
       } catch (notifError) {
         console.error('Failed to create notification:', notifError)
       }
+    }
+
+    // Send email notification directly to user
+    const userInfo = typeof submission.userId === 'object' && submission.userId ? (submission.userId as { email?: string; name?: string }) : null
+    const subData = (submission.data || {}) as Record<string, unknown>
+    const recipientEmail = userInfo?.email || (typeof subData.email === 'string' ? subData.email : null)
+    const submittedName = (typeof subData.fullName === 'string' && subData.fullName.trim()) || (typeof subData.name === 'string' && subData.name.trim())
+    const recipientName = submittedName || userInfo?.name || ''
+
+    if (recipientEmail && (status || (adminNotes && adminNotes.trim().length > 0))) {
+      sendAdminMessageEmail({
+        toEmail: recipientEmail,
+        userName: recipientName,
+        submissionId: String(submission._id),
+        formType: submission.formType,
+        status: status,
+        adminNotes: adminNotes,
+      }).catch(err => console.error('[EMAIL FAIL] Admin message email to user:', err))
     }
 
     return NextResponse.json(submission)

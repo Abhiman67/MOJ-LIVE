@@ -119,7 +119,7 @@ export default function ProfileForm({ initialData, user }: { initialData: Profil
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
                       <Lab>Full Name</Lab>
-                      <input type="text" value={displayName} disabled className={`${cx} text-text-muted cursor-not-allowed`} />
+                      <input type="text" value={data.name ?? displayName} onChange={e => setData(p => ({ ...p, name: e.target.value }))} className={cx} placeholder="Your Full Name" />
                     </div>
                     <div>
                       <Lab>Email</Lab>
