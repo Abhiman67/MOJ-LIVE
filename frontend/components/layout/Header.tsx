@@ -118,7 +118,7 @@ export function Header() {
                     <a
                       key={item.href}
                       href={item.href}
-                      className={`mobile-menu-item dark ${item.label === 'News' ? 'is-active' : ''}`}
+                      className={`mobile-menu-item dark ${pathname === item.href ? 'is-active' : ''}`}
                       target={item.href.startsWith('http') ? '_blank' : undefined}
                       rel={item.href.startsWith('http') ? 'noreferrer noopener' : undefined}
                       onClick={() => setIsOpen(false)}

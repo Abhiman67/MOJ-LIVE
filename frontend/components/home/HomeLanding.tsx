@@ -325,7 +325,7 @@ export function HomeLanding() {
                 <div className="space-y-2">
                   {navLinks.map((link) =>
                     link.external ? (
-                      <a key={link.href} href={link.href} className={`mobile-menu-item dark ${link.label === 'News' ? 'is-active' : ''}`} target="_blank" rel="noreferrer noopener" onClick={() => setMobileOpen(false)}>
+                      <a key={link.href} href={link.href} className="mobile-menu-item dark" target="_blank" rel="noreferrer noopener" onClick={() => setMobileOpen(false)}>
                         {link.label}
                       </a>
                     ) : (
