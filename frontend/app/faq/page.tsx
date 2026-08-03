@@ -126,11 +126,13 @@ const styles = `
     pointer-events: none; z-index: 9999;
     opacity: 0.03;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    transform: translateZ(0);
   }
   .faq-glow-orb {
     position: fixed; border-radius: 50%;
     pointer-events: none; z-index: 0;
     filter: blur(120px); opacity: 0.15;
+    will-change: transform;
   }
   .faq-glow-orb-1 {
     width: 400px; height: 400px;
@@ -149,11 +151,11 @@ const styles = `
   }
   .faq-modern-card {
     background: rgba(20,20,20,0.6);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid #1F1F1F;
     border-radius: 16px;
-    transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
   }
   .faq-modern-card:hover {
@@ -189,26 +191,31 @@ const styles = `
   }
   .faq-question {
     cursor: pointer;
-    transition: all 0.2s ease;
+    user-select: none;
   }
   .faq-question:hover h3 {
     color: #C50000;
   }
-  .faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    border-bottom: 1px solid transparent;
+  .faq-answer-grid {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .faq-answer.active {
-    max-height: 600px;
-    border-bottom-color: rgba(255,255,255,0.05);
-    padding-bottom: 1rem;
+  .faq-answer-grid.active {
+    grid-template-rows: 1fr;
+  }
+  .faq-answer-content {
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.25s ease-in-out;
+  }
+  .faq-answer-grid.active .faq-answer-content {
+    opacity: 1;
   }
   .faq-reveal {
     opacity: 0;
     transform: translateY(30px);
-    transition: all 0.8s ease;
+    transition: transform 0.6s ease-out, opacity 0.6s ease-out;
   }
   .faq-reveal.visible {
     opacity: 1;
@@ -259,33 +266,6 @@ export default function FAQPage() {
     )
     document.querySelectorAll('.faq-reveal').forEach((el) => observer.observe(el))
     return () => observer.disconnect()
-  }, [])
-
-  useEffect(() => {
-    const handleClick = (e: Event) => {
-      const item = e.currentTarget as HTMLElement
-      const answerDiv = item.parentElement?.querySelector('.faq-answer') as HTMLElement
-      const icon = item.querySelector('i')
-      const isActive = answerDiv?.classList.contains('active')
-
-      document.querySelectorAll('.faq-answer').forEach((ans) => ans.classList.remove('active'))
-      document.querySelectorAll('.faq-question i').forEach((ic) => ic.classList.remove('rotate-180'))
-
-      if (!isActive) {
-        answerDiv?.classList.add('active')
-        icon?.classList.add('rotate-180')
-      } else {
-        icon?.classList.remove('rotate-180')
-      }
-    }
-
-    const questions = document.querySelectorAll('.faq-question')
-    questions.forEach((q) => q.addEventListener('click', handleClick))
-    document.querySelectorAll('.faq-question i').forEach((ic) => ic.classList.add('transition-transform', 'duration-300'))
-
-    return () => {
-      questions.forEach((q) => q.removeEventListener('click', handleClick))
-    }
   }, [])
 
   return (
@@ -676,13 +656,27 @@ export default function FAQPage() {
 }
 
 function FaqItem({ question, answer }: { question: string; answer: React.ReactNode }) {
+  const [isOpen, setIsOpen] = useState(false)
   return (
     <div className="py-5 border-b border-[#1F1F1F] last:border-b-0">
-      <div className="faq-question flex justify-between items-center cursor-pointer group">
-        <h3 className="text-lg font-semibold text-[#FAFAFA] transition-colors">{question}</h3>
-        <i className="fas fa-chevron-down text-[#52525B] transition-transform duration-300" />
+      <div
+        className="faq-question flex justify-between items-center cursor-pointer group"
+        onClick={() => setIsOpen((prev) => !prev)}
+      >
+        <h3 className="text-lg font-semibold text-[#FAFAFA] transition-colors group-hover:text-[#C50000]">
+          {question}
+        </h3>
+        <i
+          className={`fas fa-chevron-down text-[#52525B] transition-transform duration-300 ${
+            isOpen ? 'rotate-180 text-[#C50000]' : ''
+          }`}
+        />
       </div>
-      <div className="faq-answer mt-2 text-[#A1A1AA] leading-relaxed">{answer}</div>
+      <div className={`faq-answer-grid ${isOpen ? 'active' : ''}`}>
+        <div className="faq-answer-content">
+          <div className="pt-3 pb-1 text-[#A1A1AA] leading-relaxed">{answer}</div>
+        </div>
+      </div>
     </div>
   )
 }

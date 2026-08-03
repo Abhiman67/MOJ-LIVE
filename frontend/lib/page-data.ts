@@ -303,25 +303,28 @@ export const pageData: Record<string, ContentPageData> = {
     }
   },
   '/reports': {
-    eyebrow: 'Reports',
+    eyebrow: 'Intelligence Hub',
     title: 'Shaping the Intelligence Layer of Advanced Air Mobility',
     lead:
-      'Strategic insights on AAM, eVTOL, vertiports, infrastructure, policy, and ecosystem intelligence.',
+      'MyOnlineJet Industry Reports provide strategic insights on AAM, eVTOL fleet rollout, vertiports, digital infrastructure, policy frameworks, and ecosystem intelligence.',
     sections: [
       {
-        title: 'What the reports cover',
+        title: '6 Core Focus Areas',
         cards: [
-          { title: 'Market perspective', description: 'Understand where the ecosystem is heading.' },
-          { title: 'Infrastructure analysis', description: 'Evaluate the physical and digital layers.' },
-          { title: 'Policy and ecosystem intelligence', description: 'Track the systems that influence scale.' }
+          { title: 'AAM Landscape', description: 'Global and regional market evolution and demand projections.' },
+          { title: 'eVTOL Ecosystem', description: 'OEM landscape, certification pathways, and fleet deployment.' },
+          { title: 'Vertiport Infrastructure', description: 'Site selection, spatial design, and spatial models.' },
+          { title: 'Technology Stack', description: 'AI traffic orchestration, digital twins, and smart scheduling.' },
+          { title: 'Ecosystem Integration', description: 'PPP models, stakeholder alignment, and municipal policy.' },
+          { title: 'Clean Aviation', description: 'Electric propulsion, renewable grid, and net-zero design.' }
         ]
       }
     ],
     cta: {
-      title: 'Stay informed',
-      description: 'Subscribe to receive updates when reports and whitepapers are published.',
-      primary: { label: 'Subscribe', href: '/subscribe' },
-      secondary: { label: 'Whitepapers', href: '/whitepapers' }
+      title: 'Contribute to Industry Intelligence',
+      description: 'We invite research, data, and market collaborations from credible AAM stakeholders.',
+      primary: { label: 'Explore Reports', href: '#featured-reports' },
+      secondary: { label: 'Contribute Insights', href: '#contribute' }
     }
   },
   '/services': {
@@ -513,40 +516,40 @@ export const pageData: Record<string, ContentPageData> = {
     }
   },
   '/privacy-policy': {
-    eyebrow: 'Legal',
+    eyebrow: 'Legal Document',
     title: 'Privacy Policy',
     lead:
-      'This page explains how MyOnlineJet may collect, use, disclose, and protect information when you visit the site or submit an inquiry.',
+      'Learn how MyOnlineJet (operated by iAlpha Technologies Private Limited) collects, uses, and protects your personal data in compliance with Indian data protection laws, IT Rules 2011, and the DPDP Act 2023.',
     sections: [
       {
-        title: 'Information we collect',
+        title: 'Preamble & Legal Framework',
         bullets: [
-          'Contact details you submit through forms or email',
-          'Basic usage data such as pages viewed and device/browser details',
-          'Message content, attachments, and inquiry context you choose to share'
+          'Legally binding notice under IT Rules 2011 and Digital Personal Data Protection Act, 2023',
+          'Applies to website visitors, registered users, mobility beneficiaries, and business stakeholders',
+          'Data Fiduciary: MyOnlineJet (iAlpha Technologies Private Limited)'
         ]
       },
       {
-        title: 'How we use information',
+        title: 'Data Collection & Lawful Basis',
         bullets: [
-          'Respond to inquiries and manage partnerships, investor, and support requests',
-          'Improve the site, security, and user experience',
-          'Comply with applicable legal and operational requirements'
+          'Identity, contact, government verification (PAN, Aadhaar, Passport), and financial data',
+          'Technical usage logs, real-time geolocation, and operational aviation manifests',
+          'Processed strictly under consent, contractual performance, legal obligation, or legitimate interest'
         ]
       },
       {
-        title: 'Your choices',
+        title: 'Data Sharing & Principal Rights',
         bullets: [
-          'You can choose not to submit a form or share personal information',
-          'You can contact us to request access, correction, or removal where appropriate',
-          'You can manage browser-level cookie and tracking preferences'
+          'No sale, rental, or trading of personal data to third parties',
+          'Disclosures limited to aviation regulators (DGCA), vertiport partners, and cloud service providers',
+          'Right to access, correction, erasure, consent withdrawal, and grievance redressal via contact@myonlinejet.com'
         ]
       }
     ],
     cta: {
       title: 'Questions about privacy?',
       description:
-        'If you need clarification about how your data is handled, please reach out through the contact page.',
+        'If you need clarification about how your data is handled, please reach out to our grievance officer.',
       primary: { label: 'Contact Us', href: '/contact' },
       secondary: { label: 'Terms & Conditions', href: '/terms-conditions' }
     }
