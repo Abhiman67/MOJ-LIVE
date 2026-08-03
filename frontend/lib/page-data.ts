@@ -232,22 +232,23 @@ export const pageData: Record<string, ContentPageData> = {
     }
   },
   '/founder': {
-    eyebrow: 'Founder',
+    eyebrow: "Founder's Vision",
     title: 'The future of mobility will not be built by adapting old systems.',
     lead:
-      'Amit Kumar shares the vision behind building India\'s AAM infrastructure from first principles.',
+      'Amit Kumar shares the vision behind architecting India’s Advanced Air Mobility infrastructure from first principles.',
     sections: [
       {
-        title: 'Founder message',
+        title: 'Founder Message',
         description:
           'The strategy is intentionally infrastructure-first, long-term, and built around systems thinking rather than short-term novelty.'
       },
       {
-        title: 'Focus areas',
+        title: 'Strategic Pillars',
         cards: [
-          { title: 'First principles', description: 'Re-think mobility from the ground up.' },
-          { title: 'System design', description: 'Build the network, not just the product layer.' },
-          { title: 'Long-term scale', description: 'Choose durable foundations over quick wins.' }
+          { title: 'First Principles', description: 'Re-think mobility & infrastructure from the ground up.' },
+          { title: 'Ecosystem Alignment', description: 'Unite vertiports, eVTOL OEMs, and DGCA regulations.' },
+          { title: 'Durable Network Scale', description: 'Choose long-term asset foundations over quick wins.' },
+          { title: 'Aviation Safety', description: 'Embed aviation-grade safety standards across every node.' }
         ]
       }
     ],
@@ -255,7 +256,7 @@ export const pageData: Record<string, ContentPageData> = {
       title: 'Connect with the company',
       description: 'If the vision resonates, explore the partner or investor paths.',
       primary: { label: 'Partner With Us', href: '/partner-with-us' },
-      secondary: { label: 'Investors', href: '/investors' }
+      secondary: { label: 'Company Profile', href: '/company-profile' }
     }
   },
   '/investors': {
