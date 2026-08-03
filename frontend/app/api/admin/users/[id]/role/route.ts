@@ -3,6 +3,8 @@ import { auth } from '@/auth'
 import { connectDB } from '@/lib/db'
 import { User } from '@/models/User'
 
+export const dynamic = 'force-dynamic'
+
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const session = await auth()
   if (!session?.user?.id || session.user.role !== 'admin') {
@@ -22,6 +24,23 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
   }
 
   await connectDB()
+
+  const target = await User.findById(id).lean()
+  if (!target) {
+    return NextResponse.json({ error: 'User not found' }, { status: 404 })
+  }
+
+  if (id === session.user.id) {
+    return NextResponse.json({ error: 'You cannot change your own role' }, { status: 400 })
+  }
+
+  if (target.role === 'admin' && role !== 'admin') {
+    const adminCount = await User.countDocuments({ role: 'admin' })
+    if (adminCount <= 1) {
+      return NextResponse.json({ error: 'Cannot demote the last admin' }, { status: 400 })
+    }
+  }
+
   const user = await User.findByIdAndUpdate(id, { $set: { role } }, { returnDocument: 'after' }).lean()
 
   if (!user) {

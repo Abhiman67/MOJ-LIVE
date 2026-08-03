@@ -158,6 +158,7 @@ export default function DashboardContent({
 
   const handleExportCSV = () => {
     if (filtered.length === 0) return
+    const csvSafe = (value: string) => (/^[=+\-@\t\r]/.test(value) ? `'${value}` : value)
     const headers = ['Submission ID', 'Form Type', 'User Name', 'User Email', 'Status', 'Date', 'Data Summary']
     const rows = filtered.map(s => {
       const dataSummary = Object.entries(s.data)
@@ -169,13 +170,13 @@ export default function DashboardContent({
         .replace(/"/g, '""')
 
       return [
-        `"${s._id}"`,
-        `"${(labels[s.formType] || s.formType).replace(/"/g, '""')}"`,
-        `"${(s.userId?.name || '').replace(/"/g, '""')}"`,
-        `"${(s.userId?.email || '').replace(/"/g, '""')}"`,
-        `"${s.status}"`,
-        `"${new Date(s.createdAt).toLocaleString('en-IN')}"`,
-        `"${dataSummary}"`
+        `"${csvSafe(s._id)}"`,
+        `"${csvSafe((labels[s.formType] || s.formType).replace(/"/g, '""'))}"`,
+        `"${csvSafe((s.userId?.name || '').replace(/"/g, '""'))}"`,
+        `"${csvSafe((s.userId?.email || '').replace(/"/g, '""'))}"`,
+        `"${csvSafe(s.status)}"`,
+        `"${csvSafe(new Date(s.createdAt).toLocaleString('en-IN'))}"`,
+        `"${csvSafe(dataSummary)}"`
       ].join(',')
     })
 

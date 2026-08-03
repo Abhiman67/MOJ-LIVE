@@ -4,10 +4,22 @@
  * Usage:
  *   node scripts/seed.mjs
  *
- * Requires MONGODB_URI env var or a running local MongoDB instance.
+ * Requires explicit seed approval and credentials in environment variables.
  */
 
-const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/myonlinejet'
+const uri = process.env.MONGODB_URI
+const adminEmail = process.env.ADMIN_EMAIL
+const adminPassword = process.env.ADMIN_PASSWORD
+
+if (process.env.ALLOW_SEED !== 'true') {
+  throw new Error('Set ALLOW_SEED=true to run the seed script.')
+}
+if (!uri || !adminEmail || !adminPassword) {
+  throw new Error('MONGODB_URI, ADMIN_EMAIL, and ADMIN_PASSWORD are required.')
+}
+if (adminPassword.length < 12) {
+  throw new Error('ADMIN_PASSWORD must be at least 12 characters long.')
+}
 
 async function seed() {
   const mongoose = (await import('mongoose')).default
@@ -29,20 +41,20 @@ async function seed() {
   const bcrypt = (await import('bcryptjs')).default
 
   // Create admin user
-  const adminEmail = 'admin@myonlinejet.com'
-  const existing = await UserModel.findOne({ email: adminEmail })
+  const normalizedAdminEmail = adminEmail.trim().toLowerCase()
+  const existing = await UserModel.findOne({ email: normalizedAdminEmail })
   if (!existing) {
-    const hashedPassword = await bcrypt.hash('admin123', 10)
+    const hashedPassword = await bcrypt.hash(adminPassword, 12)
     await UserModel.create({
       name: 'Admin',
-      email: adminEmail,
+      email: normalizedAdminEmail,
       role: 'admin',
       authProvider: 'credentials',
       hashedPassword,
       profileCompleted: true,
       emailVerified: new Date(),
     })
-    console.log('Admin user created: admin@myonlinejet.com / admin123')
+    console.log(`Admin user created: ${normalizedAdminEmail}`)
   } else {
     console.log('Admin user already exists')
   }

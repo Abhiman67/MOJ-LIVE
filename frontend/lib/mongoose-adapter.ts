@@ -52,6 +52,9 @@ export function MongooseAdapter(): Adapter {
     async linkAccount(account) {
       await connectDB()
       await AccountModel.create(account)
+      if (account.userId && ['google', 'apple', 'linkedin'].includes(account.provider)) {
+        await UserModel.updateOne({ _id: account.userId }, { $set: { authProvider: account.provider } })
+      }
     },
     async unlinkAccount({ provider, providerAccountId }) {
       await connectDB()

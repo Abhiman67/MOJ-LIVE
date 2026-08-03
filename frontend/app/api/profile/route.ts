@@ -4,6 +4,19 @@ import { connectDB } from '@/lib/db'
 import { Profile } from '@/models/Profile'
 import { User } from '@/models/User'
 
+const MAX_FIELD_LENGTH: Record<string, number> = {
+  name: 120,
+  phone: 30,
+  organization: 120,
+  role: 120,
+  linkedIn: 255,
+  portfolio: 255,
+  location: 120,
+  bio: 2000,
+}
+
+export const dynamic = 'force-dynamic'
+
 export async function GET() {
   const session = await auth()
   if (!session?.user?.id) {
@@ -52,15 +65,21 @@ export async function PUT(req: NextRequest) {
     const body = await req.json()
     const { name, phone, organization, role, linkedIn, portfolio, location, bio } = body ?? {}
 
+    for (const [field, value] of Object.entries({ name, phone, organization, role, linkedIn, portfolio, location, bio })) {
+      if (typeof value === 'string' && value.trim().length > (MAX_FIELD_LENGTH[field] ?? 2000)) {
+        return NextResponse.json({ error: `${field} exceeds the maximum length` }, { status: 400 })
+      }
+    }
+
     const updateData: Record<string, unknown> = {
       userId: session.user.id,
-      phone: typeof phone === 'string' ? phone : '',
-      organization: typeof organization === 'string' ? organization : '',
-      role: typeof role === 'string' ? role : '',
-      linkedIn: typeof linkedIn === 'string' ? linkedIn : '',
-      portfolio: typeof portfolio === 'string' ? portfolio : '',
-      location: typeof location === 'string' ? location : '',
-      bio: typeof bio === 'string' ? bio : '',
+      phone: typeof phone === 'string' ? phone.trim() : '',
+      organization: typeof organization === 'string' ? organization.trim() : '',
+      role: typeof role === 'string' ? role.trim() : '',
+      linkedIn: typeof linkedIn === 'string' ? linkedIn.trim() : '',
+      portfolio: typeof portfolio === 'string' ? portfolio.trim() : '',
+      location: typeof location === 'string' ? location.trim() : '',
+      bio: typeof bio === 'string' ? bio.trim() : '',
     }
 
     const profile = await Profile.findOneAndUpdate(

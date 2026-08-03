@@ -6,5 +6,7 @@ out
 changes.md
 .DS_Store
 *.log
+*.tsbuildinfo
+
 
 

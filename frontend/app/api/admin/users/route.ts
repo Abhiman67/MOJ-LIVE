@@ -3,6 +3,8 @@ import { auth } from '@/auth'
 import { connectDB } from '@/lib/db'
 import { User } from '@/models/User'
 
+export const dynamic = 'force-dynamic'
+
 export async function GET(req: NextRequest) {
   const session = await auth()
   if (!session?.user?.id || session.user.role !== 'admin') {

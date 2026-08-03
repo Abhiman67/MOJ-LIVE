@@ -4,7 +4,7 @@ import { auth } from '@/auth'
 import { connectDB } from '@/lib/db'
 import { FormSubmission } from '@/models/FormSubmission'
 import type { FormType } from '@/models/FormSubmission'
-import { rateLimit, getClientIp } from '@/lib/rate-limit'
+import { rateLimit } from '@/lib/rate-limit'
 import { sendUserConfirmationEmail, sendAdminNotificationEmail } from '@/lib/email'
 
 const validFormTypes: FormType[] = ['contact', 'career', 'investor', 'partner', 'faq', 'advisory']
@@ -24,13 +24,9 @@ function validateFormData(data: unknown): data is Record<string, unknown> {
   return true
 }
 
-export async function POST(req: NextRequest, { params }: { params: Promise<{ type: string }> }) {
-  const ip = getClientIp(req)
-  const { allowed } = rateLimit(ip)
-  if (!allowed) {
-    return NextResponse.json({ error: 'Too many requests' }, { status: 429 })
-  }
+export const dynamic = 'force-dynamic'
 
+export async function POST(req: NextRequest, { params }: { params: Promise<{ type: string }> }) {
   const session = await auth()
   if (!session?.user?.id) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -41,19 +37,28 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ typ
     return NextResponse.json({ error: 'Invalid form type' }, { status: 400 })
   }
 
+  let body: unknown
   try {
-    await connectDB()
-    const body = await req.json()
+    body = await req.json()
+  } catch {
+    return NextResponse.json({ error: 'Invalid form data' }, { status: 400 })
+  }
 
-    if (!validateFormData(body)) {
-      return NextResponse.json({ error: 'Invalid form data' }, { status: 400 })
-    }
+  if (!validateFormData(body)) {
+    return NextResponse.json({ error: 'Invalid form data' }, { status: 400 })
+  }
 
-    const jsonLength = JSON.stringify(body).length
-    if (jsonLength > MAX_DATA_SIZE) {
-      return NextResponse.json({ error: 'Form data too large' }, { status: 400 })
-    }
+  if (JSON.stringify(body).length > MAX_DATA_SIZE) {
+    return NextResponse.json({ error: 'Form data too large' }, { status: 400 })
+  }
 
+  await connectDB()
+  const { allowed } = await rateLimit(session.user.id)
+  if (!allowed) {
+    return NextResponse.json({ error: 'Too many requests' }, { status: 429 })
+  }
+
+  try {
     const submission = await FormSubmission.create({
       userId: session.user.id,
       formType: type as FormType,
@@ -61,8 +66,10 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ typ
       status: 'pending',
     })
 
-    // Asynchronously dispatch user confirmation and admin notification emails
-    const targetEmail = (typeof body.email === 'string' && body.email.includes('@')) ? body.email : session.user.email
+    // Asynchronously dispatch user confirmation and admin notification emails.
+    // Confirmation mail is always sent to the authenticated user's email so a
+    // crafted body.email can't be used to mail arbitrary addresses.
+    const targetEmail = session.user.email || ''
     const targetName = (typeof body.fullName === 'string' && body.fullName.trim()) || (typeof body.name === 'string' && body.name.trim()) || session.user.name || ''
     const submissionIdStr = String(submission._id)
 
@@ -78,7 +85,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ typ
 
     sendAdminNotificationEmail({
       userName: targetName,
-      userEmail: targetEmail || session.user.email || 'unknown@domain.com',
+      userEmail: targetEmail || 'unknown@domain.com',
       formType: type,
       submissionId: submissionIdStr,
       data: body,
@@ -114,8 +121,10 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ type
     }
 
     const { searchParams } = new URL(req.url)
-    const page = Math.max(1, parseInt(searchParams.get('page') ?? '1', 10))
-    const limit = Math.min(100, Math.max(1, parseInt(searchParams.get('limit') ?? '50', 10)))
+    const rawPage = parseInt(searchParams.get('page') ?? '1', 10)
+    const page = Number.isFinite(rawPage) ? Math.max(1, rawPage) : 1
+    const rawLimit = parseInt(searchParams.get('limit') ?? '50', 10)
+    const limit = Number.isFinite(rawLimit) ? Math.min(100, Math.max(1, rawLimit)) : 50
     const skip = (page - 1) * limit
 
     const [submissions, total] = await Promise.all([

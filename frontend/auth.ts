@@ -9,24 +9,39 @@ import { User } from '@/models/User'
 import { MongooseAdapter } from '@/lib/mongoose-adapter'
 import type { UserRole } from '@/models/User'
 
+const credentialsEnabled =
+  (process.env.AUTH_CREDENTIALS_ENABLED ?? process.env.NEXT_PUBLIC_AUTH_CREDENTIALS_ENABLED ?? 'false') === 'true'
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   trustHost: true,
   adapter: MongooseAdapter(),
   session: { strategy: 'jwt' },
   providers: [
-    Google({
-      clientId: process.env.AUTH_GOOGLE_ID,
-      clientSecret: process.env.AUTH_GOOGLE_SECRET,
-    }),
-    Apple({
-      clientId: process.env.AUTH_APPLE_ID,
-      clientSecret: process.env.AUTH_APPLE_SECRET,
-    }),
-    LinkedIn({
-      clientId: process.env.AUTH_LINKEDIN_ID,
-      clientSecret: process.env.AUTH_LINKEDIN_SECRET,
-    }),
-    ...((process.env.AUTH_CREDENTIALS_ENABLED ?? process.env.NEXT_PUBLIC_AUTH_CREDENTIALS_ENABLED ?? 'true') === 'true'
+    ...(process.env.AUTH_GOOGLE_ID && process.env.AUTH_GOOGLE_SECRET
+      ? [
+          Google({
+            clientId: process.env.AUTH_GOOGLE_ID,
+            clientSecret: process.env.AUTH_GOOGLE_SECRET,
+          }),
+        ]
+      : []),
+    ...(process.env.AUTH_APPLE_ID && process.env.AUTH_APPLE_SECRET
+      ? [
+          Apple({
+            clientId: process.env.AUTH_APPLE_ID,
+            clientSecret: process.env.AUTH_APPLE_SECRET,
+          }),
+        ]
+      : []),
+    ...(process.env.AUTH_LINKEDIN_ID && process.env.AUTH_LINKEDIN_SECRET
+      ? [
+          LinkedIn({
+            clientId: process.env.AUTH_LINKEDIN_ID,
+            clientSecret: process.env.AUTH_LINKEDIN_SECRET,
+          }),
+        ]
+      : []),
+    ...(credentialsEnabled
       ? [
           Credentials({
             name: 'credentials',
@@ -66,6 +81,21 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (user) {
         token.role = (user as { role?: UserRole }).role ?? 'general'
         if (user.id) token.id = user.id
+      }
+
+      // JWTs keep their claims until expiry. Refresh identity fields from the
+      // database so profile edits and role changes (e.g. an admin demotion)
+      // take effect immediately instead of at token expiry.
+      if (token.sub) {
+        await connectDB()
+        const currentUser = await User.findById(token.sub).select('role name email image').lean()
+        if (currentUser) {
+          token.role = currentUser.role ?? 'general'
+          token.id = token.sub
+          token.name = currentUser.name
+          token.email = currentUser.email
+          token.image = currentUser.image ?? null
+        }
       }
       return token
     },

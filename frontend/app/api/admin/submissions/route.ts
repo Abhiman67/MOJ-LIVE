@@ -8,6 +8,8 @@ import { Notification } from '@/models/Notification'
 
 import { sendAdminMessageEmail } from '@/lib/email'
 
+export const dynamic = 'force-dynamic'
+
 export async function GET(req: NextRequest) {
   const session = await auth()
   if (session?.user?.role !== 'admin') {
@@ -17,8 +19,10 @@ export async function GET(req: NextRequest) {
   try {
     await connectDB()
     const { searchParams } = new URL(req.url)
-    const page = Math.max(1, parseInt(searchParams.get('page') ?? '1', 10))
-    const limit = Math.min(100, Math.max(1, parseInt(searchParams.get('limit') ?? '50', 10)))
+    const rawPage = parseInt(searchParams.get('page') ?? '1', 10)
+    const page = Number.isFinite(rawPage) ? Math.max(1, rawPage) : 1
+    const rawLimit = parseInt(searchParams.get('limit') ?? '50', 10)
+    const limit = Number.isFinite(rawLimit) ? Math.min(100, Math.max(1, rawLimit)) : 50
     const skip = (page - 1) * limit
 
     const [submissions, total] = await Promise.all([
@@ -67,7 +71,12 @@ export async function PATCH(req: NextRequest) {
 
     const update: Record<string, unknown> = {}
     if (status) update.status = status
-    if (adminNotes !== undefined) update.adminNotes = adminNotes
+    if (adminNotes !== undefined) {
+      if (typeof adminNotes !== 'string' || adminNotes.length > 2000) {
+        return NextResponse.json({ error: 'Admin notes must be a string under 2000 characters' }, { status: 400 })
+      }
+      update.adminNotes = adminNotes
+    }
 
     const submission = await FormSubmission.findByIdAndUpdate(id, { $set: update }, { returnDocument: 'after' })
       .populate('userId', 'name email')

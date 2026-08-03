@@ -182,6 +182,12 @@ npm run build
 npm run start
 ```
 
+## Security and testing
+
+See [`docs/security-and-testing.md`](./docs/security-and-testing.md) for credential
+authentication configuration, form-submission rate limiting, seed safeguards, and the
+verification checklist.
+
 ## Tech Stack
 
 - **Framework:** Next.js 15 App Router
@@ -196,4 +202,3 @@ npm run start
 - `frontend/.next/` is generated build output and should not be treated as source structure.
 - The project is currently focused on architecture and route organization first.
 - UI refinements can continue after the foundation is approved.
-

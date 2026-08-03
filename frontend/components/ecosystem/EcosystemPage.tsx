@@ -383,7 +383,7 @@ export function EcosystemPage() {
               <i className="fas fa-flag-checkered text-4xl text-[#C50000] mb-4"></i>
               <h3 className="text-2xl font-bold mb-3 text-[#FAFAFA]">India-First, Globally Scalable</h3>
               <p className="text-[#A1A1AA]">High-density urban challenges, diverse infrastructure conditions, rapidly growing demand. Once validated, the same model is designed to scale globally.</p>
-              <Link href="/company" className="inline-block mt-4 text-[#C50000] font-semibold">Company Profile &rarr;</Link>
+              <Link href="/company-profile" className="inline-block mt-4 text-[#C50000] font-semibold">Company Profile &rarr;</Link>
             </div>
           </div>
 

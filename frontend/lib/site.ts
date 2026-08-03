@@ -164,14 +164,5 @@ export const footerGroups = [
       { label: 'Blog', href: 'https://news.myonlinejet.com' },
       { label: 'Subscribe', href: '/subscribe' }
     ]
-  },
-  {
-    title: 'Legal',
-    links: [
-      { label: 'Privacy Policy', href: '/privacy-policy' },
-      { label: 'Terms & Conditions', href: '/terms-conditions' },
-      { label: 'Cookie Policy', href: '/legal-disclaimer' },
-      { label: 'Legal Disclaimer', href: '/legal-disclaimer' }
-    ]
   }
 ] as const
