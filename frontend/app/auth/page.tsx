@@ -4,6 +4,7 @@ import { signIn, useSession } from 'next-auth/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState, useEffect, Suspense } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 function safeCallback(candidate: string | null): string {
   if (!candidate) return '/dashboard'
@@ -136,27 +137,66 @@ function AuthForm() {
   }
 
   return (
-    <div className="relative min-h-screen bg-[#030712] flex items-center justify-center px-4">
+    <div className="relative min-h-screen overflow-hidden bg-[#030712] px-4 py-8 sm:px-8 lg:px-12">
       <div className="noise-overlay" />
+      <div className="auth-grid" />
       <div className="glow-orb glow-orb-1" />
       <div className="glow-orb glow-orb-2" />
 
-      <div className="relative z-10 w-full max-w-md">
-        <div className="text-center mb-8">
-          <Link href="/" className="inline-block mb-6">
-            <span className="text-2xl font-bold text-white font-display">MyOnlineJet</span>
+      <div className="relative z-10 mx-auto grid min-h-[calc(100vh-4rem)] w-full max-w-6xl items-center gap-10 lg:grid-cols-[1fr_460px] lg:gap-20">
+        <section className="hidden max-w-xl lg:block">
+          <Link href="/" className="group mb-16 inline-flex flex-col items-start gap-4" aria-label="MyOnlineJet home">
+            <Image
+              src="/images/MyOnlineJet_White_Logo.png"
+              alt="MyOnlineJet"
+              width={360}
+              height={105}
+              className="h-auto w-[250px] object-contain object-left transition-transform duration-300 group-hover:scale-[1.02]"
+              priority
+            />
+            <span className="border-l-2 border-[#C50000] pl-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#9ca3af]">Smart mobility infrastructure</span>
           </Link>
-          <h1 className="text-3xl font-bold text-white font-display mb-2">
-            {mode === 'signin' ? 'Welcome back' : 'Create account'}
-          </h1>
-          <p className="text-text-muted text-sm">
-            {mode === 'signin'
-              ? 'Sign in to access your dashboard and submissions'
-              : 'Register to start tracking your inquiries'}
+          <p className="mb-5 text-sm font-semibold uppercase tracking-[0.28em] text-[#C50000]">The future is closer than you think</p>
+          <h2 className="max-w-lg text-5xl font-bold leading-[1.05] tracking-[-0.04em] text-white xl:text-6xl">
+            Move cities <span className="text-[#C50000]">forward.</span>
+          </h2>
+          <p className="mt-7 max-w-md text-lg leading-8 text-[#9ca3af]">
+            Access your MyOnlineJet workspace and stay connected to the people, ideas, and infrastructure shaping India&apos;s urban air mobility network.
           </p>
-        </div>
+          <div className="mt-10 grid max-w-md grid-cols-3 gap-4 border-t border-white/10 pt-6">
+            <div><p className="text-xl font-semibold text-white">01</p><p className="mt-1 text-xs leading-5 text-[#6b7280]">Smart infrastructure</p></div>
+            <div><p className="text-xl font-semibold text-white">24/7</p><p className="mt-1 text-xs leading-5 text-[#6b7280]">Connected operations</p></div>
+            <div><p className="text-xl font-semibold text-white">∞</p><p className="mt-1 text-xs leading-5 text-[#6b7280]">Possibilities ahead</p></div>
+          </div>
+        </section>
 
-        <div className="glass-card p-8">
+        <main className="w-full max-w-md justify-self-center lg:justify-self-end">
+          <div className="mb-7 lg:hidden">
+            <Link href="/" className="inline-flex items-center" aria-label="MyOnlineJet home">
+              <Image
+                src="/images/MyOnlineJet_White_Logo.png"
+                alt="MyOnlineJet"
+                width={280}
+                height={82}
+                className="h-auto w-[190px] object-contain object-left"
+                priority
+              />
+            </Link>
+          </div>
+          <div className="mb-7">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-[#C50000]">MyOnlineJet workspace</p>
+            <h1 className="text-4xl font-bold tracking-[-0.04em] text-white font-display">
+              {mode === 'signin' ? 'Welcome back' : 'Create account'}
+            </h1>
+            <p className="mt-3 text-sm leading-6 text-[#9ca3af]">
+              {mode === 'signin'
+                ? 'Sign in to access your dashboard and submissions.'
+                : 'Register to start tracking your inquiries.'}
+            </p>
+          </div>
+
+        <div className="glass-card relative overflow-hidden p-6 shadow-[0_28px_90px_rgba(0,0,0,0.42)] sm:p-8">
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#C50000] to-transparent" />
           {error && (
             <div className="rounded-xl bg-[rgba(197,0,0,0.1)] p-3 text-sm text-[#C50000] text-center mb-6">
               {error}
@@ -265,6 +305,7 @@ function AuthForm() {
           {' '}and{' '}
           <Link href="/terms-conditions" className="text-[#C50000] hover:underline">Terms of Service</Link>
         </p>
+        </main>
       </div>
 
       <style>{`
@@ -284,6 +325,15 @@ function AuthForm() {
           width: 300px; height: 300px;
           background: rgba(197, 0, 0, 0.05);
           bottom: 20%; left: -100px;
+        }
+        .auth-grid {
+          position: fixed;
+          inset: 0;
+          pointer-events: none;
+          opacity: 0.22;
+          background-image: linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+          background-size: 56px 56px;
+          mask-image: radial-gradient(ellipse at center, black 20%, transparent 78%);
         }
       `}</style>
     </div>

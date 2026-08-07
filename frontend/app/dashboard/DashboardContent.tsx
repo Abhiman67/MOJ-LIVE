@@ -270,6 +270,7 @@ export default function DashboardContent({
   const [unreadCount, setUnreadCount] = useState<number>(initialUnreadCount)
   const [showNotifPanel, setShowNotifPanel] = useState(false)
   const notifRef = useRef<HTMLDivElement>(null)
+  const sidebarNotifRef = useRef<HTMLButtonElement>(null)
 
   // Poll notifications with exponential backoff
   useEffect(() => {
@@ -302,12 +303,18 @@ export default function DashboardContent({
   // Close notification panel when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (notifRef.current && !notifRef.current.contains(event.target as Node)) {
+      const target = event.target as Node
+      if (
+        notifRef.current &&
+        !notifRef.current.contains(target) &&
+        sidebarNotifRef.current &&
+        !sidebarNotifRef.current.contains(target)
+      ) {
         setShowNotifPanel(false)
       }
     }
-    document.addEventListener('click', handleClickOutside)
-    return () => document.removeEventListener('click', handleClickOutside)
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
   const handleMarkAsRead = async (notificationId?: string, markAllRead = false) => {
@@ -443,11 +450,16 @@ export default function DashboardContent({
 
             {/* Notification Sidebar Shortcut */}
             <button
+              ref={sidebarNotifRef}
               onClick={() => {
-                setShowNotifPanel(!showNotifPanel)
+                setShowNotifPanel(prev => !prev)
                 setSidebar(false)
               }}
-              className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm font-medium text-text-muted hover:text-text-primary hover:bg-surface-hover/60 transition-all"
+              className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm font-medium transition-all ${
+                showNotifPanel
+                  ? 'bg-surface-hover text-text-primary'
+                  : 'text-text-muted hover:text-text-primary hover:bg-surface-hover/60'
+              }`}
             >
               <div className="flex items-center gap-3">
                 <i className="fas fa-bell w-4 text-center text-xs opacity-70" />
@@ -519,14 +531,23 @@ export default function DashboardContent({
                         </span>
                       )}
                     </div>
-                    {unreadCount > 0 && (
+                    <div className="flex items-center gap-2">
+                      {unreadCount > 0 && (
+                        <button
+                          onClick={() => handleMarkAsRead(undefined, true)}
+                          className="text-[11px] font-medium text-text-muted hover:text-text-primary transition-colors"
+                        >
+                          Mark all read
+                        </button>
+                      )}
                       <button
-                        onClick={() => handleMarkAsRead(undefined, true)}
-                        className="text-[11px] font-medium text-text-muted hover:text-text-primary transition-colors"
+                        onClick={() => setShowNotifPanel(false)}
+                        className="flex h-5 w-5 items-center justify-center rounded text-text-muted hover:text-text-primary hover:bg-surface-hover transition-colors"
+                        aria-label="Close notifications"
                       >
-                        Mark all read
+                        <i className="fas fa-xmark text-xs" />
                       </button>
-                    )}
+                    </div>
                   </div>
 
                   <div className="max-h-72 sm:max-h-80 space-y-1.5 overflow-y-auto pr-1 custom-scrollbar">
