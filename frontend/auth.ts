@@ -12,6 +12,40 @@ import type { UserRole } from '@/models/User'
 const credentialsEnabled =
   (process.env.AUTH_CREDENTIALS_ENABLED ?? process.env.NEXT_PUBLIC_AUTH_CREDENTIALS_ENABLED ?? 'false') === 'true'
 
+// Refresh identity fields from MongoDB, but cache the result briefly so a
+// busy dashboard/API won't hit the database on every single request. 60s
+// keeps profile edits and role changes visible within a minute.
+const IDENTITY_CACHE_TTL_MS = 60_000
+interface IdentityCacheEntry {
+  role: UserRole
+  id: string
+  name: string | null | undefined
+  email: string | null | undefined
+  image: string | null | undefined
+  ts: number
+}
+const identityCache = new Map<string, IdentityCacheEntry>()
+
+function getCachedIdentity(sub: string): IdentityCacheEntry | undefined {
+  const entry = identityCache.get(sub)
+  if (!entry) return undefined
+  if (Date.now() - entry.ts > IDENTITY_CACHE_TTL_MS) {
+    identityCache.delete(sub)
+    return undefined
+  }
+  return entry
+}
+
+function setCachedIdentity(sub: string, entry: Omit<IdentityCacheEntry, 'ts'>): void {
+  identityCache.set(sub, { ...entry, ts: Date.now() })
+  if (identityCache.size > 2000) {
+    const now = Date.now()
+    for (const [key, value] of identityCache) {
+      if (now - value.ts > IDENTITY_CACHE_TTL_MS) identityCache.delete(key)
+    }
+  }
+}
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   trustHost: true,
   adapter: MongooseAdapter(),
@@ -85,16 +119,38 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
       // JWTs keep their claims until expiry. Refresh identity fields from the
       // database so profile edits and role changes (e.g. an admin demotion)
-      // take effect immediately instead of at token expiry.
+      // take effect quickly instead of at token expiry. A short TTL cache
+      // avoids a MongoDB read on every authenticated request.
       if (token.sub) {
-        await connectDB()
-        const currentUser = await User.findById(token.sub).select('role name email image').lean()
-        if (currentUser) {
-          token.role = currentUser.role ?? 'general'
-          token.id = token.sub
-          token.name = currentUser.name
-          token.email = currentUser.email
-          token.image = currentUser.image ?? null
+        const cached = getCachedIdentity(token.sub)
+        if (cached) {
+          token.role = cached.role
+          token.id = cached.id
+          token.name = cached.name
+          token.email = cached.email
+          token.image = cached.image
+        } else {
+          await connectDB()
+          const currentUser = await User.findById(token.sub).select('role name email image').lean()
+          if (currentUser) {
+            const role = currentUser.role ?? 'general'
+            const id = token.sub
+            const name = currentUser.name
+            const email = currentUser.email
+            const image = currentUser.image ?? null
+            token.role = role
+            token.id = id
+            token.name = name
+            token.email = email
+            token.image = image
+            setCachedIdentity(id, { id, role, name, email, image })
+          } else {
+            // User was deleted from the database
+            identityCache.delete(token.sub)
+            delete (token as Record<string, unknown>).sub
+            delete (token as Record<string, unknown>).id
+            delete (token as Record<string, unknown>).role
+          }
         }
       }
       return token

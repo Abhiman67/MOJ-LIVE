@@ -58,7 +58,13 @@ export async function PATCH(req: NextRequest) {
 
   try {
     await connectDB()
-    const { id, status, adminNotes } = await req.json()
+    let body: { id?: string; status?: string; adminNotes?: string }
+    try {
+      body = await req.json()
+    } catch {
+      return NextResponse.json({ error: 'Invalid JSON request body' }, { status: 400 })
+    }
+    const { id, status, adminNotes } = body ?? {}
 
     if (!id || typeof id !== 'string' || !/^[a-f\d]{24}$/i.test(id)) {
       return NextResponse.json({ error: 'Invalid submission ID' }, { status: 400 })

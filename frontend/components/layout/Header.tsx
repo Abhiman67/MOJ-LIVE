@@ -19,7 +19,10 @@ export function Header() {
   return (
     <header className="site-header relative z-50">
       <div className="mx-auto flex max-w-8xl items-center justify-between px-4 py-4 sm:px-6 sm:py-5 lg:px-10">
-        <Link href="/" className="flex items-center gap-3">
+        <Link
+          href="/"
+          className={`flex items-center gap-3 transition-opacity duration-300 ${isOpen ? 'pointer-events-none opacity-0' : ''}`}
+        >
           <Image
             src="/images/MyOnlineJet_White_Logo.png"
             alt="MyOnlineJet"

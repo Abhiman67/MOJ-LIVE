@@ -63,6 +63,10 @@ export function CareersEnhancements() {
         const raw = new FormData(form)
         const data: Record<string, unknown> = {}
         for (const [key, val] of raw.entries()) {
+          // File/Blob values cannot be JSON-serialized by the forms API and
+          // caused a 400 "Invalid form data". No file upload storage exists,
+          // so drop them client-side instead of failing the whole submission.
+          if (val instanceof File) continue
           if (data[key]) {
             data[key] = [data[key], val].flat()
           } else {

@@ -277,7 +277,7 @@ export function HomeLanding() {
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
           <div className="flex h-16 items-center justify-between sm:h-20">
-            <div className="z-50 flex items-center space-x-3">
+            <div className={`z-50 flex items-center space-x-3 transition-opacity duration-300 ${mobileOpen ? 'pointer-events-none opacity-0' : ''}`}>
               <Image
                 src="/images/MyOnlineJet_White_Logo.png"
                 alt="MyOnlineJet"

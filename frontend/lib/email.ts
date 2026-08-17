@@ -54,7 +54,15 @@ async function sendEmailPayload(opts: { to: string; subject: string; html: strin
 
 export function escapeHtml(str: unknown): string {
   if (str === null || str === undefined) return ''
-  const s = typeof str === 'object' ? JSON.stringify(str) : String(str)
+  if (typeof str === 'object') {
+    if (Array.isArray(str)) {
+      return str.map(s => escapeHtml(s)).join(', ')
+    }
+    return Object.entries(str)
+      .map(([k, v]) => `${escapeHtml(k)}: ${escapeHtml(v)}`)
+      .join('; ')
+  }
+  const s = String(str)
   return s
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')

@@ -248,17 +248,6 @@ export default function ContactPage() {
                         <input type="text" name="timeline" className="form-input" placeholder="e.g., Q3 2026" />
                       </div>
                     </div>
-                    <div className="mt-4">
-                      <label className="block text-sm font-semibold mb-1 text-text-secondary">Attachments (Optional)</label>
-                      <div className="relative">
-                        <input type="file" name="attachment" id="fileAttachment" className="hidden" accept=".pdf,.docx,.pptx" />
-                        <label htmlFor="fileAttachment" className="file-upload-btn">
-                          <i className="fas fa-cloud-upload-alt mr-2" />
-                          <span>Choose File</span>
-                          <span className="file-name text-text-muted ml-2 truncate max-w-[200px]"></span>
-                        </label>
-                      </div>
-                    </div>
                   </div>
 
                   {/* Consent & Privacy */}

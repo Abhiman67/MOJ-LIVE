@@ -6,6 +6,7 @@ import Link from 'next/link'
 export function IndustryContributionForm() {
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
   const [formData, setFormData] = useState({
     fullName: '',
     organization: '',
@@ -26,10 +27,34 @@ export function IndustryContributionForm() {
     }
 
     setLoading(true)
-    // Simulate submission handling
-    await new Promise((resolve) => setTimeout(resolve, 800))
-    setLoading(false)
-    setSubmitted(true)
+    setError('')
+    try {
+      const res = await fetch('/api/reports/contribute', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fullName: formData.fullName,
+          organization: formData.organization,
+          designation: formData.designation,
+          email: formData.email,
+          phone: formData.phone,
+          focusArea: formData.focusArea,
+          geoFocus: formData.geoFocus,
+          description: formData.description,
+        }),
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        setError(data.error || 'Something went wrong. Please try again.')
+        setLoading(false)
+        return
+      }
+      setLoading(false)
+      setSubmitted(true)
+    } catch {
+      setError('Something went wrong. Please try again.')
+      setLoading(false)
+    }
   }
 
   return (
@@ -181,15 +206,6 @@ export function IndustryContributionForm() {
             />
           </div>
 
-          <div className="lg:col-span-2">
-            <label className="block font-medium text-zinc-200 mb-1.5">Upload Supporting Documents (Optional)</label>
-            <input
-              type="file"
-              accept=".pdf,.xlsx,.docx,.png,.jpg"
-              className="w-full text-xs text-zinc-400 file:mr-4 file:rounded-lg file:border-0 file:bg-[#C50000]/20 file:px-4 file:py-2 file:text-xs file:font-semibold file:text-[#C50000] hover:file:bg-[#C50000]/30 transition-colors"
-            />
-          </div>
-
           <div className="lg:col-span-2 flex items-start gap-3 pt-2">
             <input
               type="checkbox"
@@ -205,6 +221,9 @@ export function IndustryContributionForm() {
           </div>
 
           <div className="lg:col-span-2 text-center pt-3">
+            {error && (
+              <p className="text-xs text-red-400 mb-3">{error}</p>
+            )}
             <button
               type="submit"
               disabled={loading}

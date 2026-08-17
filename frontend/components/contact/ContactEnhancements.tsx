@@ -48,7 +48,7 @@ export function ContactEnhancements() {
       const raw = new FormData(form)
       const data: Record<string, unknown> = {}
       for (const [key, val] of raw.entries()) {
-        if (key === 'attachment') continue
+        if (val instanceof File) continue
         if (data[key]) {
           const existing = data[key]
           data[key] = Array.isArray(existing) ? [...existing, val] : [existing, val]
@@ -71,8 +71,6 @@ export function ContactEnhancements() {
         form.reset()
         const advancedDiv = document.querySelector<HTMLElement>('#advancedBusinessFields')
         if (advancedDiv) advancedDiv.classList.add('hidden')
-        const fileNameSpan = document.querySelector<HTMLElement>('.file-upload-btn .file-name')
-        if (fileNameSpan) fileNameSpan.textContent = ''
       } catch (err) {
         setErrorMsg(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
       }
@@ -98,19 +96,6 @@ export function ContactEnhancements() {
     inquirySelect.addEventListener('change', toggleAdvanced)
     toggleAdvanced()
     return () => inquirySelect.removeEventListener('change', toggleAdvanced)
-  }, [])
-
-  useEffect(() => {
-    const fileInput = document.querySelector<HTMLInputElement>('#fileAttachment')
-    const fileNameSpan = document.querySelector<HTMLElement>('.file-upload-btn .file-name')
-    if (!fileInput || !fileNameSpan) return
-
-    const handleFileChange = () => {
-      const file = fileInput.files?.[0]
-      fileNameSpan.textContent = file ? file.name : ''
-    }
-    fileInput.addEventListener('change', handleFileChange)
-    return () => fileInput.removeEventListener('change', handleFileChange)
   }, [])
 
   return (

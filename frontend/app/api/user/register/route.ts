@@ -53,14 +53,24 @@ export async function POST(req: NextRequest) {
 
     const hashedPassword = await bcrypt.hash(password, 12)
 
-    const user = await User.create({
-      name: normalizedName,
-      email: normalizedEmail,
-      hashedPassword,
-      authProvider: 'credentials',
-      role: 'general',
-      profileCompleted: false,
-    })
+    let user
+    try {
+      user = await User.create({
+        name: normalizedName,
+        email: normalizedEmail,
+        hashedPassword,
+        authProvider: 'credentials',
+        role: 'general',
+        profileCompleted: false,
+      })
+    } catch (error) {
+      // A concurrent registration can slip past the findOne() check above and
+      // hit the unique email index. Surface it as 409, not a generic 500.
+      if ((error as { code?: number })?.code === 11000) {
+        return NextResponse.json({ error: 'Email already registered' }, { status: 409 })
+      }
+      throw error
+    }
 
     return NextResponse.json(
       { success: true, id: user._id, name: user.name, email: user.email },

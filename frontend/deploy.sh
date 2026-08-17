@@ -22,5 +22,7 @@ npm run build
 # Restart PM2 process
 echo "🔄 Reloading PM2 process..."
 pm2 reload ecosystem.config.js || pm2 start ecosystem.config.js
+pm2 save
 
 echo "✅ Deployment completed successfully!"
+

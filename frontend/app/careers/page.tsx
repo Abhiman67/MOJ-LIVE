@@ -351,10 +351,6 @@ export default function CareersPage() {
               </select>
               <textarea name="whyWork" rows={4} placeholder="Why do you want to work with MyOnlineJet? (Long answer) *" required className="form-textarea resize-none" />
               <textarea name="problem" rows={4} placeholder="What problem excites you the most in this space? (Long answer) *" required className="form-textarea resize-none" />
-              <div>
-                <label className="block mb-2 text-sm text-text-secondary font-medium">Upload Resume (PDF)</label>
-                <input type="file" name="resume" accept=".pdf" className="form-input py-3 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-brand-red file:text-white hover:file:bg-[#c50000] file:transition-colors file:cursor-pointer" />
-              </div>
               <button type="submit" className="btn-primary w-full md:w-auto">Apply Now</button>
             </form>
             </LockedFormOverlay>
