@@ -1,5 +1,7 @@
 # Backend Plan for MyOnlineJet
 
+> **Historical planning document.** The current implementation is documented in [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md), [`docs/API.md`](./docs/API.md), and the source files under `app/api/`, `models/`, and `lib/`. Do not use the proposed PostgreSQL/Prisma stack below as deployment instructions for the current application.
+
 ## Objective
 
 Build a secure backend and admin dashboard for MyOnlineJet that collects, stores, filters, tracks, and responds to all business requests coming from the Next.js frontend. The backend should support contact inquiries, partnership applications, investor leads, career applications, FAQ questions, early-access interest, newsletter subscriptions, resource downloads, and future operational data for vertiports and advanced air mobility services.

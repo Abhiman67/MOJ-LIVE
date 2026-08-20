@@ -1,5 +1,7 @@
 # MyOnlineJet — Backend Plan
 
+> **Historical planning document.** For the deployed system, use [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md), [`docs/API.md`](./docs/API.md), [`docs/DEPLOYMENT.md`](./docs/DEPLOYMENT.md), and [`docs/ENVIRONMENT.md`](./docs/ENVIRONMENT.md). This file contains earlier proposals and is not the current API contract.
+
 ## 1. Overview
 
 The frontend (Next.js 15 static site) collects inquiries via client-side forms with no backend. This plan defines the backend system for form submission handling, an admin dashboard, and the data layer.
