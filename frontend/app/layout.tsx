@@ -73,8 +73,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`} suppressHydrationWarning>
       <head>
-        <link rel="preload" href="https://myonlinejet.com/images/Logo.webp" as="image" />
-        <link rel="preload" href="https://myonlinejet.com/images/MOJ_Vertiport.webp" as="image" />
+        <link rel="preload" href="/images/Logo.webp" as="image" />
+        <link rel="preload" href="/images/MOJ_Vertiport.webp" as="image" />
         <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
         <link rel="dns-prefetch" href="https://news.myonlinejet.com" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossOrigin="anonymous" referrerPolicy="no-referrer" />

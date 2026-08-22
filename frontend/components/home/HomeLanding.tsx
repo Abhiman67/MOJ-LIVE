@@ -398,12 +398,11 @@ export function HomeLanding() {
               <div className="spotlight-card p-2 sm:p-3">
                 <div className="relative aspect-[4/5] overflow-hidden rounded-2xl">
                   <Image
-                    src="https://myonlinejet.com/images/MOJ_Vertiport.webp"
+                    src="/images/MOJ_Vertiport.webp"
                     alt="MyOnlineJet Vertiport Visualization"
                     fill
                     className="tilt-content object-cover"
                     priority
-                    unoptimized
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 

@@ -12,7 +12,7 @@ const structuredData = {
       '@id': 'https://www.myonlinejet.com/',
       name: 'MyOnlineJet',
       url: 'https://www.myonlinejet.com/',
-      logo: 'https://myonlinejet.com/images/Logo.webp',
+      logo: '/images/Logo.webp',
       foundingDate: '2023',
       founder: { '@type': 'Person', name: 'Amit Kumar' },
       address: {
@@ -652,7 +652,7 @@ export function AboutPage() {
             <div className="flex flex-col md:flex-row gap-10 items-start">
               <div className="about-avatar-glow shrink-0 mx-auto md:mx-0">
                 <Image
-                  src="https://myonlinejet.com/images/Founder.webp"
+                  src="/images/Founder.webp"
                   alt="Amit Kumar - Founder of MyOnlineJet"
                   width={120}
                   height={120}
